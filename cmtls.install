@@ -1,0 +1,9 @@
+<?php
+
+/**
+ * Implements hook_install()
+ */
+function cmtls_install() {
+  // set the weight so the form alter occurs after menu module  
+  db_query("UPDATE {system} SET weight = 10 WHERE name = 'cmtls'");  
+}

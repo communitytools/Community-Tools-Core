@@ -13,6 +13,48 @@ function cmtls_context_default_contexts() {
   $context = new stdClass;
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'CT Group meta blocks';
+  $context->description = 'Community Tools group metadata blocks';
+  $context->tag = 'cmtls';
+  $context->conditions = array(
+    'node' => array(
+      'values' => array(
+        'cmtls_group' => 'cmtls_group',
+      ),
+      'options' => array(
+        'node_form' => '0',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-cmtls_group_location-block' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_group_location-block',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+        'views-cmtls_group_members-block_1' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_group_members-block_1',
+          'region' => 'sidebar_second',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Community Tools group metadata blocks');
+  t('cmtls');
+  $export['CT Group meta blocks'] = $context;
+
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'CT Group wall';
   $context->description = 'Community Tools group content';
   $context->tag = 'cmtls';
@@ -45,39 +87,6 @@ function cmtls_context_default_contexts() {
   t('Community Tools group content');
   t('cmtls');
   $export['CT Group wall'] = $context;
-
-  $context = new stdClass;
-  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
-  $context->api_version = 3;
-  $context->name = 'CT Menu blocks';
-  $context->description = 'Community Tools menus';
-  $context->tag = 'cmtls';
-  $context->conditions = array(
-    'sitewide' => array(
-      'values' => array(
-        1 => 1,
-      ),
-    ),
-  );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'menu_block-1' => array(
-          'module' => 'menu_block',
-          'delta' => 1,
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
-  $context->condition_mode = 1;
-
-  // Translatables
-  // Included for use with string extractors like potx.
-  t('Community Tools menus');
-  t('cmtls');
-  $export['CT Menu blocks'] = $context;
 
   return $export;
 }

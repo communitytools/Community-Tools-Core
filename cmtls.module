@@ -154,3 +154,18 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   }
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * 
+ * removes the main group field from node form
+ */
+function cmtls_form_cmtls_group_node_form_alter(&$form, &$form_state, $form_id) {
+  global $user; 
+  // allow only for the root user
+  if($user->uid != 1) {
+    $form['field_main_group'] = NULL;
+  }
+}
+
+
+

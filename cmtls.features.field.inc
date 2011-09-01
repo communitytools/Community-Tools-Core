@@ -401,6 +401,74 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_group-field_main_group'
+  $fields['node-cmtls_group-field_main_group'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_main_group',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => '',
+          1 => '',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_boolean',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_group',
+      'default_value' => array(
+        0 => array(
+          'value' => 0,
+        ),
+      ),
+      'deleted' => '0',
+      'description' => 'Indicates whether this is the main group of the Community Tools or not.
+NB! there should be only one main group',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '3',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_main_group',
+      'label' => 'Main group',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(
+          'display_label' => 1,
+        ),
+        'type' => 'options_onoff',
+        'weight' => '4',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_group-group_access'
   $fields['node-cmtls_group-group_access'] = array(
     'field_config' => array(
@@ -584,10 +652,9 @@ function cmtls_field_default_fields() {
       'display' => array(
         'default' => array(
           'label' => 'above',
-          'module' => 'og',
           'settings' => array(),
-          'type' => 'og_list_default',
-          'weight' => 0,
+          'type' => 'hidden',
+          'weight' => '0',
         ),
       ),
       'entity_type' => 'user',
@@ -634,6 +701,9 @@ function cmtls_field_default_fields() {
   t('Group type');
   t('Group visibility');
   t('Groups audience');
+  t('Indicates whether this is the main group of the Community Tools or not.
+NB! there should be only one main group');
+  t('Main group');
 
   return $fields;
 }

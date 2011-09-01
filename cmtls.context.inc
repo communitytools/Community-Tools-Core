@@ -62,9 +62,9 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'menu_block-3' => array(
+        'menu_block-1' => array(
           'module' => 'menu_block',
-          'delta' => 3,
+          'delta' => 1,
           'region' => 'sidebar_first',
           'weight' => '-10',
         ),

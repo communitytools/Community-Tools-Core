@@ -396,6 +396,125 @@ function cmtls_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
+        'weight' => '4',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-cmtls_group-field_cmtls_location'
+  $fields['node-cmtls_group-field_cmtls_location'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_location',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'lid' => array(
+          0 => 'lid',
+        ),
+      ),
+      'module' => 'location_cck',
+      'settings' => array(
+        'gmap_macro' => '[gmap ]',
+        'gmap_marker' => 'small orange',
+        'location_settings' => array(
+          'display' => array(
+            'hide' => array(
+              'additional' => 'additional',
+              'city' => 0,
+              'coords' => 'coords',
+              'country' => 0,
+              'country_name' => 'country_name',
+              'locpick' => 'locpick',
+              'map_link' => 0,
+              'name' => 0,
+              'postal_code' => 0,
+              'province' => 0,
+              'province_name' => 'province_name',
+              'street' => 0,
+            ),
+          ),
+          'form' => array(
+            'fields' => array(
+              'additional' => array(
+                'collect' => '0',
+                'default' => '',
+                'weight' => '-97',
+              ),
+              'city' => array(
+                'collect' => '1',
+                'default' => '',
+                'weight' => '-96',
+              ),
+              'country' => array(
+                'collect' => '1',
+                'default' => 'ee',
+                'weight' => '-93',
+              ),
+              'locpick' => array(
+                'collect' => '1',
+                'weight' => '-100',
+              ),
+              'name' => array(
+                'collect' => '1',
+                'default' => '',
+                'weight' => '-99',
+              ),
+              'postal_code' => array(
+                'collect' => '1',
+                'default' => '',
+                'weight' => '-94',
+              ),
+              'province' => array(
+                'collect' => '1',
+                'default' => '',
+                'weight' => '-95',
+              ),
+              'street' => array(
+                'collect' => '1',
+                'default' => '',
+                'weight' => '-98',
+              ),
+            ),
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'location',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_location',
+      'label' => 'Location',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 0,
+        'module' => 'location_cck',
+        'settings' => array(),
+        'type' => 'location',
         'weight' => '3',
       ),
     ),
@@ -464,7 +583,7 @@ NB! there should be only one main group',
           'display_label' => 1,
         ),
         'type' => 'options_onoff',
-        'weight' => '4',
+        'weight' => '5',
       ),
     ),
   );
@@ -703,6 +822,7 @@ NB! there should be only one main group',
   t('Groups audience');
   t('Indicates whether this is the main group of the Community Tools or not.
 NB! there should be only one main group');
+  t('Location');
   t('Main group');
 
   return $fields;

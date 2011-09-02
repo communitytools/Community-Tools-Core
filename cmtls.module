@@ -38,6 +38,7 @@ function cmtls_node_load($nodes, $types) {
 function cmtls_menu() {
   $items = array();
 
+  // creates the add contextual task / link
   $items['node/%node/cmtls/add_content'] = array(
     'title' => t('Add'),
     'title callback' => 'check_plain',

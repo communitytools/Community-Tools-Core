@@ -631,7 +631,7 @@ function cmtls_views_default_views() {
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page');
-  $handler->display->display_options['path'] = 'user/%/comments';
+  $handler->display->display_options['path'] = 'user/%/cmtls/comments';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');

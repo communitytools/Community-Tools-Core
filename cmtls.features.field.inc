@@ -197,7 +197,7 @@ function cmtls_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -248,7 +248,7 @@ function cmtls_field_default_fields() {
         'module' => 'cmtls',
         'settings' => array(),
         'type' => 'cmtls_app_type_select',
-        'weight' => '3',
+        'weight' => '4',
       ),
     ),
   );
@@ -322,9 +322,87 @@ function cmtls_field_default_fields() {
           'size' => 60,
         ),
         'type' => 'group_audience',
-        'weight' => '2',
+        'weight' => '3',
       ),
       'widget_type' => 'group_audience',
+    ),
+  );
+
+  // Exported field: 'node-cmtls_app-group_content_access'
+  $fields['node-cmtls_app-group_content_access'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'group_content_access',
+      'foreign keys' => array(),
+      'indexes' => array(
+        'value' => array(
+          0 => 'value',
+        ),
+      ),
+      'module' => 'list',
+      'no_ui' => TRUE,
+      'settings' => array(
+        'allowed_values' => array(
+          0 => 'Use group defaults',
+          1 => 'Public - accessible to all site users',
+          2 => 'Private - accessible only to group members',
+        ),
+        'allowed_values_function' => '',
+      ),
+      'translatable' => '0',
+      'type' => 'list_integer',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'default_value' => array(
+        0 => array(
+          'value' => '0',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '4',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'group_content_access',
+      'label' => 'Group content visibility',
+      'required' => 1,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'view modes' => array(
+        'full' => array(
+          'label' => 'above',
+          'type' => 'list_default',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'type' => 'list_default',
+        ),
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_select',
+        'weight' => '1',
+      ),
+      'widget_type' => 'options_select',
     ),
   );
 
@@ -817,6 +895,7 @@ NB! there should be only one main group',
   t('Application');
   t('Comment');
   t('Description');
+  t('Group content visibility');
   t('Group type');
   t('Group visibility');
   t('Groups audience');

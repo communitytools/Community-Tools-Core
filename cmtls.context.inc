@@ -88,5 +88,47 @@ function cmtls_context_default_contexts() {
   t('cmtls');
   $export['CT Group wall'] = $context;
 
+  $context = new stdClass;
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'CT User profile blocks';
+  $context->description = 'Community Tools user profile blocks';
+  $context->tag = 'cmtls';
+  $context->conditions = array(
+    'user_page' => array(
+      'values' => array(
+        'view' => 'view',
+      ),
+      'options' => array(
+        'mode' => 'all',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-cmtls_user_comments-block' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_user_comments-block',
+          'region' => 'content',
+          'weight' => '-10',
+        ),
+        'views-552bae0735a41b5d602460a160796d1d' => array(
+          'module' => 'views',
+          'delta' => '552bae0735a41b5d602460a160796d1d',
+          'region' => 'content',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Community Tools user profile blocks');
+  t('cmtls');
+  $export['CT User profile blocks'] = $context;
+
   return $export;
 }

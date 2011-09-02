@@ -17,7 +17,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'CT Group location';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -151,7 +151,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'users';
   $view->human_name = 'CT Group members';
   $view->core = 0;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Defaults */
@@ -246,7 +246,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'CT Group wall';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -397,6 +397,11 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['comment_count']['empty_zero'] = 0;
   $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
+  /* Sort criterion: Content: Sticky */
+  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
+  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
+  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
   /* Sort criterion: Content: Post date */
   $handler->display->display_options['sorts']['created']['id'] = 'created';
   $handler->display->display_options['sorts']['created']['table'] = 'node';
@@ -442,7 +447,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'CT Groups';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -545,7 +550,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'comment';
   $view->human_name = 'CT User comments';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */
@@ -653,7 +658,7 @@ function cmtls_views_default_views() {
   $view->base_table = 'node';
   $view->human_name = 'CT User created content';
   $view->core = 7;
-  $view->api_version = '3.0-alpha1';
+  $view->api_version = '3.0';
   $view->disabled = FALSE; /* Edit this to true to make a default view disabled initially */
 
   /* Display: Master */

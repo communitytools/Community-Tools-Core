@@ -167,6 +167,3 @@ function cmtls_form_cmtls_group_node_form_alter(&$form, &$form_state, $form_id) 
     $form['field_main_group'] = NULL;
   }
 }
-
-
-

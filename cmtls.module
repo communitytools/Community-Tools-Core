@@ -39,9 +39,10 @@ function cmtls_menu() {
   $items = array();
 
   // creates the add contextual task / link
-  $items['node/%node/cmtls/add_content'] = array(
+  $items['node/%node/cmtls/add'] = array(
     'title' => t('Add'),
-    'title callback' => 'check_plain',
+    'title callback' => 'cmtls_add_content_title',
+    'title arguments' => array(1),
     'page callback' => 'cmtls_add_content_page',
     'page arguments' => array(1),
     'access callback' => 'cmtls_create_content_access',
@@ -52,6 +53,40 @@ function cmtls_menu() {
   );
   
   return $items;
+}
+
+function cmtls_get_app_content_types($module = NULL) {
+  static $types;
+  if($types && !$module) {
+    return $types;
+  }
+  
+  $types = array();
+  
+  $apps = module_invoke_all('cmtls_app');
+  
+  foreach ($apps as $m => $config) {
+    if($config['node types']) $types += $config['node types'];
+    if($module == $m) {
+      if($config['node types']) return $config['node types'];
+      else return array();
+    }
+  }
+  
+  return $types;
+}
+
+function cmtls_add_content_title($parent) {
+  $content_types = cmtls_get_app_content_types(); 
+  if($parent->type == 'cmtls_group') {
+    return t('Add application');
+  }
+  elseif($parent->type == 'cmtls_app' || in_array($parent->type, array_keys($content_types)) || in_array($parent->cmtls_app_type, array_keys($content_types))) {
+    return t('Add '.$content_types[isset($parent->cmtls_app_type) ? $parent->cmtls_app_type : $parent->type]);
+  }
+  else {
+    return FALSE;
+  }
 }
 
 /**
@@ -68,7 +103,7 @@ function cmtls_create_content_access($parent) {
   elseif($parent->type == 'cmtls_app') {
     $access = node_access('create', $parent->cmtls_app_type);
   }
-  elseif(in_array($parent->type, array_keys(module_invoke_all('cmtls_app')))) {
+  elseif(in_array($parent->type, array_keys(cmtls_get_app_content_types()))) {
     $access = node_access('create', $parent->type);
   }
   
@@ -117,7 +152,7 @@ function cmtls_add_content_page($parent) {
     $node->cmtls_parent_preselect = $parent->nid;
   }
   // group and app preselect for content nodes
-  elseif(in_array($parent->type, array_keys(module_invoke_all('cmtls_app')))) {
+  elseif(in_array($parent->type, array_keys(cmtls_get_app_content_types()))) {
     $type = $node->type = $parent->type;
     $node->cmtls_group_preselect = $parent->group_audience[LANGUAGE_NONE][0]['gid'];
     $node->cmtls_parent_preselect = $parent->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
@@ -134,7 +169,7 @@ function cmtls_add_content_page($parent) {
  */
 function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   $app_form_ids = array();
-  foreach (module_invoke_all('cmtls_app') as $app_type => $app) {
+  foreach (cmtls_get_app_content_types() as $app_type => $app) {
     $app_form_ids[] = $app_type . '_node_form';
   }
   

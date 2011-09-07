@@ -11,9 +11,9 @@ class views_handler_filter_cmtls_node_type extends views_handler_filter_node_typ
   function construct() {
     parent::construct();
     
-    foreach (module_invoke_all('cmtls_app') as $node_type => $app) {
+    foreach (cmtls_get_app_content_types() as $node_type => $title) {
       $this->cmtls_content_node_types[$node_type] = $node_type;
-      $this->cmtls_content_node_types_titles[$node_type] = $app['title'];
+      $this->cmtls_content_node_types_titles[$node_type] = $title;
     }
   }
   function get_value_options() {

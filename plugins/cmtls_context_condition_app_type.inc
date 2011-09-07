@@ -3,8 +3,8 @@
 class cmtls_context_condition_app_type extends context_condition_node {
   function condition_values() {
     $values = array();
-    foreach (cmtls_get_app_content_types() as $app_type => $title) {
-      $values[$app_type] = $title;
+    foreach (module_invoke_all('cmtls_app') as $app_type => $app) {
+      $values[$app_type] = $app['title'];
     }
     return $values;
   }

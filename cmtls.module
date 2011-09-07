@@ -66,9 +66,9 @@ function cmtls_get_app_content_types($module = NULL) {
   $apps = module_invoke_all('cmtls_app');
   
   foreach ($apps as $m => $config) {
-    if($config['node types']) $types += $config['node types'];
+    if(isset($config['node types'])) $types += $config['node types'];
     if($module == $m) {
-      if($config['node types']) return $config['node types'];
+      if(isset($config['node types'])) return $config['node types'];
       else return array();
     }
   }
@@ -81,7 +81,7 @@ function cmtls_add_content_title($parent) {
   if($parent->type == 'cmtls_group') {
     return t('Add application');
   }
-  elseif($parent->type == 'cmtls_app' || in_array($parent->type, array_keys($content_types)) || in_array($parent->cmtls_app_type, array_keys($content_types))) {
+  elseif(($parent->type == 'cmtls_app' && in_array($parent->cmtls_app_type, array_keys($content_types))) || in_array($parent->type, array_keys($content_types)) || in_array($parent->cmtls_app_type, array_keys($content_types))) {
     return t('Add '.$content_types[isset($parent->cmtls_app_type) ? $parent->cmtls_app_type : $parent->type]);
   }
   else {

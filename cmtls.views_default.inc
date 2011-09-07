@@ -32,6 +32,8 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = 1;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   /* Field: Location: Address */
   $handler->display->display_options['fields']['address']['id'] = 'address';
   $handler->display->display_options['fields']['address']['table'] = 'location';
@@ -87,6 +89,11 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['status']['value'] = 1;
   $handler->display->display_options['filters']['status']['group'] = 0;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Location (field_cmtls_location) */
+  $handler->display->display_options['filters']['field_cmtls_location_lid']['id'] = 'field_cmtls_location_lid';
+  $handler->display->display_options['filters']['field_cmtls_location_lid']['table'] = 'field_data_field_cmtls_location';
+  $handler->display->display_options['filters']['field_cmtls_location_lid']['field'] = 'field_cmtls_location_lid';
+  $handler->display->display_options['filters']['field_cmtls_location_lid']['operator'] = 'not empty';
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block');
@@ -108,6 +115,8 @@ function cmtls_views_default_views() {
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = 1;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */

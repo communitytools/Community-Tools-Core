@@ -202,6 +202,71 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_app-field_cmtls_app_configs'
+  $fields['node-cmtls_app-field_cmtls_app_configs'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_app_configs',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '5',
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_app_configs',
+      'label' => 'Application configurations',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '31',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_app-field_cmtls_app_type'
   $fields['node-cmtls_app-field_cmtls_app_type'] = array(
     'field_config' => array(
@@ -893,6 +958,7 @@ NB! there should be only one main group',
   // Translatables
   // Included for use with string extractors like potx.
   t('Application');
+  t('Application configurations');
   t('Comment');
   t('Description');
   t('Group content visibility');

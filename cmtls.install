@@ -5,5 +5,25 @@
  */
 function cmtls_install() {
   // set the weight so the form alter occurs after menu module  
-  db_query("UPDATE {system} SET weight = 10 WHERE name = 'cmtls'");  
+  db_query("UPDATE {system} SET weight = 10 WHERE name = 'cmtls'");
+  
+  /*
+  // set variables, don't want to strongarm these, so they will be changeble without causing the feature to go into overwritten state
+  variable_set('additional_settings__active_tab_cmtls_app', 'edit-display');
+  variable_set('additional_settings__active_tab_cmtls_group', 'edit-display');
+  variable_set('comment_anonymous_cmtls_app', 0);
+  variable_set('comment_anonymous_cmtls_group', 0);
+  variable_set('comment_cmtls_app', 1);
+  variable_set('comment_cmtls_group', 1);
+  variable_set('comment_default_mode_cmtls_app', 1);
+  variable_set('comment_default_mode_cmtls_group', 1);
+  variable_set('comment_default_per_page_cmtls_app', '50');
+  variable_set('comment_default_per_page_cmtls_group', '50');
+  variable_set('comment_form_location_cmtls_app', 1);
+  variable_set('comment_form_location_cmtls_group', 1);
+  variable_set('comment_preview_cmtls_app', '1');
+  variable_set('comment_preview_cmtls_group', '1');
+  variable_set('comment_subject_field_cmtls_app', 0);
+  variable_set('comment_subject_field_cmtls_group', 0);
+   */
 }

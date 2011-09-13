@@ -202,3 +202,58 @@ function cmtls_form_cmtls_group_node_form_alter(&$form, &$form_state, $form_id) 
     $form['field_main_group'] = NULL;
   }
 }
+
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * 
+ * inserts the app configuration fields
+ * @see cmtls_form_config_save()
+ */
+function cmtls_form_cmtls_app_node_form_alter(&$form, &$form_state, $form_id) {
+  
+  global $user;
+  
+  $current_config = array();
+  
+  if(!empty($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) {
+    $current_config = unserialize($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
+  }
+  
+  $configs = module_invoke_all('cmtls_app_config', $current_config);
+  $form['cmtls_app_configs'] = array();
+  if(!empty($configs)) {
+    $form['cmtls_app_configs'] = $configs;
+    $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 1;
+    $form['#submit'][] = 'cmtls_form_config_save';
+  }
+  
+  if($user->uid != 1) {
+    $form['field_cmtls_app_configs']['#type'] = 'hidden';
+  }
+  
+  // TODO: hide application selection on already existing node to improve usability
+  //if(isset($form['#node']->nid) && $form['#node']->nid) $form['field_cmtls_app_type']['#type'] = 'hidden';
+}
+
+/**
+ * App node form submit, saves app instance configuration values
+ */
+function cmtls_form_config_save($form, &$form_state) {
+  if(!empty($form['cmtls_app_configs'])) {
+    // save app config
+    $app_config = array();
+    
+    foreach ($form['cmtls_app_configs'] as $module => &$configs) if(strpos($module, '#') !== 0) {
+      // for now only single level form values are counted
+      foreach ($form['cmtls_app_configs'][$module] as $key => &$config) if(strpos($key, '#') !== 0) {
+        $app_config[$module][$key] = $config['#value'];
+      }
+    }
+    
+    if(!empty($app_config)) {
+      $form['field_cmtls_app_configs'][LANGUAGE_NONE][0]['value']['#value'] = $form_state['values']['field_cmtls_app_configs'][LANGUAGE_NONE][0]['value'] = serialize($app_config);
+    }
+  }
+}
+
+

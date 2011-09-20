@@ -20,13 +20,21 @@ include_once('cmtls.contexts.inc');
  * Implements hook_node_load().
  * 
  * adds a 'cmtls_app_type' to node object if it has one defined
+ * adds global variable about current application
  */
 function cmtls_node_load($nodes, $types) {
   // TODO: a better way to detect if a node has field 'cmtls_app_type' attached, currently hardcoded
+  $node_types = array_keys(cmtls_get_app_content_types());
   foreach ($nodes as $nid => &$node) {
     if($node->type == 'cmtls_app') { // hardcoded node type
-      if(!isset($node->field_cmtls_app_type[LANGUAGE_NONE][0]['cmtls_app_type'])) continue; // // hardcoded node field
+       // hardcoded node field for app types
+      if(!isset($node->field_cmtls_app_type[LANGUAGE_NONE][0]['cmtls_app_type'])) continue; //
       $node->cmtls_app_type = $node->field_cmtls_app_type[LANGUAGE_NONE][0]['cmtls_app_type'];
+      cmtls_add_conf('current_app', $node);
+      break;
+    }
+    elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
+      cmtls_add_conf('current_app', node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']));
       break;
     }
   }
@@ -220,7 +228,9 @@ function cmtls_form_cmtls_app_node_form_alter(&$form, &$form_state, $form_id) {
   }
   
   $configs = module_invoke_all('cmtls_app_config', $current_config);
+  
   $form['cmtls_app_configs'] = array();
+  
   if(!empty($configs)) {
     $form['cmtls_app_configs'] = $configs;
     $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 1;
@@ -256,4 +266,31 @@ function cmtls_form_config_save($form, &$form_state) {
   }
 }
 
+/**
+ * Adds global values to Drupal $conf['cmtls']
+ */
+function cmtls_add_conf($key, &$value) {
+  global $conf;
+  
+  if(!isset($conf['cmtls'])) $conf['cmtls'] = array();
+  if(!isset($conf['cmtls'][$key])) $conf['cmtls'][$key] = NULL;
+  $conf['cmtls'][$key] = $value;
+}
 
+/**
+ * returns current app object
+ */
+function cmtls_get_current_app() {
+  global $conf;
+  if(isset($conf['cmtls']['current_app'])) return $conf['cmtls']['current_app'];
+  else return NULL;
+}
+
+/**
+ * returns the app custom configuration values
+ */
+function cmtls_get_app_config($app = NULL) {
+  if(!$app) $app = cmtls_get_current_app();
+  if(isset($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) return unserialize($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
+  else return array();
+}

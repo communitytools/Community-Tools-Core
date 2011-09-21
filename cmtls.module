@@ -85,15 +85,17 @@ function cmtls_get_app_content_types($module = NULL) {
 }
 
 function cmtls_add_content_title($parent) {
-  $content_types = cmtls_get_app_content_types(); 
   if($parent->type == 'cmtls_group') {
     return t('Add application');
   }
-  elseif(($parent->type == 'cmtls_app' && in_array($parent->cmtls_app_type, array_keys($content_types))) || in_array($parent->type, array_keys($content_types)) || in_array($parent->cmtls_app_type, array_keys($content_types))) {
-    return t('Add '.$content_types[isset($parent->cmtls_app_type) ? $parent->cmtls_app_type : $parent->type]);
+  elseif($parent->type == 'cmtls_app' && $content_types = cmtls_get_app_content_types($parent->cmtls_app_type)) {
+    return t('Add '.implode(',', $content_types));
+  }
+  elseif($content_types = cmtls_get_app_content_types()) {
+    return t('Add '.$content_types[$parent->type]);
   }
   else {
-    return FALSE;
+    return NULL;
   }
 }
 
@@ -104,14 +106,16 @@ function cmtls_add_content_title($parent) {
  */
 function cmtls_create_content_access($parent) {
   $access = FALSE;
-    
+      
   if($parent->type == 'cmtls_group') {
     $access = node_access('create', 'cmtls_app');
   }
   elseif($parent->type == 'cmtls_app') {
-    $access = node_access('create', $parent->cmtls_app_type);
+    if($content_types = array_keys(cmtls_get_app_content_types($parent->cmtls_app_type))) {
+      $access = node_access('create', array_pop($content_types)); // multiple types yet to resolve
+    }
   }
-  elseif(in_array($parent->type, array_keys(cmtls_get_app_content_types()))) {
+  else {
     $access = node_access('create', $parent->type);
   }
   
@@ -129,6 +133,7 @@ function cmtls_add_content_page($parent) {
   global $user;
   
   $types = node_type_get_types();
+  $content_types = cmtls_get_app_content_types();
   
   $node = (object) array(
     'uid' => $user->uid,
@@ -146,7 +151,7 @@ function cmtls_add_content_page($parent) {
     $mlid = $query->execute()->fetchField();
     $node->cmtls_menu_preselect = $mlid;
   }
-
+  
   // group preselect for apps
   if($parent->type == 'cmtls_group') {
     $type = $node->type = 'cmtls_app';
@@ -155,7 +160,7 @@ function cmtls_add_content_page($parent) {
   }
   // group and app preselect for content nodes
   elseif($parent->type == 'cmtls_app') {
-    $type = $node->type = $parent->cmtls_app_type;
+    $type = $node->type = array_pop(array_keys(cmtls_get_app_content_types($parent->cmtls_app_type)));  // multiple types yet to resolve
     $node->cmtls_group_preselect = $parent->group_audience[LANGUAGE_NONE][0]['gid'];
     $node->cmtls_parent_preselect = $parent->nid;
   }
@@ -165,7 +170,6 @@ function cmtls_add_content_page($parent) {
     $node->cmtls_group_preselect = $parent->group_audience[LANGUAGE_NONE][0]['gid'];
     $node->cmtls_parent_preselect = $parent->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
   }
- 
   drupal_set_title(t('Create @name', array('@name' => $types[$type]->name)), PASS_THROUGH);
   $output = drupal_get_form($type . '_node_form', $node);
 

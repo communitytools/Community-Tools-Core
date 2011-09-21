@@ -33,7 +33,7 @@ function cmtls_node_load($nodes, $types) {
       cmtls_add_conf('current_app', $node);
       break;
     }
-    elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
+    elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
       cmtls_add_conf('current_app', node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']));
       break;
     }

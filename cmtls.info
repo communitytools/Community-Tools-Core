@@ -1,4 +1,5 @@
 core = "7.x"
+dependencies[] = "ajax_comments"
 dependencies[] = "block"
 dependencies[] = "comment"
 dependencies[] = "context"

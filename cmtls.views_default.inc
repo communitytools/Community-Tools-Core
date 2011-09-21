@@ -202,7 +202,7 @@ function cmtls_views_default_views() {
   $view = new view;
   $view->name = 'cmtls_group_members';
   $view->description = 'Newest group members';
-  $view->tag = 'group';
+  $view->tag = 'cmtls';
   $view->base_table = 'users';
   $view->human_name = 'CT Group members';
   $view->core = 0;
@@ -213,6 +213,8 @@ function cmtls_views_default_views() {
   $handler = $view->new_display('default', 'Defaults', 'default');
   $handler->display->display_options['title'] = 'Members';
   $handler->display->display_options['use_ajax'] = TRUE;
+  $handler->display->display_options['use_more_always'] = TRUE;
+  $handler->display->display_options['use_more_text'] = 'all members';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
@@ -225,6 +227,11 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['options']['expose']['items_per_page_options_all'] = 0;
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
+  /* Relationship: Group membership: User group membership */
+  $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
+  $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
+  $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
+  $handler->display->display_options['relationships']['og_membership_rel']['required'] = 1;
   /* Field: User: Name */
   $handler->display->display_options['fields']['name']['id'] = 'name';
   $handler->display->display_options['fields']['name']['table'] = 'users';
@@ -241,34 +248,28 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['name']['empty_zero'] = 0;
   $handler->display->display_options['fields']['name']['link_to_user'] = 1;
   $handler->display->display_options['fields']['name']['overwrite_anonymous'] = 0;
-  /* Sort criterion: Field: Groups audience (group_audience:created) */
-  $handler->display->display_options['sorts']['group_audience_created']['id'] = 'group_audience_created';
-  $handler->display->display_options['sorts']['group_audience_created']['table'] = 'field_data_group_audience';
-  $handler->display->display_options['sorts']['group_audience_created']['field'] = 'group_audience_created';
-  /* Contextual filter: Field: Groups audience (group_audience:gid) */
-  $handler->display->display_options['arguments']['group_audience_gid']['id'] = 'group_audience_gid';
-  $handler->display->display_options['arguments']['group_audience_gid']['table'] = 'field_data_group_audience';
-  $handler->display->display_options['arguments']['group_audience_gid']['field'] = 'group_audience_gid';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_argument_type'] = 'og_context';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['group_audience_gid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['group_audience_gid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['group_audience_gid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group_audience_gid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['group_audience_gid']['not'] = 0;
+  /* Sort criterion: User: Name */
+  $handler->display->display_options['sorts']['name']['id'] = 'name';
+  $handler->display->display_options['sorts']['name']['table'] = 'users';
+  $handler->display->display_options['sorts']['name']['field'] = 'name';
+  /* Contextual filter: OG membership: Group gid */
+  $handler->display->display_options['arguments']['group']['id'] = 'group';
+  $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['group']['field'] = 'group';
+  $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['arguments']['group']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
+  $handler->display->display_options['arguments']['group']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: User: Active */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
-  /* Filter criterion: Field: Groups audience (group_audience:state) */
-  $handler->display->display_options['filters']['group_audience_state']['id'] = 'group_audience_state';
-  $handler->display->display_options['filters']['group_audience_state']['table'] = 'field_data_group_audience';
-  $handler->display->display_options['filters']['group_audience_state']['field'] = 'group_audience_state';
-  $handler->display->display_options['filters']['group_audience_state']['value'] = array(
-    1 => '1',
-  );
 
   /* Display: Block */
   $handler = $view->new_display('block', 'Block', 'block_1');
@@ -276,18 +277,17 @@ function cmtls_views_default_views() {
   $handler->display->display_options['title'] = 'Latest members';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['use_more_always'] = TRUE;
-  $handler->display->display_options['use_more_text'] = 'all members';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
-  /* Sort criterion: Field: Groups audience (group_audience:created) */
-  $handler->display->display_options['sorts']['group_audience_created']['id'] = 'group_audience_created';
-  $handler->display->display_options['sorts']['group_audience_created']['table'] = 'field_data_group_audience';
-  $handler->display->display_options['sorts']['group_audience_created']['field'] = 'group_audience_created';
-  $handler->display->display_options['sorts']['group_audience_created']['order'] = 'DESC';
+  /* Sort criterion: OG membership: Created */
+  $handler->display->display_options['sorts']['created']['id'] = 'created';
+  $handler->display->display_options['sorts']['created']['table'] = 'og_membership';
+  $handler->display->display_options['sorts']['created']['field'] = 'created';
+  $handler->display->display_options['sorts']['created']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
 
   /* Display: Page */
   $handler = $view->new_display('page', 'Page', 'page_1');
@@ -340,6 +340,11 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['field'] = 'field_cmtls_application_nid';
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['required'] = 1;
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['delta'] = '-1';
+  /* Relationship: Group membership: Node group membership */
+  $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
+  $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
+  $handler->display->display_options['relationships']['og_membership_rel']['required'] = 1;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title_1']['id'] = 'title_1';
   $handler->display->display_options['fields']['title_1']['table'] = 'node';
@@ -462,18 +467,19 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'node';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: Field: Groups audience (group_audience:gid) */
-  $handler->display->display_options['arguments']['group_audience_gid']['id'] = 'group_audience_gid';
-  $handler->display->display_options['arguments']['group_audience_gid']['table'] = 'field_data_group_audience';
-  $handler->display->display_options['arguments']['group_audience_gid']['field'] = 'group_audience_gid';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_argument_type'] = 'og_context';
-  $handler->display->display_options['arguments']['group_audience_gid']['default_argument_skip_url'] = 0;
-  $handler->display->display_options['arguments']['group_audience_gid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['group_audience_gid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['group_audience_gid']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['arguments']['group_audience_gid']['break_phrase'] = 0;
-  $handler->display->display_options['arguments']['group_audience_gid']['not'] = 0;
+  /* Contextual filter: OG membership: Group gid */
+  $handler->display->display_options['arguments']['group']['id'] = 'group';
+  $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['group']['field'] = 'group';
+  $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['arguments']['group']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
+  $handler->display->display_options['arguments']['group']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['group']['not'] = 0;
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -498,7 +504,7 @@ function cmtls_views_default_views() {
   $view = new view;
   $view->name = 'cmtls_groups';
   $view->description = 'Community Tools groups';
-  $view->tag = 'default';
+  $view->tag = 'cmtls';
   $view->base_table = 'node';
   $view->human_name = 'CT Groups';
   $view->core = 7;
@@ -601,7 +607,7 @@ function cmtls_views_default_views() {
   $view = new view;
   $view->name = 'cmtls_user_comments';
   $view->description = 'Community Tools user comments';
-  $view->tag = 'default';
+  $view->tag = 'cmtls';
   $view->base_table = 'comment';
   $view->human_name = 'CT User comments';
   $view->core = 7;
@@ -654,6 +660,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['uid']['table'] = 'comment';
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['title_enable'] = 1;
   $handler->display->display_options['arguments']['uid']['title'] = 'Comments by %1';
   $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'user';
   $handler->display->display_options['arguments']['uid']['default_argument_options']['user'] = FALSE;
@@ -698,8 +705,6 @@ function cmtls_views_default_views() {
   $handler->display->display_options['title'] = 'Latest comments';
   $handler->display->display_options['defaults']['use_more'] = FALSE;
   $handler->display->display_options['use_more'] = TRUE;
-  $handler->display->display_options['use_more_always'] = TRUE;
-  $handler->display->display_options['use_more_text'] = 'all comments';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
@@ -710,6 +715,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['uid']['table'] = 'comment';
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['title_enable'] = 1;
   $handler->display->display_options['arguments']['uid']['title'] = 'Comments by %1';
   $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'user';
   $handler->display->display_options['arguments']['uid']['default_argument_options']['user'] = FALSE;
@@ -724,7 +730,7 @@ function cmtls_views_default_views() {
   $view = new view;
   $view->name = 'cmtls_user_created_content';
   $view->description = 'Community Tools users created content';
-  $view->tag = 'default';
+  $view->tag = 'cmtls';
   $view->base_table = 'node';
   $view->human_name = 'CT User created content';
   $view->core = 7;
@@ -906,6 +912,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['uid']['field'] = 'uid';
   $handler->display->display_options['arguments']['uid']['relationship'] = 'uid';
   $handler->display->display_options['arguments']['uid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['uid']['title_enable'] = 1;
   $handler->display->display_options['arguments']['uid']['title'] = 'Created by %1';
   $handler->display->display_options['arguments']['uid']['default_argument_type'] = 'user';
   $handler->display->display_options['arguments']['uid']['default_argument_options']['user'] = FALSE;

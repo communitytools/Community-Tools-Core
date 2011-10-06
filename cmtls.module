@@ -298,3 +298,40 @@ function cmtls_get_app_config($app = NULL) {
   if(isset($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) return unserialize($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
   else return array();
 }
+
+/**
+ * returns user full name
+ */
+function cmtls_get_username($account) {
+  if(isset($account->field_first_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_first_name[LANGUAGE_NONE][0]['safe_value']) {
+    $name = $account->field_first_name[LANGUAGE_NONE][0]['safe_value'];
+    if(isset($account->field_last_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_last_name[LANGUAGE_NONE][0]['safe_value']) {
+      $name .= ' '.$account->field_last_name[LANGUAGE_NONE][0]['safe_value'];
+    }
+    
+    return $name;
+  }
+  else {
+    return $account->name;
+  }
+}
+
+/**
+ * implements hook_username_alter()
+ * changes the username to full users name
+ */
+function cmtls_username_alter(&$name, &$account) {
+  $name = cmtls_get_username($account);
+}
+
+/**
+ * implements hook_preprocess_username()
+ * changes the username to full users name
+ */
+function cmtls_preprocess_username(&$variables) {
+  $variables['name_raw'] = $variables['name'] = cmtls_get_username(user_load($variables['uid']));
+}
+
+
+
+

@@ -570,9 +570,11 @@ function cmtls_field_default_fields() {
               'coords' => 'coords',
               'country' => 0,
               'country_name' => 'country_name',
+              'fax' => 0,
               'locpick' => 'locpick',
               'map_link' => 0,
               'name' => 0,
+              'phone' => 0,
               'postal_code' => 0,
               'province' => 0,
               'province_name' => 'province_name',
@@ -596,6 +598,11 @@ function cmtls_field_default_fields() {
                 'default' => 'ee',
                 'weight' => '-93',
               ),
+              'fax' => array(
+                'collect' => '0',
+                'default' => '',
+                'weight' => '30',
+              ),
               'locpick' => array(
                 'collect' => '1',
                 'weight' => '-100',
@@ -604,6 +611,11 @@ function cmtls_field_default_fields() {
                 'collect' => '1',
                 'default' => '',
                 'weight' => '-99',
+              ),
+              'phone' => array(
+                'collect' => '0',
+                'default' => '',
+                'weight' => '25',
               ),
               'postal_code' => array(
                 'collect' => '1',

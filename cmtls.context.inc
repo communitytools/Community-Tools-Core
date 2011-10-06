@@ -35,11 +35,17 @@ function cmtls_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-10',
         ),
+        'views-cmtls_group_comments-block' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_group_comments-block',
+          'region' => 'sidebar_second',
+          'weight' => '-9',
+        ),
         'views-cmtls_group_members-block_1' => array(
           'module' => 'views',
           'delta' => 'cmtls_group_members-block_1',
           'region' => 'sidebar_second',
-          'weight' => '-9',
+          'weight' => '-8',
         ),
       ),
     ),

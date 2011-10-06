@@ -332,6 +332,32 @@ function cmtls_preprocess_username(&$variables) {
   $variables['name_raw'] = $variables['name'] = cmtls_get_username(user_load($variables['uid']));
 }
 
+/**
+ * Implements hook_form_FORM_ID_alter().
+ * 
+ * adds new user registrations to the main CT group
+ * @see cmtls_user_register_add_to_main_group
+ */
+function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
+  $form['#submit'][] = 'cmtls_user_register_add_to_main_group';
+}
 
+/**
+ * adds new user registrations to the main CT group
+ */
+function cmtls_user_register_add_to_main_group($form, &$form_state) {
+  $query = db_select('field_data_field_main_group', 'field_data_field_main_group')
+    ->fields('og', array('gid'))
+    ->condition('field_data_field_main_group.field_main_group_value', 1, '=')
+    ->range(0, 1);
+  $query->join('og', 'og', 'field_data_field_main_group.entity_id = og.etid');
+  $group = $query->execute()->fetchAssoc();
+  if(count($group)) {
+    $values = array(
+      'entity' => $form['#user'],
+    );
+    og_group($group['gid'], $values);
+  }
+}
 
 

@@ -214,5 +214,12 @@ function cmtls_strongarm() {
   $strongarm->value = 'omitted';
   $export['og_group_type_cmtls_app'] = $strongarm;
 
+  $strongarm = new stdClass;
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'user_picture_default';
+  $strongarm->value = 'sites/all/modules/cmtls/images/default-avatar.jpg';
+  $export['user_picture_default'] = $strongarm;
+
   return $export;
 }

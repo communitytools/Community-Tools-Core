@@ -301,6 +301,8 @@ function cmtls_get_app_config($app = NULL) {
 
 /**
  * returns user full name
+ * 
+ * @todo make this configurable with tokens, perhaps independent module
  */
 function cmtls_get_username($account) {
   if(isset($account->field_first_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_first_name[LANGUAGE_NONE][0]['safe_value']) {

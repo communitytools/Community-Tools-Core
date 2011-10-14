@@ -362,4 +362,103 @@ function cmtls_user_register_add_to_main_group($form, &$form_state) {
   }
 }
 
+/**
+ * info array for parent app reference
+ */
+function cmtls_get_parent_reference_field_info() {
+  return array(
+    'active' => '1',
+    'cardinality' => '-1',
+    'deleted' => '0',
+    'entity_types' => array(),
+    'field_name' => 'field_cmtls_application',
+    'foreign keys' => array(
+      'nid' => array(
+        'columns' => array(
+          'nid' => 'nid',
+        ),
+        'table' => 'node',
+      ),
+    ),
+    'indexes' => array(
+      'nid' => array(
+        0 => 'nid',
+      ),
+    ),
+    'module' => 'node_reference',
+    'settings' => array(
+      'referenceable_types' => array(
+        'cmtls_app' => 'cmtls_app',
+      ),
+      'view' => array(
+        'args' => array(),
+        'display_name' => '',
+        'view_name' => '',
+      ),
+    ),
+    'translatable' => '0',
+    'type' => 'node_reference',
+  );
+}
 
+/**
+ * instance info array for parent app reference, just add bundle 
+ */
+function cmtls_get_parent_reference_field_instance() {
+  return array(
+    'default_value' => NULL,
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '5',
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '5',
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cmtls_application',
+    'label' => 'Application',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => '7',
+    ),
+  );
+}
+
+/**
+ * Create a cmtls parent app reference field in a bundle.
+ *
+ * @param $bundle
+ *   The bundle name.
+ */
+function cmtls_create_parent_reference_field($bundle) {
+  $field = field_info_field('field_cmtls_application');
+  if (empty($field)) {
+    $field = cmtls_get_parent_reference_field_info();
+  }
+
+  $instance = field_info_instance('node', 'field_cmtls_application', $bundle);
+  if (empty($instance)) {
+    $instance = cmtls_get_parent_reference_field_instance();
+    $instance += array(
+      'bundle' => $bundle,
+    );
+
+    field_create_instance($instance);
+  }
+}

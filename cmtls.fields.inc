@@ -357,7 +357,6 @@ function cmtls_get_field_info($field) {
  * info array for cmtls field
  */
 function cmtls_get_field_instance($field) {
-  dpm($field);
   $fields['field_cmtls_application'] = array(
     'default_value' => NULL,
     'deleted' => '0',
@@ -478,7 +477,7 @@ function cmtls_create_field($field_name, $bundle) {
   $field = field_info_field($field_name);
   if (empty($field)) {
     $field = cmtls_get_field_info($field_name);
-    $field = field_create_field($$field);
+    $field = field_create_field($field);
   }
 
   $instance = field_info_instance('node', $field_name, $bundle);

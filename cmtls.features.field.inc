@@ -709,6 +709,7 @@ function cmtls_field_default_fields() {
       ),
       'deleted' => '0',
       'description' => 'Indicates whether this is the main group of the Community Tools or not.
+
 NB! there should be only one main group',
       'display' => array(
         'default' => array(
@@ -1101,6 +1102,7 @@ NB! there should be only one main group',
   t('Group visibility');
   t('Groups audience');
   t('Indicates whether this is the main group of the Community Tools or not.
+
 NB! there should be only one main group');
   t('Last name');
   t('Location');

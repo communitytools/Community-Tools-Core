@@ -1,9 +1,9 @@
 <?php
 /**
  * @file
- * cmtls core Field API impelementations
- * 
- * - Application type field for application nodes 
+ * Core Field API impelementations
+ * Custom field for CT app type
+ * definitions and API function for adding common CT fields
  * 
  */
 
@@ -180,11 +180,7 @@ function cmtls_field_schema($field) {
 }
 
 /**
- * Common CT fields
- */
-
-/**
- * info array for cmtls field
+ * Common CT field info
  */
 function cmtls_get_field_info($field) {
   // parent app reference
@@ -350,11 +346,103 @@ function cmtls_get_field_info($field) {
     'type' => 'taxonomy_term_reference',
   );
   
+  $fields['field_cmtls_main_group'] = array(
+    'active' => '1',
+    'cardinality' => '1',
+    'deleted' => '0',
+    'entity_types' => array(),
+    'field_name' => 'field_cmtls_main_group',
+    'foreign keys' => array(),
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => '',
+        1 => '',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => '0',
+    'type' => 'list_boolean',
+  );  
+
+  $fields['field_cmtls_app_type'] = array(
+    'active' => '1',
+    'cardinality' => '1',
+    'deleted' => '0',
+    'entity_types' => array(),
+    'field_name' => 'field_cmtls_app_type',
+    'foreign keys' => array(),
+    'indexes' => array(),
+    'module' => 'cmtls',
+    'settings' => array(),
+    'translatable' => '0',
+    'type' => 'cmtls_app_type',
+  );
+
+  $fields['field_cmtls_app_configs'] = array(
+    'active' => '1',
+    'cardinality' => '1',
+    'deleted' => '0',
+    'entity_types' => array(),
+    'field_name' => 'field_cmtls_app_configs',
+    'foreign keys' => array(
+      'format' => array(
+        'columns' => array(
+          'format' => 'format',
+        ),
+        'table' => 'filter_format',
+      ),
+    ),
+    'indexes' => array(
+      'format' => array(
+        0 => 'format',
+      ),
+    ),
+    'module' => 'text',
+    'settings' => array(),
+    'translatable' => '0',
+    'type' => 'text_long',
+  );
+  
+  $fields['field_cmtls_attachments'] = array(
+    'active' => '1',
+    'cardinality' => '-1',
+    'deleted' => '0',
+    'entity_types' => array(),
+    'field_name' => 'field_cmtls_attachments',
+    'foreign keys' => array(
+      'fid' => array(
+        'columns' => array(
+          'fid' => 'fid',
+        ),
+        'table' => 'file_managed',
+      ),
+    ),
+    'indexes' => array(
+      'fid' => array(
+        0 => 'fid',
+      ),
+    ),
+    'module' => 'file',
+    'settings' => array(
+      'display_default' => 0,
+      'display_field' => 0,
+      'uri_scheme' => 'public',
+    ),
+    'translatable' => '0',
+    'type' => 'file',
+  );
+  
   return $fields[$field]; 
 }
 
 /**
- * info array for cmtls field
+ * Common CT field instance info
  */
 function cmtls_get_field_instance($field) {
   $fields['field_cmtls_application'] = array(
@@ -464,25 +552,193 @@ function cmtls_get_field_instance($field) {
     ),
   );
   
+  $fields['field_cmtls_main_group'] = array(
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => '0',
+    'description' => 'Indicates whether this is the main group of the Community Tools or not.
+
+NB! there should be only one main group',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '3',
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cmtls_main_group',
+    'label' => 'Main group',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(
+        'display_label' => 1,
+      ),
+      'type' => 'options_onoff',
+      'weight' => '5',
+    ),
+  );
+  
+  $fields['field_cmtls_app_type'] = array(
+    'default_value' => NULL,
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '1',
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cmtls_app_type',
+    'label' => 'Application',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'cmtls',
+      'settings' => array(),
+      'type' => 'cmtls_app_type_select',
+      'weight' => '4',
+    ),
+  );  
+
+  $fields['field_cmtls_app_configs'] = array(
+    'default_value' => NULL,
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '5',
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cmtls_app_configs',
+    'label' => 'Application configurations',
+    'required' => 0,
+    'settings' => array(
+      'text_processing' => '0',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'rows' => '5',
+      ),
+      'type' => 'text_textarea',
+      'weight' => '31',
+    ),
+  );
+  
+  $fields['field_cmtls_attachments'] = array(
+    'deleted' => '0',
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => '3',
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_cmtls_attachments',
+    'label' => 'Attachments',
+    'required' => 0,
+    'settings' => array(
+      'description_field' => 1,
+      'file_directory' => 'cmtls-attachments',
+      'file_extensions' => 'txt jpg png gif pdf doc xls',
+      'max_filesize' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'file',
+      'settings' => array(
+        'progress_indicator' => 'throbber',
+      ),
+      'type' => 'file_generic',
+      'weight' => '3',
+    ),
+  );
+  
   return $fields[$field];
 }
 
 /**
  * Create a cmtls field in a bundle.
  *
- * @param $bundle
- *   The bundle name.
+ * @param $field_name Name of the field to add
+ * (must be present in cmtls_get_field_info() and cmtls_get_field_instance() or is array with required data @see cmtls_event_install())
+ * @param $bundle The bundle name.
  */
 function cmtls_create_field($field_name, $bundle) {
+  $field_data = array();
+  if(is_array($field_name)) {
+    $field_data = $field_name;
+    $field_name = $field_data['field_config']['field_name'];
+  }
   $field = field_info_field($field_name);
   if (empty($field)) {
-    $field = cmtls_get_field_info($field_name);
+    if(!empty($field_data)) {
+      $field = $field_data['field_config'];
+    }
+    else {
+      $field = cmtls_get_field_info($field_name);
+    }
     $field = field_create_field($field);
   }
 
   $instance = field_info_instance('node', $field_name, $bundle);
   if (empty($instance)) {
-    $instance = cmtls_get_field_instance($field_name);
+    if(!empty($field_data)) {
+      $instance = $field_data['field_instance'];
+    }
+    else {
+      $instance = cmtls_get_field_instance($field_name);
+    }
     $instance += array(
       'bundle' => $bundle,
     );
@@ -490,5 +746,4 @@ function cmtls_create_field($field_name, $bundle) {
     field_create_instance($instance);
   }
 }
- 
- 
+  

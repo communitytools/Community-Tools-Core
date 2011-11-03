@@ -1,12 +1,5 @@
 <?php
 /**
- * @file
- * Code for the cmtls feature.
- */
-
-include_once('cmtls.features.inc');
-
-/**
  * Field API implementations
  */
 include_once('cmtls.fields.inc');
@@ -15,6 +8,64 @@ include_once('cmtls.fields.inc');
  * Context API implementations
  */
 include_once('cmtls.contexts.inc');
+
+/**
+ * Views API implementations
+ */
+include_once('cmtls.views.inc');
+
+/**
+ * Implementation of hook_ctools_plugin_api().
+ */
+function cmtls_ctools_plugin_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "context" && $api == "context") {
+    return array("version" => "3");
+  }
+}
+
+/**
+ * Implementation of hook_views_api().
+ */
+function cmtls_views_api() {
+  list($module, $api) = func_get_args();
+  if ($module == "views" && $api == "views_default") {
+    return array("version" => "3.0");
+  }
+}
+
+/**
+ * Implementation of hook_node_info().
+ */
+function cmtls_node_info() {
+  $items = array(
+    'cmtls_group' => array(
+      'name' => t('CT Group'),
+      'base' => 'node_content',
+      'description' => t('Community Tools group, Organic Groups.'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'cmtls_app' => array(
+      'name' => t('CT Application'),
+      'base' => 'node_content',
+      'description' => t('Community Tools application, defines the content type etc'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+    'cmtls_location' => array(
+      'name' => t('CT Location'),
+      'base' => 'node_content',
+      'description' => t('Community Tools locations'),
+      'has_title' => '1',
+      'title_label' => t('Title'),
+      'help' => '',
+    ),
+  );
+  return $items;
+}
 
 /** 
  * Implements hook_node_load().
@@ -60,6 +111,14 @@ function cmtls_menu() {
     'context' => MENU_CONTEXT_PAGE | MENU_CONTEXT_INLINE,
   );
   
+  // creates autocomplete for locations
+  $items['cmtls/location/ac'] = array(
+    'title' => t('Location matching'),
+    'page callback' => 'cmtls_location_autocomplete',
+    'access arguments' => array('view content'),
+    'type' => MENU_CALLBACK,
+  );
+  
   return $items;
 }
 
@@ -101,8 +160,6 @@ function cmtls_add_content_title($parent) {
 
 /**
  * Add content contextual link access
- * 
- * @see cmtls_menu()
  */
 function cmtls_create_content_access($parent) {
   $access = FALSE;
@@ -123,9 +180,7 @@ function cmtls_create_content_access($parent) {
 }
 
 /**
- * Wrapper function for node form, to set variables for default group and application variables
- * 
- * @see cmtls_menu()
+ * Wrapper page function for node form, to set variables for default group and application variables
  */
 function cmtls_add_content_page($parent) {
   module_load_include('inc', 'node', 'node.pages');
@@ -178,6 +233,8 @@ function cmtls_add_content_page($parent) {
 
 /**
  * Implements hook_form_alter().
+ * 
+ * preselects menu and app for CT content nodes
  */
 function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   $app_form_ids = array();
@@ -206,13 +263,16 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
  * Implements hook_form_FORM_ID_alter().
  * 
  * removes the main group field from node form
+ * adds autocomplete for the location
  */
 function cmtls_form_cmtls_group_node_form_alter(&$form, &$form_state, $form_id) {
   global $user; 
   // allow only for the root user
   if($user->uid != 1) {
-    $form['field_main_group'] = NULL;
+    $form['field_cmtls_main_group'] = NULL;
   }
+  
+  drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.location_ac.js');
 }
 
 /**
@@ -348,11 +408,11 @@ function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
  * adds new user registrations to the main CT group
  */
 function cmtls_user_register_add_to_main_group($form, &$form_state) {
-  $query = db_select('field_data_field_main_group', 'field_data_field_main_group')
+  $query = db_select('field_data_field_cmtls_main_group', 'field_data_field_cmtls_main_group')
     ->fields('og', array('gid'))
-    ->condition('field_data_field_main_group.field_main_group_value', 1, '=')
+    ->condition('field_data_field_cmtls_main_group.field_cmtls_main_group_value', 1, '=')
     ->range(0, 1);
-  $query->join('og', 'og', 'field_data_field_main_group.entity_id = og.etid');
+  $query->join('og', 'og', 'field_data_field_cmtls_main_group.entity_id = og.etid');
   $group = $query->execute()->fetchAssoc();
   if(count($group)) {
     $values = array(
@@ -360,4 +420,112 @@ function cmtls_user_register_add_to_main_group($form, &$form_state) {
     );
     og_group($group['gid'], $values);
   }
+}
+
+/**
+ * Implements hook_cmtls_app_config
+ * 
+ * adds location configuration options
+ */
+function cmtls_cmtls_app_config($config) {
+    
+  $defaults = array(
+    'sorting_field' => 'node_title',
+    'sorting_dir' => 'ASC'
+  );
+  
+  $settings = array_merge($defaults, isset($config['cmtls_location']) ? $config['cmtls_location'] : array());
+  
+  $form['cmtls_location'] = array(
+    '#type' => 'fieldset',
+    '#title' => t('Sorting settings'),
+    '#collapsible' => TRUE,
+    '#states' => array(
+      'visible' => array(
+        ':input[name="field_cmtls_app_type['.LANGUAGE_NONE.'][0][cmtls_app_type]"]' => array('value' => 'cmtls_location'),
+      ),
+    ),
+  );
+
+  $form['cmtls_location']['sorting_field'] = array(
+    '#type' => 'radios',
+    '#title' => t('Sorting field'),
+    '#default_value' => $settings['sorting_field'],
+    '#options' => array(
+      'node_created' => t('Created date'),
+      'node_title' => t('Location title'),
+    ),
+  );
+  
+  $form['cmtls_location']['sorting_dir'] = array(
+    '#type' => 'radios',
+    '#title' => t('Sorting order'),
+    '#default_value' => $settings['sorting_dir'],
+    '#options' => array(
+      'ASC' => t('Ascending'),
+      'DESC' => t('Descending'),
+    ),
+  );
+
+  return $form;
+}
+
+/**
+ * Implements hook_cmtls_app
+ * 
+ * adds location app type
+ */
+function cmtls_cmtls_app() {
+  return array(
+    'cmtls' => array(
+      'title' => t('Locations'),
+      'description' => t('Locations'),
+      'node types' => array(
+        'cmtls_location' => t('Location'),
+      ),
+    ),
+  );
+}
+
+/**
+ * implements hook_location_element_alter()
+ * 
+ * adds location autocomplete to the location name field
+ */
+function cmtls_location_element_alter(&$element) {
+  $element['name']['#attributes']['class'][] = 'cmtls-location-autocomplete';
+  drupal_add_library('system', 'ui.autocomplete');  
+}
+
+/**
+ * Autocompletes locations
+ */
+function cmtls_location_autocomplete($string = '') {
+  $matches = array();
+  
+  if(strlen($string) > 1) {
+    $query = db_select('location', 'location')
+      ->fields('field_data_field_cmtls_location', array('entity_type', 'entity_id'))
+      ->fields('location')
+      ->condition('field_data_field_cmtls_location.bundle', 'cmtls_location', '=')
+      ->condition('location.name', $string.'%', 'LIKE')
+      ->range(0, 5);
+    $query->join('field_data_field_cmtls_location', 'field_data_field_cmtls_location', 'location.lid = field_data_field_cmtls_location.field_cmtls_location_lid');
+    $result = $query->execute();
+    
+    while($location = $result->fetchAssoc()) {
+      // check for permissions ... is this right?
+      if(entity_load_single($location['entity_type'], $location['entity_id'])) {
+        if(isset($location['latitude']) && $location['latitude'] != 0.000000) {
+          $location['locpick-user-latitude'] = $location['latitude'];
+        }
+        if(isset($location['longitude']) && $location['longitude'] != 0.000000) {
+          $location['locpick-user-longitude'] = $location['longitude'];
+        }
+        $matches[] = $location;
+      }
+    }
+  }
+  
+  drupal_json_output($matches);
 }

@@ -58,6 +58,7 @@ dependencies[] = "media"
 dependencies[] = "file_entity"
 dependencies[] = "gmap"
 dependencies[] = "gmap_location"
+dependencies[] = ds
 
 files[] = "plugins/views_handler_filter_cmtls_node_type.inc"
 

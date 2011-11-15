@@ -22,6 +22,9 @@ function cmtls_ctools_plugin_api() {
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
   }
+  if ($module == 'ds' && $api == 'ds') {
+    return array('version' => 1);
+  }
 }
 
 /**

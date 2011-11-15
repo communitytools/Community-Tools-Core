@@ -64,8 +64,13 @@ function _cmtls_reset_group_node() {
   // add group node fields
   og_create_field(OG_GROUP_FIELD, 'node', 'cmtls_group');
   $instance = field_info_instance('node', OG_GROUP_FIELD, 'cmtls_group');
-  foreach ($instance['display'] as $type => &$display) if($type != 'default') {
-    $display['type'] = 'hidden';
+  foreach ($instance['display'] as $type => &$display) {
+    if($type != 'default') {
+      $display['type'] = 'hidden';
+    }
+    if($type == 'default') {
+      $display['label'] = 'hidden';
+    }
   }
   $instance['widget']['weight'] = 7;
   field_update_instance($instance);
@@ -115,9 +120,16 @@ function _cmtls_reset_group_node() {
     ),
   ));
   
-  $instance = node_add_body_field((object)array('type' => 'cmtls_group'), 'Description');
-  $instance['widget']['weight'] = 1;
-  field_update_instance($instance);
+  cmtls_create_field(array(
+    'field_config' => array(
+      'field_name' => 'body'
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_group',
+      'label' => 'Description',
+      'widget' => array('weight' => 1),
+    ),
+  ));
   
   variable_set('comment_anonymous_cmtls_group', 0);
   variable_set('comment_cmtls_group', 0);
@@ -175,9 +187,15 @@ function _cmtls_reset_app_node() {
     ),
   ));
   
-  $instance = node_add_body_field((object)array('type' => 'cmtls_app'), 'Description');
-  $instance['widget']['weight'] = 1;
-  field_update_instance($instance);
+  cmtls_create_field(array(
+    'field_config' => array(
+      'field_name' => 'body'
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'label' => 'Description',
+    ),
+  ));
   
   variable_set('comment_anonymous_cmtls_app', 0);
   variable_set('comment_cmtls_app', 0);
@@ -256,9 +274,19 @@ function _cmtls_reset_location_node() {
     ),
   ));
   
-  $instance = node_add_body_field((object)array('type' => 'cmtls_location'), 'Description');
-  $instance['widget']['weight'] = 2;
-  field_update_instance($instance);
+  cmtls_create_field(array(
+    'field_config' => array(
+      'field_name' => 'body'
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_location',
+      'label' => 'Description',
+    ),
+  ));
+  
+  $settings = field_bundle_settings('node', 'cmtls_location');
+  $settings['view_modes']['cmtls_wall']['custom_settings'] = TRUE;
+  $settings = field_bundle_settings('node', 'cmtls_location', $settings);
   
   variable_set('comment_anonymous_cmtls_location', 0);
   variable_set('comment_cmtls_location', 2);

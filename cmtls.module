@@ -219,13 +219,15 @@ function cmtls_add_content_page($parent) {
   // group and app preselect for content nodes
   elseif($parent->type == 'cmtls_app') {
     $type = $node->type = array_pop(array_keys(cmtls_get_app_content_types($parent->cmtls_app_type)));  // multiple types yet to resolve
-    $node->cmtls_group_preselect = $parent->group_audience[LANGUAGE_NONE][0]['gid'];
+    $groups = og_get_entity_groups('node', $parent);
+    $node->cmtls_group_preselect = array_shift($groups);
     $node->cmtls_parent_preselect = $parent->nid;
   }
   // group and app preselect for content nodes
   elseif(in_array($parent->type, array_keys(cmtls_get_app_content_types()))) {
     $type = $node->type = $parent->type;
-    $node->cmtls_group_preselect = $parent->group_audience[LANGUAGE_NONE][0]['gid'];
+    $groups = og_get_entity_groups('node', $parent);
+    $node->cmtls_group_preselect = array_shift($groups);
     $node->cmtls_parent_preselect = $parent->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
   }
   drupal_set_title(t('Create @name', array('@name' => $types[$type]->name)), PASS_THROUGH);

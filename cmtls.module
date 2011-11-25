@@ -5,16 +5,6 @@
 include_once('cmtls.fields.inc');
 
 /**
- * Context API implementations
- */
-include_once('cmtls.contexts.inc');
-
-/**
- * Views API implementations
- */
-include_once('cmtls.views.inc');
-
-/**
  * Implementation of hook_ctools_plugin_api().
  */
 function cmtls_ctools_plugin_api() {
@@ -23,6 +13,9 @@ function cmtls_ctools_plugin_api() {
     return array("version" => "3");
   }
   if ($module == 'ds' && $api == 'ds') {
+    return array('version' => 1);
+  }
+  if ($module == 'panels' && $api == 'pipelines') {
     return array('version' => 1);
   }
 }
@@ -37,29 +30,35 @@ function cmtls_views_api() {
   }
 }
 
+function cmtls_ctools_plugin_directory($owner, $plugin_type) {
+  if ($owner == 'ctools' && $plugin_type == 'access') {
+    return 'plugins/' . $plugin_type;
+  }
+}
+
 /**
  * Implementation of hook_node_info().
  */
 function cmtls_node_info() {
   $items = array(
     'cmtls_group' => array(
-      'name' => t('CT Group'),
+      'name' => t('Group'),
       'base' => 'node_content',
-      'description' => t('Community Tools group, Organic Groups.'),
+      'description' => t('Community Tools group.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
     ),
     'cmtls_app' => array(
-      'name' => t('CT Application'),
+      'name' => t('Application'),
       'base' => 'node_content',
-      'description' => t('Community Tools application, defines the content type etc'),
+      'description' => t('Community Tools application'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
     ),
     'cmtls_location' => array(
-      'name' => t('CT Location'),
+      'name' => t('Location'),
       'base' => 'node_content',
       'description' => t('Community Tools locations'),
       'has_title' => '1',
@@ -204,7 +203,7 @@ function cmtls_add_content_page($parent) {
     $query = db_select('menu_node', 'menu_node')
       ->fields('menu_node', array('mlid'))
       ->condition('menu_node.nid', $parent->nid, '=')
-      ->condition('menu_links.menu_name', 'menu-cmtls', '=');
+      ->condition('menu_links.menu_name', 'menu-cmtls-groups', '=');
     $query->join('menu_links', 'menu_links', 'menu_node.mlid = menu_links.mlid');
     $mlid = $query->execute()->fetchField();
     $node->cmtls_menu_preselect = $mlid;
@@ -249,7 +248,7 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   
   // preselect app menu link
   if(($form_id == 'cmtls_app_node_form') && !empty($form['#node']->cmtls_menu_preselect)) {
-    $form['menu']['link']['parent']['#default_value'] = 'menu-cmtls:' . $form['#node']->cmtls_menu_preselect;
+    $form['menu']['link']['parent']['#default_value'] = 'menu-cmtls-groups:' . $form['#node']->cmtls_menu_preselect;
     $form['menu']['enabled']['#default_value'] = 1;
   }
   
@@ -368,6 +367,7 @@ function cmtls_get_app_config($app = NULL) {
  * returns user full name
  * 
  * @todo make this configurable with tokens, perhaps independent module
+ * @todo make static for multiple calls
  */
 function cmtls_get_username($account) {
   if(isset($account->field_first_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_first_name[LANGUAGE_NONE][0]['safe_value']) {
@@ -533,4 +533,45 @@ function cmtls_location_autocomplete($string = '') {
   }
   
   drupal_json_output($matches);
+}
+
+/**
+ * Implements hook_context_plugins()
+ */
+function cmtls_context_plugins() {
+  $plugins = array();
+  $plugins['cmtls_context_condition_app_type'] = array(
+    'handler' => array(
+      'path' => drupal_get_path('module', 'cmtls') .'/plugins',
+      'file' => 'cmtls_context_condition_app_type.inc',
+      'class' => 'cmtls_context_condition_app_type',
+      'parent' => 'context_condition_node',
+    ),
+  );
+  return $plugins;
+}
+
+/**
+ * Implements hook_context_registry()
+ */
+function cmtls_context_registry() {
+  return array(
+    'conditions' => array(
+      'cmtls_app_type' => array(
+        'title' => t('CT Application type'),
+        'plugin' => 'cmtls_context_condition_app_type',
+      ),
+    ),
+  );
+}
+
+/**
+ * Implements hook_context_node_condition_alter()
+ * 
+ * adds the 'cmtls_app_type' condition to nodes
+ */
+function cmtls_context_node_condition_alter(&$node, $op) {
+  if ($plugin = context_get_plugin('condition', 'cmtls_app_type')) {
+    $plugin->execute($node, $op);
+  }
 }

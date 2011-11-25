@@ -17,11 +17,18 @@ function cmtls_install() {
     'help' => st('Enter a comma-separated list of words to describe your content.'),
   ));
   
-  // ct menu
+  // ct groups menu
   menu_save(array(
-    'menu_name' => 'menu-cmtls',
-    'title' => st('CT Menu'),
+    'menu_name' => 'menu-cmtls-groups',
+    'title' => st('Groups'),
     'description' => st('Community Tools group and applications menu'),
+  ));
+  
+  // ct global toolbar menu
+  menu_save(array(
+    'menu_name' => 'menu-cmtls-global-toolbar',
+    'title' => st('Toolbar'),
+    'description' => st('Community Tools global toolbar'),
   ));
   
   // user fields
@@ -138,8 +145,8 @@ function _cmtls_reset_group_node() {
   variable_set('comment_form_location_cmtls_group', 1);
   variable_set('comment_preview_cmtls_group', 1);
   variable_set('comment_subject_field_cmtls_group', 0);
-  variable_set('menu_options_cmtls_group', array('menu-cmtls'));
-  variable_set('menu_parent_cmtls_group', 'menu-cmtls:0');
+  variable_set('menu_options_cmtls_group', array('menu-cmtls-groups'));
+  variable_set('menu_parent_cmtls_group', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_group', array('status'));
   variable_set('node_preview_cmtls_group', 1);
   variable_set('node_submitted_cmtls_group', 1);
@@ -204,8 +211,8 @@ function _cmtls_reset_app_node() {
   variable_set('comment_form_location_cmtls_app', 1);
   variable_set('comment_preview_cmtls_app', 1);
   variable_set('comment_subject_field_cmtls_app', 0);
-  variable_set('menu_options_cmtls_app', array('menu-cmtls'));
-  variable_set('menu_parent_cmtls_app', 'menu-cmtls:0');
+  variable_set('menu_options_cmtls_app', array('menu-cmtls-groups'));
+  variable_set('menu_parent_cmtls_app', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_app', array('status'));
   variable_set('node_preview_cmtls_app', 1);
   variable_set('node_submitted_cmtls_app', 1);
@@ -295,8 +302,8 @@ function _cmtls_reset_location_node() {
   variable_set('comment_form_location_cmtls_location', 1);
   variable_set('comment_preview_cmtls_location', 1);
   variable_set('comment_subject_field_cmtls_location', 0);
-  variable_set('menu_options_cmtls_location', array('menu-cmtls'));
-  variable_set('menu_parent_cmtls_location', 'menu-cmtls:0');
+  variable_set('menu_options_cmtls_location', array('menu-cmtls-groups'));
+  variable_set('menu_parent_cmtls_location', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_location', array('status'));
   variable_set('node_preview_cmtls_location', 1);
   variable_set('node_submitted_cmtls_location', 1);

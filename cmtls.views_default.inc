@@ -272,7 +272,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['display_description'] = 'Location with small map';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'gmap';
-  $handler->display->display_options['style_options']['macro'] = '[gmap zoom=13 |width=100% |height=200px |control=Micro |type=Map]';
+  $handler->display->display_options['style_options']['macro'] = '[gmap zoom=13 |width=100% |height=200px |control=None |type=Map]';
   $handler->display->display_options['style_options']['markers'] = 'nodetype';
   $handler->display->display_options['style_options']['markertype'] = 'blank';
   $handler->display->display_options['style_options']['latfield'] = 'title';

@@ -117,7 +117,7 @@ function cmtls_menu() {
   $items['cmtls/location/ac'] = array(
     'title' => t('Location matching'),
     'page callback' => 'cmtls_location_autocomplete',
-    'access arguments' => array('view content'),
+    'access arguments' => array('access content'),
     'type' => MENU_CALLBACK,
   );
   
@@ -471,7 +471,7 @@ function cmtls_cmtls_app_config($config) {
       'DESC' => t('Descending'),
     ),
   );
-
+  
   return $form;
 }
 
@@ -482,7 +482,7 @@ function cmtls_cmtls_app_config($config) {
  */
 function cmtls_cmtls_app() {
   return array(
-    'cmtls' => array(
+    'cmtls_location' => array(
       'title' => t('Locations'),
       'description' => t('Locations'),
       'node types' => array(

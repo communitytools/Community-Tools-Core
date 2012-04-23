@@ -4,69 +4,12 @@
  */
 include_once('cmtls.fields.inc');
 
-/**
- * Implementation of hook_ctools_plugin_api().
- */
-function cmtls_ctools_plugin_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "context" && $api == "context") {
-    return array("version" => "3");
-  }
-  if ($module == 'ds' && $api == 'ds') {
-    return array('version' => 1);
-  }
-  if ($module == 'panels' && $api == 'pipelines') {
-    return array('version' => 1);
-  }
+include_once('cmtls.features.inc');
+
+function cmtls_init() {
 }
 
-/**
- * Implementation of hook_views_api().
- */
-function cmtls_views_api() {
-  list($module, $api) = func_get_args();
-  if ($module == "views" && $api == "views_default") {
-    return array("version" => "3.0");
-  }
-}
-
-function cmtls_ctools_plugin_directory($owner, $plugin_type) {
-  if ($owner == 'ctools' && $plugin_type == 'access') {
-    return 'plugins/' . $plugin_type;
-  }
-}
-
-/**
- * Implementation of hook_node_info().
- */
-function cmtls_node_info() {
-  $items = array(
-    'cmtls_group' => array(
-      'name' => t('Group'),
-      'base' => 'node_content',
-      'description' => t('Community Tools group.'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'cmtls_app' => array(
-      'name' => t('Application'),
-      'base' => 'node_content',
-      'description' => t('Community Tools application'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-    'cmtls_location' => array(
-      'name' => t('Location'),
-      'base' => 'node_content',
-      'description' => t('Community Tools locations'),
-      'has_title' => '1',
-      'title_label' => t('Title'),
-      'help' => '',
-    ),
-  );
-  return $items;
+function cmtls_enable () {
 }
 
 /** 
@@ -76,6 +19,7 @@ function cmtls_node_info() {
  * adds global variable about current application
  */
 function cmtls_node_load($nodes, $types) {
+ // dpm($nodes);
   // TODO: a better way to detect if a node has field 'cmtls_app_type' attached, currently hardcoded
   $node_types = array_keys(cmtls_get_app_content_types());
   foreach ($nodes as $nid => &$node) {
@@ -87,7 +31,8 @@ function cmtls_node_load($nodes, $types) {
       break;
     }
     elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
-      cmtls_add_conf('current_app', node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']));
+      $app = node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']);
+      cmtls_add_conf('current_app', $app);
       break;
     }
   }
@@ -181,136 +126,106 @@ function cmtls_create_content_access($parent) {
   return $access;
 }
 
-/**
- * Wrapper page function for node form, to set variables for default group and application variables
- */
-function cmtls_add_content_page($parent) {
-  module_load_include('inc', 'node', 'node.pages');
+function cmtls_add_content_page($node) {
+  $goto_options = array(); 
   
-  global $user;
-  
-  $types = node_type_get_types();
-  $content_types = cmtls_get_app_content_types();
-  
-  $node = (object) array(
-    'uid' => $user->uid,
-    'name' => (isset($user->name) ? $user->name : ''),
-    'language' => LANGUAGE_NONE,
-  );
-  
-  // menu link preselect for apps
-  if($parent->type == 'cmtls_group') {
-    $query = db_select('menu_node', 'menu_node')
-      ->fields('menu_node', array('mlid'))
-      ->condition('menu_node.nid', $parent->nid, '=')
-      ->condition('menu_links.menu_name', 'menu-cmtls-groups', '=');
-    $query->join('menu_links', 'menu_links', 'menu_node.mlid = menu_links.mlid');
-    $mlid = $query->execute()->fetchField();
-    $node->cmtls_menu_preselect = $mlid;
+  // get parent menu by path node/$node->nid
+  $query = db_select('menu_links', 'menu_links')
+    ->fields('menu_links', array('mlid'))
+    ->condition('menu_links.link_path', 'node/' . $node->nid, '=');
+  if($mlid = $query->execute()->fetchField()) {
+    $goto_options['query']['mlid'] = $mlid; 
   }
   
   // group preselect for apps
-  if($parent->type == 'cmtls_group') {
-    $type = $node->type = 'cmtls_app';
-    $groups = og_get_group_ids('node', array($parent->nid));
-    $node->cmtls_group_preselect = $groups[$parent->nid];
+  if($node->type == 'cmtls_group') {
+    $groups = og_get_group_ids('node', array($node->nid));
+    $goto_options['query']['gid'] = $groups[$node->nid]; 
+    drupal_goto('node/add/cmtls-app', $goto_options);
   }
   // group and app preselect for content nodes
-  elseif($parent->type == 'cmtls_app') {
-    $type = $node->type = array_pop(array_keys(cmtls_get_app_content_types($parent->cmtls_app_type)));  // multiple types yet to resolve
-    $groups = og_get_entity_groups('node', $parent);
-    $node->cmtls_group_preselect = array_shift($groups);
-    $node->cmtls_parent_preselect = $parent->nid;
+  elseif($node->type == 'cmtls_app') {
+    $groups = og_get_entity_groups('node', $node);
+    $goto_options['query']['gid'] = array_shift($groups); 
+    $goto_options['query']['aid'] = $node->nid;
+    $type = array_pop(array_keys(cmtls_get_app_content_types($node->cmtls_app_type)));  // multiple types yet to resolve
+    drupal_goto('node/add/' . str_replace('_', '-', $type), $goto_options);
   }
   // group and app preselect for content nodes
-  elseif(in_array($parent->type, array_keys(cmtls_get_app_content_types()))) {
-    $type = $node->type = $parent->type;
-    $groups = og_get_entity_groups('node', $parent);
-    $node->cmtls_group_preselect = array_shift($groups);
-    $node->cmtls_parent_preselect = $parent->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
+  elseif(in_array($node->type, array_keys(cmtls_get_app_content_types()))) {
+    $groups = og_get_entity_groups('node', $node);
+    $goto_options['query']['gid'] = array_shift($groups); 
+    $goto_options['query']['aid'] = $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
+    drupal_goto('node/add/' . str_replace('_', '-', $node->type), $goto_options);
   }
-  drupal_set_title(t('Create @name', array('@name' => $types[$type]->name)), PASS_THROUGH);
-  $output = drupal_get_form($type . '_node_form', $node);
-
-  return $output;
+  else {
+    drupal_goto('node/'.$node->nid);
+  }
 }
 
 /**
  * Implements hook_form_alter().
  * 
  * preselects menu and app for CT content nodes
+ * adds location autocomplete
+ * inserts the app configuration fields
+ * @see cmtls_form_config_save()
+ * 
  */
 function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
+  global $user;
+   
   $app_form_ids = array();
   foreach (cmtls_get_app_content_types() as $app_type => $app) {
     $app_form_ids[] = $app_type . '_node_form';
   }
   
-  // preselect app menu link
-  if(($form_id == 'cmtls_app_node_form') && !empty($form['#node']->cmtls_menu_preselect)) {
-    $form['menu']['link']['parent']['#default_value'] = 'menu-cmtls-groups:' . $form['#node']->cmtls_menu_preselect;
-    $form['menu']['enabled']['#default_value'] = 1;
-  }
-  
   // preselect group audience
-  if(($form_id == 'cmtls_app_node_form' || in_array($form_id, $app_form_ids)) && !empty($form['#node']->cmtls_group_preselect)) {
-    $form['group_audience'][LANGUAGE_NONE]['#default_value'][$form['#node']->cmtls_group_preselect] = $form['#node']->cmtls_group_preselect;
+  if(($form_id == 'cmtls_app_node_form' || in_array($form_id, $app_form_ids)) && isset($_GET['gid'])) {
+    $form['group_audience'][LANGUAGE_NONE]['#default_value'][(int)$_GET['gid']] = (int)$_GET['gid'];
+  }
+   
+  // inserts the app configuration fields
+  if(in_array($form_id, $app_form_ids) && isset($_GET['aid'])) {
+    $form['field_cmtls_application'][LANGUAGE_NONE]['#default_value'][] = (int)$_GET['aid'];
+    // add location autocomplete
+    drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.location_ac.js');
+  }
+  
+  // inserts the app configuration fields
+  if($form_id == 'cmtls_app_node_form') {
+    $current_config = array();
+    
+    if(!empty($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) {
+      $current_config = unserialize($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
+    }
+    
+    $configs = module_invoke_all('cmtls_app_config', $current_config);
+    
+    $form['cmtls_app_configs'] = array();
+    
+    if(!empty($configs)) {
+      $form['cmtls_app_configs'] = $configs;
+      $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 1;
+      $form['#submit'][] = 'cmtls_form_config_save';
+    }
+    
+    // hide from users
+    if($user->uid != 1) {
+      $form['field_cmtls_app_configs']['#type'] = 'hidden';
+    }
+  }
+  
+  if($form_id == 'cmtls_group_node_form') {
+    // add location autocomplete
+    drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.location_ac.js');
+    // removes the main group field from node form
+    if($user->uid != 1) {
+      $form['field_cmtls_main_group'] = NULL;
+    }
   }
 
-  // preselect parent application
-  if(in_array($form_id, $app_form_ids) && !empty($form['#node']->cmtls_parent_preselect)) {
-    $form['field_cmtls_application'][LANGUAGE_NONE]['#default_value'][] = $form['#node']->cmtls_parent_preselect;
-  }
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- * 
- * removes the main group field from node form
- * adds autocomplete for the location
- */
-function cmtls_form_cmtls_group_node_form_alter(&$form, &$form_state, $form_id) {
-  global $user; 
-  // allow only for the root user
-  if($user->uid != 1) {
-    $form['field_cmtls_main_group'] = NULL;
-  }
-  
-  drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.location_ac.js');
-}
-
-/**
- * Implements hook_form_FORM_ID_alter().
- * 
- * inserts the app configuration fields
- * @see cmtls_form_config_save()
- */
-function cmtls_form_cmtls_app_node_form_alter(&$form, &$form_state, $form_id) {
-  
-  global $user;
-  
-  $current_config = array();
-  
-  if(!empty($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) {
-    $current_config = unserialize($form['#node']->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
-  }
-  
-  $configs = module_invoke_all('cmtls_app_config', $current_config);
-  
-  $form['cmtls_app_configs'] = array();
-  
-  if(!empty($configs)) {
-    $form['cmtls_app_configs'] = $configs;
-    $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 1;
-    $form['#submit'][] = 'cmtls_form_config_save';
-  }
-  
-  if($user->uid != 1) {
-    $form['field_cmtls_app_configs']['#type'] = 'hidden';
-  }
-  
-  // TODO: hide application selection on already existing node to improve usability
-  //if(isset($form['#node']->nid) && $form['#node']->nid) $form['field_cmtls_app_type']['#type'] = 'hidden';
+  unset($form['locations']);
 }
 
 /**
@@ -364,42 +279,6 @@ function cmtls_get_app_config($app = NULL) {
 }
 
 /**
- * returns user full name
- * 
- * @todo make this configurable with tokens, perhaps independent module
- * @todo make static for multiple calls
- */
-function cmtls_get_username($account) {
-  if(isset($account->field_first_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_first_name[LANGUAGE_NONE][0]['safe_value']) {
-    $name = $account->field_first_name[LANGUAGE_NONE][0]['safe_value'];
-    if(isset($account->field_last_name[LANGUAGE_NONE][0]['safe_value']) && $account->field_last_name[LANGUAGE_NONE][0]['safe_value']) {
-      $name .= ' '.$account->field_last_name[LANGUAGE_NONE][0]['safe_value'];
-    }
-    
-    return $name;
-  }
-  else {
-    return $account->name;
-  }
-}
-
-/**
- * implements hook_username_alter()
- * changes the username to full users name
- */
-function cmtls_username_alter(&$name, &$account) {
-  $name = cmtls_get_username($account);
-}
-
-/**
- * implements hook_preprocess_username()
- * changes the username to full users name
- */
-function cmtls_preprocess_username(&$variables) {
-  $variables['name_raw'] = $variables['name'] = cmtls_get_username(user_load($variables['uid']));
-}
-
-/**
  * Implements hook_form_FORM_ID_alter().
  * 
  * adds new user registrations to the main CT group
@@ -413,18 +292,7 @@ function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
  * adds new user registrations to the main CT group
  */
 function cmtls_user_register_add_to_main_group($form, &$form_state) {
-  $query = db_select('field_data_field_cmtls_main_group', 'field_data_field_cmtls_main_group')
-    ->fields('og', array('gid'))
-    ->condition('field_data_field_cmtls_main_group.field_cmtls_main_group_value', 1, '=')
-    ->range(0, 1);
-  $query->join('og', 'og', 'field_data_field_cmtls_main_group.entity_id = og.etid');
-  $group = $query->execute()->fetchAssoc();
-  if(count($group)) {
-    $values = array(
-      'entity' => $form['#user'],
-    );
-    og_group($group['gid'], $values);
-  }
+  cmtls_add_user_to_main_group($form['#user']);
 }
 
 /**
@@ -573,5 +441,463 @@ function cmtls_context_registry() {
 function cmtls_context_node_condition_alter(&$node, $op) {
   if ($plugin = context_get_plugin('condition', 'cmtls_app_type')) {
     $plugin->execute($node, $op);
+  }
+}
+
+function cmtls_theme($existing, $type, $theme, $path) {
+  return array(
+    'cmtls_group_members_count' => array(
+      'variables' => array(
+        'count' => 0,
+      ),
+    ),
+    'cmtls_group_subscription' => array(
+      'variables' => array(
+        'entity' => NULL,
+      ),
+    ),
+    'cmtls_location' => array(
+      'template' => 'cmtls-location',
+      'variables' => array(
+        'location' => NULL,
+        'hide' => array(),
+      ),
+    ),
+  );
+}
+
+/**
+ * Theme a simple content array.
+ *
+ * This theme function uses the newer recommended format where a single
+ * render array is provided to the theme function.
+ */
+function theme_cmtls_group_members_count($variables) {
+  $output = t('!count members', array('!count' => $variables['count']));
+  return $output;
+}
+
+function cmtls_group_ds_members_field(&$entity) {
+  $groups = og_get_group_ids('node', array($entity->nid));
+  $query = db_select('users', 'u');
+  $query->innerJoin('og_membership', 'ogm', 'u.uid = ogm.etid');
+  $query
+    ->condition('ogm.gid', $groups, 'IN')
+    ->condition('ogm.entity_type', 'user', '=');
+  $query->addExpression('COUNT(u.uid)', 'count');
+  
+  $count = $query->execute()->fetchField();
+  
+  return theme('cmtls_group_members_count', array('count' => $count));
+}
+
+/**
+ * c-p from: og_ui_subscribe_link()
+ * 
+ * @see og_ui_subscribe_link()
+ */
+function theme_cmtls_group_subscription($variables) {
+  $entity_type = 'node';
+  $entity = $variables['entity'];
+  
+  $return = array();
+
+  global $user;
+  $account = clone($user);
+
+  list($id) = entity_extract_ids($entity_type, $entity);
+
+  if (($group = og_get_group($entity_type, $id))) {
+    if (!empty($entity->uid) && ($entity->uid == $user->uid)) {
+      // User is the group manager.
+      $links['title'] = t('Leave');
+      $links['href'] = "group/$entity_type/$id/unsubscribe";
+      $links['options'] = array(
+        'attributes' => array(
+          'class' => array(
+            'disabled',
+          ),
+        ),
+      );
+    }
+    else {
+      // Check if the user is a group member.
+      if (og_is_member($group->gid, 'user', $account, array(OG_STATE_ACTIVE, OG_STATE_PENDING))) {
+        if (og_user_access($group->gid, 'unsubscribe', $account)) {
+          $links['title'] = t('Leave');
+          $links['href'] = "group/$entity_type/$id/unsubscribe";
+        }
+      }
+      else {
+        if (og_is_member($group->gid, 'user', $account, array(OG_STATE_BLOCKED))) {
+          // If user is blocked, they should not be able to apply for
+          // membership.
+          return;
+        }
+
+        if (og_user_access($group->gid, 'subscribe without approval', $account)) {
+          $links['title'] = t('Join');
+          $url = "group/$entity_type/$id/subscribe";
+          if ($account->uid) {
+            $links['href'] = $url;
+          }
+          else {
+            $links['href'] = 'user/login';
+            $links['options'] = array('query' => array('destination' => $url));
+          }
+        }
+        elseif (og_user_access($group->gid, 'subscribe')) {
+          $links['title'] = t('Join');
+          $url = "group/$entity_type/$id/subscribe";
+          if ($account->uid) {
+            $links['href'] = $url;
+          }
+          else {
+            $links['href'] = 'user/login';
+            $links['options'] = array('query' => array('destination' => $url));
+          }
+        }
+        else {
+          $return = array(
+            //'#type' => 'item',
+            //'#markup' => t('This is a closed group. Only a group administrator can add you.'),
+          );
+        }
+
+      }
+    }
+  }
+
+  if (!empty($links['title'])) {
+    $links += array('options' => array());
+    $return = array(
+      '#type' => 'link',
+      '#title' => $links['title'],
+      '#href' => $links['href'],
+      '#options' => $links['options'],
+    );
+  }
+  
+  return render($return);
+}
+
+function cmtls_group_ds_subscription_field(&$entity) {
+  return theme('cmtls_group_subscription', array('entity' => $entity));
+}
+
+/**
+ * Define layouts from code.
+ *
+ * @return $layouts
+ *   A collection of layouts.
+ */
+function cmtls_ds_layout_info() {
+  $layouts = array(
+    'cmtls_short_4region' => array(
+      'label' => t('Left column, content, footer, right column'),
+      'path' => drupal_get_path('module', 'cmtls') . '/layouts/cmtls_short_4region',
+      'regions' => array(
+        'left_column' => t('Left column'),
+        'middle' => t('Content'),
+        'footer' => t('Footer'),
+        'right_column' => t('Right column'),
+      ),
+      //'css' => TRUE,
+      // optional, form only applies to node form at this point.
+      //'form' => TRUE,
+    ),
+  );
+
+  return $layouts;
+}
+
+/**
+ * Implements hook_views_data_alter()
+ * to change node type filter
+ */
+function cmtls_views_data_alter(&$data) {
+  $data['node']['type']['filter']['handler'] = 'views_handler_filter_cmtls_node_type';
+}
+
+/**
+ * Theme preprocess function for a location.
+ * 
+ * @see template_preprocess_location()
+ */
+function template_preprocess_cmtls_location(&$variables) {
+  $location = $variables['location'];
+  // This will get taken back out if map links are hidden.
+  $location['map_link'] = TRUE;
+  if (is_array($variables['hide'])) {
+    foreach($variables['hide'] as $key) {
+      unset($location[$key]);
+      // Special case for coords.
+      /*
+      if ($key == 'coords') {
+        unset($location['latitude']);
+        unset($location['longitude']);
+      }
+       * 
+       */
+    }
+  }
+
+  $fields = location_field_names(TRUE);
+  if (is_array($fields)) {
+    foreach ($fields as $key => $value) {
+      $variables[$key] = '';
+      // Arrays can't be converted, ignore them.
+      if (!empty($location[$key]) && !is_array($location[$key])) {
+        $variables[$key] = check_plain($location[$key]);
+      }
+    }
+  }
+
+  // Map link.
+  $variables['map_link'] = '';
+  if (!empty($location['map_link'])) {
+    // Do not use $location for generating the map link, since it will 
+    // not contain the country if that field is hidden.
+    $variables['map_link'] = location_map_link($variables['location']);
+  }
+
+  // Theme latitude and longitude as d/m/s.
+  $variables['latitude'] = '';
+  $variables['latitude_dms'] = '';
+  if (!empty($location['latitude'])) {
+    $variables['latitude'] = check_plain($location['latitude']);
+    $variables['latitude_dms'] = theme('location_latitude_dms', array('latitude' => $location['latitude']));
+  }
+  
+  $variables['longitude'] = '';
+  $variables['longitude_dms'] = '';
+  if (!empty($location['longitude'])) {
+    $variables['longitude'] = check_plain($location['longitude']);
+    $variables['longitude_dms'] = theme('location_longitude_dms', array('longitude' => $location['longitude']));
+  }
+
+  // Add a country-specific template suggestion.
+  if (!empty($location['country']) && location_standardize_country_code($location['country'])) {
+    // $location['country'] is normalized in the previous line.
+    $variables['theme_hook_suggestions'][] = 'location__' . $location['country'];
+  }
+
+  // Display either the code or the full name for the province.
+  if (!isset($location['province'])) {
+    $location['province'] = '';
+  }
+  if (!isset($location['province_name'])) {
+    $location['province_name'] = '';
+  }
+  $variables['province_print'] = variable_get('location_use_province_abbreviation', 1) ? $location['province'] : $location['province_name'];
+}
+
+/**
+ * Implements hook_block_info().
+ *
+ * This hook declares what blocks are provided by the module.
+ */
+function cmtls_block_info() {
+  // This hook returns an array, each component of which is an array of block
+  // information. The array keys are the 'delta' values used in other block
+  // hooks.
+
+  // The required block information is a block description, which is shown
+  // to the site administrator in the list of possible blocks. You can also
+  // provide initial settings for block weight, status, etc.
+
+  // Many options are defined in hook_block_info():
+  $blocks['cmtls_edit_buttons'] = array(
+    // info: The name of the block.
+    'info' => t('CT: buttons'),
+  );
+
+  $blocks['cmtls_powered_by'] = array(
+    // info: The name of the block.
+    'info' => t('CT: powered by'),
+  );
+  
+  return $blocks;
+}
+
+/**
+ * Implements hook_block_view().
+ *
+ * This hook generates the contents of the blocks themselves.
+ */
+function cmtls_block_view($delta = '') {
+  //The $delta parameter tells us which block is being requested.
+  $block = NULL;
+  switch ($delta) {
+    case 'cmtls_powered_by':
+        $block['subject'] = NULL;
+        $block['content'] = '<span>' . t('Powered by <a href="@poweredby">Community Tools</a>', array('@poweredby' => 'http://communitytools.info')) . '</span>';
+      break;
+    case 'cmtls_edit_buttons':
+      global $user;
+      
+      $links = array();
+      
+      $entity = menu_get_object();
+      
+      if(!isset($entity)) {
+        // groups global pages  
+        if(($_GET['q'] == 'cmtls/groups' || $_GET['q'] == 'cmtls/my-groups') && node_access('create', 'cmtls_group')) {
+          $links[] = '<li>'. l(t('Add group'), 'node/add/cmtls-group') . '</li>';
+        }
+        // users
+        if(arg(0) == 'user' && arg(1) && !arg(2) && $user->uid == arg(1) && user_edit_access($user)) {
+          $links[] = '<li>'. l(t('Edit'), 'user/' . (int)arg(1) . '/edit') . '</li>';
+        }
+      }
+      
+      // edit
+      if(isset($entity->type) && !arg(2) && node_access('update', $entity)) {
+        $links[] = '<li>'. l(t('Edit'), 'node/' . (int)arg(1) . '/edit') . '</li>';
+      }
+      
+      // assuming this is node
+      if(isset($entity->type) && !arg(2)) {
+        $goto_options = array();
+        $node = $entity;
+        // get parent menu by path node/$node->nid
+        $query = db_select('menu_links', 'menu_links')
+          ->fields('menu_links', array('mlid'))
+          ->condition('menu_links.link_path', 'node/' . $node->nid, '=');
+        if($mlid = $query->execute()->fetchField()) {
+          $goto_options['query']['mlid'] = $mlid; 
+        }
+        
+        // group advanced
+        if($node->type == 'cmtls_group') {
+          $groups = og_get_group_ids('node', array($node->nid));
+          $goto_options['query']['gid'] = $groups[$node->nid]; 
+          if(og_user_access($groups[$node->nid], 'update own cmtls_app content')) {
+      	    $goto_options['query']['gid'] = $groups[$node->nid]; 
+      	    if(og_user_access($groups[$node->nid], 'administer group')) {
+      	      $links[] = '<li>'.l(t('Group settings'), 'node/' . (int)arg(1) . '/group', $goto_options) . '</li>';
+      	    }
+          }
+        }
+        // group preselect for apps
+        if($node->type == 'cmtls_group' && node_access('create', 'cmtls_app')) {
+          $groups = og_get_group_ids('node', array($node->nid));
+          $goto_options['query']['gid'] = $groups[$node->nid]; 
+          if(og_user_access($groups[$node->nid], 'update own cmtls_app content')) {
+            $links[] = '<li>'.l(t('Add application'), 'node/add/cmtls-app', $goto_options) . '</li>';
+          }
+        }
+        // group and app preselect for content nodes
+        elseif($node->type == 'cmtls_app') {
+          $type = array_pop(array_keys(cmtls_get_app_content_types($node->cmtls_app_type)));  // multiple types yet to resolve
+          if(node_access('create', $type)) {
+            $groups = og_get_entity_groups('node', $node);
+            $goto_options['query']['gid'] = array_shift($groups); 
+            $goto_options['query']['aid'] = $node->nid;
+            if(og_user_access($goto_options['query']['gid'], 'update own ' . $type . ' content')) {
+              $links[] = '<li>'.l(t('Add'), 'node/add/' . str_replace('_', '-', $type), $goto_options) . '</li>';
+            }
+          }
+        }
+        // group and app preselect for content nodes
+        elseif(in_array($node->type, array_keys(cmtls_get_app_content_types())) && node_access('create', $node->type)) {
+          $groups = og_get_entity_groups('node', $node);
+          $goto_options['query']['gid'] = array_shift($groups); 
+          $goto_options['query']['aid'] = $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'];
+          if(og_user_access($goto_options['query']['gid'], 'update own ' . $node->type . ' content')) {
+            $links[] = '<li>'.l(t('Add'), 'node/add/' . str_replace('_', '-', $node->type), $goto_options) . '</li>';
+          }
+        }
+      }
+
+      if(sizeof($links)) {
+        $block['subject'] = NULL;
+        $block['content'] = '<ul class="cmtls-tabs">' . implode($links, '') . '</ul>';
+      }
+      break;
+  }
+  return $block;
+}
+
+/**
+ * Implements hook_fb_user().
+ *
+ * fb_user.module will call this before and after creating a local Drupal account.
+ *
+ * @param $data
+ * fb_user.module will fill this with information pulled from the facebook API.
+ * If you need additional information, call fb_api() to get it.
+ */
+function cmtls_fb_user($op, $data, &$return) {
+  // add the first and lastname to cmtls name fields
+  if ($op == FB_USER_OP_PRE_USER) {
+    $return['field_cmtls_firstname'] = array(
+      'und' => array(
+        0 => array(
+          'value' => $data['info']['first_name'],
+        ),
+      ),
+    ); 
+    $return['field_cmtls_lastname'] = array(
+      'und' => array(
+        0 => array(
+          'value' => $data['info']['last_name'],
+        ),
+      ),
+    ); 
+  }
+  
+  // add the user to main group
+  if ($op == FB_USER_OP_POST_USER) {
+    cmtls_add_user_to_main_group($data['account']);
+  }
+}
+
+/**
+ * helper function adds user to the CT main group
+ */
+function cmtls_add_user_to_main_group($account = NULL) {
+  
+  if(!$account) {
+    global $user;
+    $account = $user;
+  }
+  
+  $gid = cmtls_get_main_group_gid();
+  if($gid) {
+    $values = array(
+      'entity' => $account,
+    );
+    og_group($gid, $values);
+  }
+}
+
+function cmtls_get_main_group_gid() {
+  $query = db_select('field_data_field_cmtls_main_group', 'field_data_field_cmtls_main_group')
+    ->fields('og', array('gid'))
+    ->condition('field_data_field_cmtls_main_group.field_cmtls_main_group_value', 1, '=')
+    ->range(0, 1);
+  $query->join('og', 'og', 'field_data_field_cmtls_main_group.entity_id = og.etid');
+  $group = $query->execute()->fetchAssoc();
+  return $group['gid'];
+}
+
+function cmtls_create_main_group() {
+  if(!cmtls_get_main_group_gid()) {
+    $body_text = 'This is the body text I want entered with the node.';
+    
+    $node = new stdClass();
+    $node->type = 'cmtls_group';
+    node_object_prepare($node);
+    
+    $node->title = t('Main group');
+    $node->language = LANGUAGE_NONE;
+    $node->body[$node->language][0]['value'] = t('This is the main group');
+    $node->field_cmtls_main_group[$node->language][0]['value'] = 1;
+    $node->group_group[$node->language][0]['value'] = 1;
+  
+    node_save($node);
+    
+    return $node;
   }
 }

@@ -9,135 +9,7 @@ function cmtls_install() {
   // set the weight so the form alter occurs after menu module  
   db_query("UPDATE {system} SET weight = 10 WHERE name = 'cmtls'");
   
-  // ct general taxonomy
-  taxonomy_vocabulary_save((object) array(
-    'name' => st('CT tags'),
-    'description' => st('Use tags to group articles on similar topics into categories.'),
-    'machine_name' => 'cmtls_tags',
-    'help' => st('Enter a comma-separated list of words to describe your content.'),
-  ));
-  
-  // ct groups menu
-  menu_save(array(
-    'menu_name' => 'menu-cmtls-groups',
-    'title' => st('Groups'),
-    'description' => st('Community Tools group and applications menu'),
-  ));
-  
-  // ct global toolbar menu
-  menu_save(array(
-    'menu_name' => 'menu-cmtls-global-toolbar',
-    'title' => st('Toolbar'),
-    'description' => st('Community Tools global toolbar'),
-  ));
-  
-  // user fields
-  $instance = field_info_instance('user', OG_AUDIENCE_FIELD, 'user');
-  foreach ($instance['display'] as $type => &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 4;
-  field_update_instance($instance);
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_first_name'
-    ),
-    'field_instance' => array(
-      'bundle' => 'user',
-      'widget' => array('weight' => 1),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_last_name'
-    ),
-    'field_instance' => array(
-      'bundle' => 'user',
-      'widget' => array('weight' => 2),
-    ),
-  ));
-  
-  _cmtls_reset_group_node(); 
-  _cmtls_reset_app_node(); 
-  _cmtls_reset_location_node();
-}
-
-/**
- * @todo does not actually reset yet
- */
-function _cmtls_reset_group_node() {
-  // add group node fields
-  og_create_field(OG_GROUP_FIELD, 'node', 'cmtls_group');
-  $instance = field_info_instance('node', OG_GROUP_FIELD, 'cmtls_group');
-  foreach ($instance['display'] as $type => &$display) {
-    if($type != 'default') {
-      $display['type'] = 'hidden';
-    }
-    if($type == 'default') {
-      $display['label'] = 'hidden';
-    }
-  }
-  $instance['widget']['weight'] = 7;
-  field_update_instance($instance);
-  
-  /*
-  og_create_field(OG_CONTENT_ACCESS_FIELD, 'node', 'cmtls_group');
-  $instance = field_info_instance('node', OG_CONTENT_ACCESS_FIELD, 'cmtls_group');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  field_update_instance($instance);
-   */
-  
-  og_create_field(OG_ACCESS_FIELD, 'node', 'cmtls_group');
-  $instance = field_info_instance('node', OG_ACCESS_FIELD, 'cmtls_group');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 3;
-  field_update_instance($instance);
-  
-  og_create_field(OG_DEFAULT_ACCESS_FIELD, 'node', 'cmtls_group');
-    $instance = field_info_instance('node', OG_DEFAULT_ACCESS_FIELD, 'cmtls_group');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 4;
-  field_update_instance($instance);
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_location'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_group',
-      'widget' => array('weight' => 2),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_main_group'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_group',
-      'widget' => array('weight' => 5),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'body'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_group',
-      'label' => 'Description',
-      'widget' => array('weight' => 1),
-    ),
-  ));
-  
+  // group variables
   variable_set('comment_anonymous_cmtls_group', 0);
   variable_set('comment_cmtls_group', 0);
   variable_set('comment_default_mode_cmtls_group', 0);
@@ -145,65 +17,12 @@ function _cmtls_reset_group_node() {
   variable_set('comment_form_location_cmtls_group', 1);
   variable_set('comment_preview_cmtls_group', 1);
   variable_set('comment_subject_field_cmtls_group', 0);
-  variable_set('menu_options_cmtls_group', array('menu-cmtls-groups'));
-  variable_set('menu_parent_cmtls_group', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_group', array('status'));
-  variable_set('node_preview_cmtls_group', 1);
+  variable_set('node_preview_cmtls_group', 0);
   variable_set('node_submitted_cmtls_group', 1);
-  variable_set('og_group_content_type_cmtls_group', 'omitted');  
-}
-
-/**
- * @todo does not actually reset yet
- */
-function _cmtls_reset_app_node() {
-  // add app node fields
-  og_create_field(OG_AUDIENCE_FIELD, 'node', 'cmtls_app');
-  $instance = field_info_instance('node', OG_AUDIENCE_FIELD, 'cmtls_app');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 5;
-  field_update_instance($instance);
+  variable_set('og_group_content_type_cmtls_group', 'omitted');
   
-  og_create_field(OG_CONTENT_ACCESS_FIELD, 'node', 'cmtls_app');
-  $instance = field_info_instance('node', OG_CONTENT_ACCESS_FIELD, 'cmtls_app');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 2;
-  field_update_instance($instance);
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_app_type'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_app',
-      'widget' => array('weight' => 3),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_app_configs'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_app',
-      'widget' => array('weight' => 4),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'body'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_app',
-      'label' => 'Description',
-    ),
-  ));
-  
+  // app variables  
   variable_set('comment_anonymous_cmtls_app', 0);
   variable_set('comment_cmtls_app', 0);
   variable_set('comment_default_mode_cmtls_app', 0);
@@ -211,90 +30,12 @@ function _cmtls_reset_app_node() {
   variable_set('comment_form_location_cmtls_app', 1);
   variable_set('comment_preview_cmtls_app', 1);
   variable_set('comment_subject_field_cmtls_app', 0);
-  variable_set('menu_options_cmtls_app', array('menu-cmtls-groups'));
-  variable_set('menu_parent_cmtls_app', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_app', array('status'));
   variable_set('node_preview_cmtls_app', 1);
-  variable_set('node_submitted_cmtls_app', 1);
+  variable_set('node_submitted_cmtls_app', 0);
   variable_set('og_group_type_cmtls_app', 'omitted');
-}
-
-/**
- * @todo does not actually reset yet
- */
-function _cmtls_reset_location_node() {
-  // add location node fields
-  og_create_field(OG_AUDIENCE_FIELD, 'node', 'cmtls_location');
-  $instance = field_info_instance('node', OG_AUDIENCE_FIELD, 'cmtls_location');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 5;
-  field_update_instance($instance);
   
-  og_create_field(OG_CONTENT_ACCESS_FIELD, 'node', 'cmtls_location');
-  $instance = field_info_instance('node', OG_CONTENT_ACCESS_FIELD, 'cmtls_location');
-  foreach ($instance['display'] as &$display) {
-    $display['type'] = 'hidden';
-  }
-  $instance['widget']['weight'] = 6;
-  field_update_instance($instance);
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_application'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_location',
-      'widget' => array('weight' => 7),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_location'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_location',
-      'widget' => array('weight' => 3),
-    ),
-  ));
-  
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_tags'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_location',
-      'widget' => array('weight' => 1),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'field_cmtls_attachments'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_location',
-      'widget' => array('weight' => 4),
-    ),
-  ));
-  
-  cmtls_create_field(array(
-    'field_config' => array(
-      'field_name' => 'body'
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_location',
-      'label' => 'Description',
-    ),
-  ));
-  
-  $settings = field_bundle_settings('node', 'cmtls_location');
-  $settings['view_modes']['cmtls_wall']['custom_settings'] = TRUE;
-  $settings = field_bundle_settings('node', 'cmtls_location', $settings);
-  
+  // location variables
   variable_set('comment_anonymous_cmtls_location', 0);
   variable_set('comment_cmtls_location', 2);
   variable_set('comment_default_mode_cmtls_location', 0);
@@ -302,10 +43,8 @@ function _cmtls_reset_location_node() {
   variable_set('comment_form_location_cmtls_location', 1);
   variable_set('comment_preview_cmtls_location', 1);
   variable_set('comment_subject_field_cmtls_location', 0);
-  variable_set('menu_options_cmtls_location', array('menu-cmtls-groups'));
-  variable_set('menu_parent_cmtls_location', 'menu-cmtls-groups:0');
   variable_set('node_options_cmtls_location', array('status'));
-  variable_set('node_preview_cmtls_location', 1);
+  variable_set('node_preview_cmtls_location', 0);
   variable_set('node_submitted_cmtls_location', 1);
   variable_set('og_group_type_cmtls_location', 'omitted');
 }

@@ -891,6 +891,7 @@ function cmtls_create_main_group() {
     node_object_prepare($node);
     
     $node->title = t('Main group');
+    $node->uid = 1;
     $node->language = LANGUAGE_NONE;
     $node->body[$node->language][0]['value'] = t('This is the main group');
     $node->field_cmtls_main_group[$node->language][0]['value'] = 1;

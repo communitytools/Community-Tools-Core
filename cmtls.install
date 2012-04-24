@@ -47,4 +47,16 @@ function cmtls_install() {
   variable_set('node_preview_cmtls_location', 0);
   variable_set('node_submitted_cmtls_location', 1);
   variable_set('og_group_type_cmtls_location', 'omitted');
+
+  // enable DS view modes
+  $settings = variable_get('field_bundle_settings', array());
+  $settings['node']['cmtls_group']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['node']['cmtls_app']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['node']['cmtls_location']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['node']['cmtls_location']['view_modes']['cmtls_location_bare']['custom_settings'] = TRUE;
+  $settings['user']['user']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['comment']['comment_node_cmtls_group']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['comment']['comment_node_cmtls_app']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['comment']['comment_node_cmtls_location']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings', $settings);
 }

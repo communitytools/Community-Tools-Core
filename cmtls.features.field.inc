@@ -1511,7 +1511,7 @@ function cmtls_field_default_fields() {
       'settings' => array(
         'description_field' => 1,
         'file_directory' => 'cmtls-attachments',
-        'file_extensions' => 'txt jpg png gif pdf doc xls',
+        'file_extensions' => 'gif jpeg jpg png ai cdr doc docx dot gz htm html odg odp ods odt pdf ppt pptx pps rtf swf tar tgz t',
         'max_filesize' => '',
         'user_register_form' => FALSE,
       ),

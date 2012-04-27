@@ -267,13 +267,8 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'cmtls_location';
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
-    'title' => array(
-      'weight' => '0',
-      'label' => 'hidden',
-      'format' => 'default',
-    ),
     'comments' => array(
-      'weight' => '40',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -706,13 +701,11 @@ function cmtls_ds_layout_settings_info() {
     'hide_sidebars' => 0,
     'regions' => array(
       'ds_content' => array(
-        0 => 'title',
-        1 => 'body',
-        2 => 'comments',
+        0 => 'body',
+        1 => 'comments',
       ),
     ),
     'fields' => array(
-      'title' => 'ds_content',
       'body' => 'ds_content',
       'comments' => 'ds_content',
     ),

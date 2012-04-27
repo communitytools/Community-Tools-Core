@@ -1997,7 +1997,7 @@ function cmtls_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '0',
+        'weight' => '1',
       ),
     ),
   );
@@ -2064,7 +2064,7 @@ function cmtls_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '2',
       ),
     ),
   );
@@ -2146,7 +2146,7 @@ function cmtls_field_default_fields() {
           'opt_group' => 'auto',
         ),
         'type' => 'group_audience',
-        'weight' => '4',
+        'weight' => '5',
       ),
       'widget_type' => 'group_audience',
     ),

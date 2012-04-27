@@ -211,5 +211,45 @@ function cmtls_field_group_info() {
   );
   $export['group_tabs|node|cmtls_group|form'] = $field_group;
 
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_user_layout|user|user|form';
+  $field_group->group_name = 'group_user_layout';
+  $field_group->entity_type = 'user';
+  $field_group->bundle = 'user';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'User',
+    'weight' => '0',
+    'children' => array(
+      0 => 'group_audience',
+      1 => 'field_cmtls_firstname',
+      2 => 'field_cmtls_lastname',
+      3 => 'redirect',
+      4 => 'account',
+      5 => 'timezone',
+      6 => 'picture',
+      7 => 'locale',
+      8 => 'wysiwyg',
+    ),
+    'format_type' => 'div',
+    'format_settings' => array(
+      'label' => 'User',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => '',
+        'description' => '',
+        'show_label' => '0',
+        'label_element' => 'h3',
+        'effect' => 'none',
+        'speed' => 'none',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_user_layout|user|user|form'] = $field_group;
+
   return $export;
 }

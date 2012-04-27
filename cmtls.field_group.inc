@@ -82,15 +82,14 @@ function cmtls_field_group_info() {
     'label' => 'Advanced',
     'weight' => '5',
     'children' => array(
-      0 => 'group_audience',
-      1 => 'group_content_access',
-      2 => 'field_cmtls_application',
+      0 => 'group_content_access',
+      1 => 'group_hidden',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
       'label' => 'Advanced',
       'instance_settings' => array(
-        'required_fields' => 1,
+        'required_fields' => 0,
         'classes' => '',
         'description' => '',
       ),
@@ -156,6 +155,35 @@ function cmtls_field_group_info() {
     ),
   );
   $export['group_hidden|node|cmtls_group|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_hidden|node|cmtls_location|form';
+  $field_group->group_name = 'group_hidden';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'cmtls_location';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_advanced';
+  $field_group->data = array(
+    'label' => 'Hidden',
+    'weight' => '11',
+    'children' => array(
+      0 => 'field_cmtls_application',
+      1 => 'group_audience',
+    ),
+    'format_type' => 'fieldset',
+    'format_settings' => array(
+      'label' => 'Hidden',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => 'element-invisible',
+        'description' => '',
+      ),
+      'formatter' => 'collapsible',
+    ),
+  );
+  $export['group_hidden|node|cmtls_location|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

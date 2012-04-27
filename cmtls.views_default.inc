@@ -82,6 +82,18 @@ function cmtls_views_default_views() {
 
   /* Display: Applications list block */
   $handler = $view->new_display('block', 'Applications list block', 'block');
+  $translatables['cmtls_applications'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('group membership'),
+    t('All'),
+    t('Applications list block'),
+  );
   $export['cmtls_applications'] = $view;
 
   $view = new view;
@@ -379,6 +391,34 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['group']['not'] = 0;
+  $translatables['cmtls_comments'] = array(
+    t('Master'),
+    t('Comments'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('Content'),
+    t('group membership'),
+    t('Member comments page'),
+    t('All comments posted in Community Tools groups by a member'),
+    t('All'),
+    t('Comments by %1'),
+    t('Member recent comments block'),
+    t('Latest comments posted in Community Tools groups by a member'),
+    t('Group comments page'),
+    t('All comments in a group'),
+    t('Comments in %1'),
+    t('Group recent comments block'),
+    t('Recent comments'),
+    t('Latest comments in a group block'),
+    t('In reply to'),
+  );
   $export['cmtls_comments'] = $view;
 
   $view = new view;
@@ -922,6 +962,35 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  $translatables['cmtls_common_elements'] = array(
+    t('Master'),
+    t('Element'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('All'),
+    t('Location block'),
+    t('Location'),
+    t('Location with small map'),
+    t('Nid'),
+    t('Address attachment'),
+    t('The address for the location map block'),
+    t('Attachments block'),
+    t('Files'),
+    t('Node attachments'),
+    t('Tags block'),
+    t('Tags'),
+    t('Global Community Tools tags'),
+    t('Content block'),
+    t('Date and author block'),
+    t('author'),
+    t('Comments'),
+    t('.'),
+    t('Breadcrumb'),
+  );
   $export['cmtls_common_elements'] = $view;
 
   $view = new view;
@@ -1073,6 +1142,25 @@ function cmtls_views_default_views() {
   $handler->display->display_options['menu']['weight'] = '0';
   $handler->display->display_options['menu']['name'] = 'main-menu';
   $handler->display->display_options['menu']['context'] = 0;
+  $translatables['cmtls_group'] = array(
+    t('Master'),
+    t('Groups'),
+    t('more'),
+    t('Search'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('group'),
+    t('OG membership'),
+    t('Title'),
+    t('All groups page'),
+    t('My groups page'),
+    t('All'),
+  );
   $export['cmtls_group'] = $view;
 
   $view = new view;
@@ -1278,6 +1366,27 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['group']['not'] = 0;
+  $translatables['cmtls_group_content'] = array(
+    t('Master'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('field_cmtls_application'),
+    t('group membership'),
+    t('author'),
+    t('Comments'),
+    t('.'),
+    t(','),
+    t('Wall content'),
+    t('Community Tools group wall content'),
+    t('All'),
+  );
   $export['cmtls_group_content'] = $view;
 
   $view = new view;
@@ -1636,6 +1745,31 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'cmtls_location' => 'cmtls_location',
   );
+  $translatables['cmtls_locations'] = array(
+    t('Master'),
+    t('Locations'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('group membership'),
+    t('field_cmtls_application'),
+    t('location date'),
+    t('Title'),
+    t('Last comment time'),
+    t('Application content block'),
+    t('Locations on the application page'),
+    t('All'),
+    t('Application map block'),
+    t('Locations on map on the application page'),
+    t('Latitude'),
+    t('Longitude'),
+  );
   $export['cmtls_locations'] = $view;
 
   $view = new view;
@@ -1775,6 +1909,26 @@ function cmtls_views_default_views() {
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '5';
+  $translatables['cmtls_member_comments'] = array(
+    t('Master'),
+    t('Posted comments'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('Content'),
+    t('group membership'),
+    t('All'),
+    t('Comments by %1'),
+    t('Posted comments page'),
+    t('All comments posted by a member'),
+    t('Posted comments block'),
+  );
   $export['cmtls_member_comments'] = $view;
 
   $view = new view;
@@ -1902,6 +2056,27 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['group']['not'] = 0;
   $handler->display->display_options['path'] = 'node/%/cmtls/members';
+  $translatables['cmtls_members'] = array(
+    t('Defaults'),
+    t('Members'),
+    t('more'),
+    t('Apply'),
+    t('Reset'),
+    t('Sort by'),
+    t('Asc'),
+    t('Desc'),
+    t('Items per page'),
+    t('- All -'),
+    t('Offset'),
+    t('group membership'),
+    t('Latest group members block'),
+    t('Latest members'),
+    t('The latest Community Tools group members'),
+    t('All'),
+    t('Group members page'),
+    t('Members of a specific group'),
+    t('Members of %1'),
+  );
   $export['cmtls_members'] = $view;
 
   return $export;

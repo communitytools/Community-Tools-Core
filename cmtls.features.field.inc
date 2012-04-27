@@ -706,7 +706,7 @@ function cmtls_field_default_fields() {
       ),
       'module' => 'image',
       'settings' => array(
-        'default_image' => '36',
+        'default_image' => 0,
         'uri_scheme' => 'public',
       ),
       'translatable' => '0',

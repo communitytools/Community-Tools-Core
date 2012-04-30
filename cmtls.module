@@ -884,8 +884,6 @@ function cmtls_get_main_group_gid() {
 
 function cmtls_create_main_group() {
   if(!cmtls_get_main_group_gid()) {
-    $body_text = 'This is the body text I want entered with the node.';
-    
     $node = new stdClass();
     $node->type = 'cmtls_group';
     node_object_prepare($node);

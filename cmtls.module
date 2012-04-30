@@ -19,7 +19,7 @@ function cmtls_enable () {
  * adds global variable about current application
  */
 function cmtls_node_load($nodes, $types) {
- // dpm($nodes);
+  //dpm($nodes);
   // TODO: a better way to detect if a node has field 'cmtls_app_type' attached, currently hardcoded
   $node_types = array_keys(cmtls_get_app_content_types());
   foreach ($nodes as $nid => &$node) {
@@ -896,9 +896,85 @@ function cmtls_create_main_group() {
     $node->body[$node->language][0]['value'] = t('This is the main group');
     $node->field_cmtls_main_group[$node->language][0]['value'] = 1;
     $node->group_group[$node->language][0]['value'] = 1;
+    $node->group_access[$node->language][0]['value'] = 0;
+    $node->og_roles_permissions [$node->language][0]['value'] = 1;
   
     node_save($node);
     
+    $gid = og_get_group_ids('node', array($node->nid));
+    $gid = array_shift($gid);
+    
+    $roles = og_roles($gid);
+    
+    foreach($roles as $rid => $role) {
+      if($role == 'non-member') {
+        // non-member
+        cmtls_og_role_grant_permissions($rid, array(
+          'subscribe' => 'og_ui',
+          'subscribe without approval' => 'og_ui',
+        ));
+      }
+      if($role == 'member') {
+        // member
+        cmtls_og_role_grant_permissions($rid, array(
+          'delete own cmtls_app content' => 'og',
+          'delete own cmtls_event content' => 'og',
+          'delete own cmtls_location content' => 'og',
+          'delete own cmtls_post content' => 'og',
+          'delete own media_gallery content' => 'og',
+          'update own cmtls_event content' => 'og',
+          'update own cmtls_location content' => 'og',
+          'update own cmtls_post content' => 'og',
+          'update own media_gallery content' => 'og',
+        ));
+      }
+      if($role == 'administrator member') {
+        // admin
+        cmtls_og_role_grant_permissions($rid, array(
+          'add user' => 'og_ui',
+          'approve and deny subscription' => 'og_ui',
+          'administer group' => 'og',
+          'delete any cmtls_app content' => 'og',
+          'delete any cmtls_event content' => 'og',
+          'delete any cmtls_location content' => 'og',
+          'delete any cmtls_post content' => 'og',
+          'delete any media_gallery content' => 'og',
+          'delete own cmtls_app content' => 'og',
+          'delete own cmtls_event content' => 'og',
+          'delete own cmtls_location content' => 'og',
+          'delete own cmtls_post content' => 'og',
+          'delete own media_gallery content' => 'og',
+          'update any cmtls_app content' => 'og',
+          'update any cmtls_event content' => 'og',
+          'update any cmtls_location content' => 'og',
+          'update any cmtls_post content' => 'og',
+          'update any media_gallery content' => 'og',
+          'update group' => 'og',
+          'update own cmtls_app content' => 'og',
+          'update own cmtls_event content' => 'og',
+          'update own cmtls_location content' => 'og',
+          'update own cmtls_post content' => 'og',
+          'update own media_gallery content' => 'og',
+        ));
+      }
+    }
+  
     return $node;
+  }
+}
+
+function cmtls_og_role_grant_permissions($rid, $permissions = array()) {
+  db_delete('og_role_permission')
+    ->condition('rid', $rid, '=')
+    ->execute();
+  
+  foreach($permissions as $name => $module) {
+    db_merge('og_role_permission')
+      ->key(array(
+        'rid' => $rid,
+        'permission' => $name,
+        'module' => $module,
+      ))
+      ->execute();
   }
 }

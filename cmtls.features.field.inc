@@ -56,21 +56,22 @@ function cmtls_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'comment',
       'field_name' => 'comment_body',
       'label' => 'Comment',
-      'required' => TRUE,
+      'required' => 0,
       'settings' => array(
-        'text_processing' => 1,
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 5,
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
         'weight' => 0,
@@ -124,7 +125,7 @@ function cmtls_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
         'full' => array(
           'label' => 'hidden',
@@ -137,15 +138,16 @@ function cmtls_field_default_fields() {
       'entity_type' => 'comment',
       'field_name' => 'comment_body',
       'label' => 'Comment',
-      'required' => TRUE,
+      'required' => 0,
       'settings' => array(
-        'text_processing' => 1,
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 5,
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
         'weight' => 0,
@@ -199,21 +201,22 @@ function cmtls_field_default_fields() {
           'module' => 'text',
           'settings' => array(),
           'type' => 'text_default',
-          'weight' => '2',
+          'weight' => '3',
         ),
       ),
       'entity_type' => 'comment',
       'field_name' => 'comment_body',
       'label' => 'Comment',
-      'required' => TRUE,
+      'required' => 0,
       'settings' => array(
-        'text_processing' => 1,
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'text',
         'settings' => array(
-          'rows' => 5,
+          'rows' => '5',
         ),
         'type' => 'text_textarea',
         'weight' => 0,
@@ -283,7 +286,7 @@ function cmtls_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'display_summary' => 0,
-        'text_processing' => '1',
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(
@@ -667,7 +670,7 @@ function cmtls_field_default_fields() {
       'required' => 0,
       'settings' => array(
         'display_summary' => 0,
-        'text_processing' => '1',
+        'text_processing' => '0',
         'user_register_form' => FALSE,
       ),
       'widget' => array(

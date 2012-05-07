@@ -768,7 +768,7 @@ function cmtls_block_view($delta = '') {
           $goto_options['query']['mlid'] = $mlid; 
         }
         
-        // group advanced
+        // group advanced && app reorder
         if($node->type == 'cmtls_group') {
           $groups = og_get_group_ids('node', array($node->nid));
           $goto_options['query']['gid'] = $groups[$node->nid]; 
@@ -776,6 +776,7 @@ function cmtls_block_view($delta = '') {
       	    $goto_options['query']['gid'] = $groups[$node->nid]; 
       	    if(og_user_access($groups[$node->nid], 'administer group')) {
       	      $links[] = '<li>'.l(t('Group settings'), 'node/' . (int)arg(1) . '/group', $goto_options) . '</li>';
+      	      $links[] = '<li>'.l(t('Apps settings'), 'cmtls/apps/'.$groups[$node->nid], $goto_options) . '</li>';
       	    }
           }
         }

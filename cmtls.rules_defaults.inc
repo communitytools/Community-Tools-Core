@@ -27,6 +27,17 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_application_views_cache_resort'] = entity_import('rules_config', '{ "rules_cmtls_application_views_cache_resort" : {
+      "LABEL" : "CT Application views cache resort",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "cache_actions", "draggableviews" ],
+      "ON" : [ "draggableviews_rules_event_sorted" ],
+      "DO" : [
+        { "cache_actions_action_clear_views_cache" : { "view" : { "value" : { "cmtls_applications" : "cmtls_applications" } } } }
+      ]
+    }
+  }');
   $items['rules_cmtls_comment_views_cache'] = entity_import('rules_config', '{ "rules_cmtls_comment_views_cache" : {
       "LABEL" : "CT Comment views cache",
       "PLUGIN" : "reaction rule",

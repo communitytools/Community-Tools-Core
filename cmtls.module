@@ -70,11 +70,6 @@ function cmtls_menu() {
 }
 
 function cmtls_get_app_content_types($module = NULL) {
-  static $types;
-  if($types && !$module) {
-    return $types;
-  }
-  
   $types = array();
   
   $apps = module_invoke_all('cmtls_app');
@@ -712,6 +707,12 @@ function cmtls_block_info() {
     'info' => t('CT: buttons'),
   );
 
+  // Many options are defined in hook_block_info():
+  $blocks['cmtls_current_group'] = array(
+    // info: The name of the block.
+    'info' => t('CT: current group'),
+  );
+  
   $blocks['cmtls_powered_by'] = array(
     // info: The name of the block.
     'info' => t('CT: powered by'),
@@ -732,6 +733,27 @@ function cmtls_block_view($delta = '') {
     case 'cmtls_powered_by':
         $block['subject'] = NULL;
         $block['content'] = '<span>' . t('Powered by <a href="@poweredby">Community Tools</a>', array('@poweredby' => 'http://communitytools.info')) . '</span>';
+      break;
+    case 'cmtls_current_group':
+        $node = menu_get_object();
+        $content = NULL;
+        if(isset($node->type)) {
+          if($node->type == 'cmtls_group') {
+            $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+          }
+          // group and app preselect for content nodes
+          else {
+            $groups = og_get_entity_groups('node', $node);
+            $gid = array_shift($groups);
+            $group = og_get_group('group', $gid);
+            $node = node_load($group->etid);
+            if($node) {
+              $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+            }
+          }
+        }
+        $block['subject'] = NULL;
+        $block['content'] = '<h2>' . ($content ? $content : l(variable_get('site_name'), '<front>')) . '</h2>';
       break;
     case 'cmtls_edit_buttons':
       global $user;

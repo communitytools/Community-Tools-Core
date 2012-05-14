@@ -105,12 +105,6 @@ function cmtls_context_default_contexts() {
           'region' => 'content',
           'weight' => '-9',
         ),
-        'views-cmtls_media-block_1' => array(
-          'module' => 'views',
-          'delta' => 'cmtls_media-block_1',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
         'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
           'module' => 'views',
           'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',

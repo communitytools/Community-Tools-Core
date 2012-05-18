@@ -93,7 +93,12 @@ function cmtls_add_content_title($parent) {
     return t('Add '.implode(',', $content_types));
   }
   elseif($content_types = cmtls_get_app_content_types()) {
-    return t('Add '.$content_types[$parent->type]);
+    if(isset($content_types[$parent->type])) {
+      return t('Add '.$content_types[$parent->type]);
+    }
+    else {
+      return NULL;
+    }
   }
   else {
     return NULL;
@@ -747,16 +752,27 @@ function cmtls_block_view($delta = '') {
         $content = NULL;
         if(isset($node->type)) {
           if($node->type == 'cmtls_group') {
-            $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+            if($node->field_cmtls_main_group[LANGUAGE_NONE][0]['value']) {
+              $content = l(variable_get('site_name'), drupal_lookup_path('alias', 'node/' . $node->nid));
+            }
+            else {
+              $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+            }
           }
           // group and app preselect for content nodes
           else {
             $groups = og_get_entity_groups('node', $node);
             $gid = array_shift($groups);
-            $group = og_get_group('group', $gid);
-            $node = node_load($group->etid);
-            if($node) {
-              $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+            if($group = og_get_group('group', $gid)) {
+              $node = node_load($group->etid);
+              if($node) {
+                if($node->field_cmtls_main_group[LANGUAGE_NONE][0]['value']) {
+                  $content = l(variable_get('site_name'), drupal_lookup_path('alias', 'node/' . $node->nid));
+                }
+                else {
+                  $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
+                }
+              }
             }
           }
         }

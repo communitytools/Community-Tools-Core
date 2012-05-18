@@ -35,12 +35,6 @@ function cmtls_context_default_contexts() {
           'region' => 'sidebar_second',
           'weight' => '-10',
         ),
-        'views-cmtls_common_elements-block_1' => array(
-          'module' => 'views',
-          'delta' => 'cmtls_common_elements-block_1',
-          'region' => 'preface_first',
-          'weight' => '-10',
-        ),
       ),
     ),
   );
@@ -55,13 +49,50 @@ function cmtls_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
-  $context->name = 'cmtls_group_action_block';
-  $context->description = 'Shows the action buttons block for groups';
-  $context->tag = 'CT group';
+  $context->name = 'cmtls_general_app_list';
+  $context->description = 'Shows the app list block';
+  $context->tag = 'CT general';
   $context->conditions = array(
-    'sitewide' => array(
+    'context' => array(
       'values' => array(
-        1 => 1,
+        'cmtls_general_group_app' => 'cmtls_general_group_app',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-cmtls_applications-block' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_applications-block',
+          'region' => 'preface_first',
+          'weight' => '-8',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('CT general');
+  t('Shows the app list block');
+  $export['cmtls_general_app_list'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'cmtls_general_group_app';
+  $context->description = 'Group or app content type context for other contexts';
+  $context->tag = 'CT general';
+  $context->conditions = array(
+    'node' => array(
+      'values' => array(
+        'cmtls_app' => 'cmtls_app',
+        'cmtls_group' => 'cmtls_group',
+      ),
+      'options' => array(
+        'node_form' => '0',
       ),
     ),
   );
@@ -70,9 +101,75 @@ function cmtls_context_default_contexts() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('CT group');
-  t('Shows the action buttons block for groups');
-  $export['cmtls_group_action_block'] = $context;
+  t('CT general');
+  t('Group or app content type context for other contexts');
+  $export['cmtls_general_group_app'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'cmtls_general_group_breadcrumb';
+  $context->description = 'Sets the breadcrumb block for group content';
+  $context->tag = 'CT general';
+  $context->conditions = array(
+    'context' => array(
+      'values' => array(
+        '~cmtls_general_group_app' => '~cmtls_general_group_app',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-cmtls_common_elements-block_3' => array(
+          'module' => 'views',
+          'delta' => 'cmtls_common_elements-block_3',
+          'region' => 'preface_first',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('CT general');
+  t('Sets the breadcrumb block for group content');
+  $export['cmtls_general_group_breadcrumb'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'cmtls_general_title';
+  $context->description = 'Sets the page title block';
+  $context->tag = 'CT general';
+  $context->conditions = array(
+    'context' => array(
+      'values' => array(
+        '~cmtls_general_group_app' => '~cmtls_general_group_app',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'delta_blocks-page-title' => array(
+          'module' => 'delta_blocks',
+          'delta' => 'page-title',
+          'region' => 'preface_first',
+          'weight' => '-9',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('CT general');
+  t('Sets the page title block');
+  $export['cmtls_general_title'] = $context;
 
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
@@ -93,12 +190,6 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-cmtls_applications-block' => array(
-          'module' => 'views',
-          'delta' => 'cmtls_applications-block',
-          'region' => 'content',
-          'weight' => '-10',
-        ),
         'views-529099a455b0fa960718b1af2e03cae6' => array(
           'module' => 'views',
           'delta' => '529099a455b0fa960718b1af2e03cae6',
@@ -122,12 +213,6 @@ function cmtls_context_default_contexts() {
           'delta' => '46d8ed88f8cfdc87b69f60ac1c127427',
           'region' => 'sidebar_second',
           'weight' => '-7',
-        ),
-        'views-cmtls_common_elements-block_1' => array(
-          'module' => 'views',
-          'delta' => 'cmtls_common_elements-block_1',
-          'region' => 'preface_first',
-          'weight' => '-10',
         ),
       ),
     ),

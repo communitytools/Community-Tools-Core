@@ -565,10 +565,12 @@ function cmtls_ds_layout_settings_info() {
     'hide_sidebars' => 0,
     'regions' => array(
       'ds_content' => array(
-        0 => 'comments',
+        0 => 'body',
+        1 => 'comments',
       ),
     ),
     'fields' => array(
+      'body' => 'ds_content',
       'comments' => 'ds_content',
     ),
     'classes' => array(),

@@ -115,6 +115,24 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
+      "LABEL" : "CT member subscribe\\u002Funsubscribe cache",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "cache_actions", "og" ],
+      "ON" : [
+        "og_user_insert",
+        "og_user_delete",
+        "og_membership_delete",
+        "og_membership_update",
+        "og_user_approved",
+        "og_user_blocked"
+      ],
+      "DO" : [
+        { "cache_actions_action_clear_views_cache" : { "view" : { "value" : { "cmtls_group" : "cmtls_group" } } } }
+      ]
+    }
+  }');
   $items['rules_cmtls_member_views_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_views_cache" : {
       "LABEL" : "CT Member views cache",
       "PLUGIN" : "reaction rule",

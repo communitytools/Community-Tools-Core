@@ -721,14 +721,19 @@ function cmtls_block_info() {
   );
 
   // Many options are defined in hook_block_info():
-  $blocks['cmtls_current_group'] = array(
+  $blocks['cmtls_site_title'] = array(
     // info: The name of the block.
-    'info' => t('CT: current group'),
+    'info' => t('CT: site title'),
   );
   
   $blocks['cmtls_powered_by'] = array(
     // info: The name of the block.
     'info' => t('CT: powered by'),
+  );
+  
+  $blocks['cmtls_slogan'] = array(
+    // info: The name of the block.
+    'info' => t('CT: site slogan'),
   );
   
   return $blocks;
@@ -747,7 +752,7 @@ function cmtls_block_view($delta = '') {
         $block['subject'] = NULL;
         $block['content'] = '<span>' . t('Powered by <a href="@poweredby">Community Tools</a>', array('@poweredby' => 'http://communitytools.info')) . '</span>';
       break;
-    case 'cmtls_current_group':
+    case 'cmtls_site_title':
         $node = menu_get_object();
         $content = NULL;
         if(isset($node->type)) {
@@ -759,7 +764,6 @@ function cmtls_block_view($delta = '') {
               $content = l($node->title, drupal_lookup_path('alias', 'node/' . $node->nid));
             }
           }
-          // group and app preselect for content nodes
           else {
             $groups = og_get_entity_groups('node', $node);
             $gid = array_shift($groups);
@@ -778,6 +782,37 @@ function cmtls_block_view($delta = '') {
         }
         $block['subject'] = NULL;
         $block['content'] = '<h2>' . ($content ? $content : l(variable_get('site_name'), '<front>')) . '</h2>';
+      break;
+    case 'cmtls_site_slogan':
+        $node = menu_get_object();
+        $content = NULL;
+        if(isset($node->type)) {
+          if($node->type == 'cmtls_group') {
+            if($node->field_cmtls_main_group[LANGUAGE_NONE][0]['value']) {
+              $content = variable_get('site_slogan');
+            }
+            else {
+              $content = variable_get('site_name');
+            }
+          }
+          else {
+            $groups = og_get_entity_groups('node', $node);
+            $gid = array_shift($groups);
+            if($group = og_get_group('group', $gid)) {
+              $node = node_load($group->etid);
+              if($node) {
+                if($node->field_cmtls_main_group[LANGUAGE_NONE][0]['value']) {
+                  $content = variable_get('site_slogan');
+                }
+                else {
+                  $content = variable_get('site_name');
+                }
+              }
+            }
+          }
+        }
+        $block['subject'] = NULL;
+        $block['content'] = '<h6>' . ($content ? $content : variable_get('site_slogan')) . '</h6>';
       break;
     case 'cmtls_edit_buttons':
       global $user;
@@ -904,7 +939,6 @@ function cmtls_fb_user($op, $data, &$return) {
  * helper function adds user to the CT main group
  */
 function cmtls_add_user_to_main_group($account = NULL) {
-  
   if(!$account) {
     global $user;
     $account = $user;
@@ -927,6 +961,15 @@ function cmtls_get_main_group_gid() {
   $query->join('og', 'og', 'field_data_field_cmtls_main_group.entity_id = og.etid');
   $group = $query->execute()->fetchAssoc();
   return $group['gid'];
+}
+
+function cmtls_get_main_group_node() {
+  $query = db_select('field_data_field_cmtls_main_group', 'field_data_field_cmtls_main_group')
+    ->fields('field_data_field_cmtls_main_group', array('entity_id'))
+    ->condition('field_data_field_cmtls_main_group.field_cmtls_main_group_value', 1, '=')
+    ->range(0, 1);
+  $group = $query->execute()->fetchAssoc();
+  return node_load($group['entity_id']);
 }
 
 function cmtls_create_main_group() {

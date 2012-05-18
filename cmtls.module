@@ -7,6 +7,29 @@ include_once('cmtls.fields.inc');
 include_once('cmtls.features.inc');
 
 function cmtls_init() {
+  static $once;
+  
+  if(!$once) {
+    $once = TRUE;
+    // add the image for the header
+    $group = og_context();
+    if($group) {
+      $group = node_load($group->etid);    
+    }
+    else {
+      $group = cmtls_get_main_group_node();    
+    }
+    if(isset($group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']) && $group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']) {
+      $url = image_style_url('cmtls_header', $group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']);
+      $element = array(
+        '#type' => 'markup',
+        '#markup' => '<style type="text/css" media="all">#section-header { background-image: url('. $url .') !important; }</style>',
+      ); 
+      drupal_add_html_head($element, 'cmtls_page_header_image');
+    }
+  }
+  
+  $once = TRUE;
 }
 
 function cmtls_enable () {
@@ -19,7 +42,6 @@ function cmtls_enable () {
  * adds global variable about current application
  */
 function cmtls_node_load($nodes, $types) {
-  //dpm($nodes);
   // TODO: a better way to detect if a node has field 'cmtls_app_type' attached, currently hardcoded
   $node_types = array_keys(cmtls_get_app_content_types());
   foreach ($nodes as $nid => &$node) {

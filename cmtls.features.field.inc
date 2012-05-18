@@ -756,7 +756,7 @@ function cmtls_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_cmtls_group_avatar',
-      'label' => 'Logo',
+      'label' => 'Header image',
       'required' => 0,
       'settings' => array(
         'alt_field' => 0,
@@ -773,7 +773,7 @@ function cmtls_field_default_fields() {
         'active' => 1,
         'module' => 'image',
         'settings' => array(
-          'preview_image_style' => 'thumbnail',
+          'preview_image_style' => 'cmtls_small',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
@@ -2171,12 +2171,12 @@ function cmtls_field_default_fields() {
   t('Group roles and permissions');
   t('Group visibility');
   t('Groups audience');
+  t('Header image');
   t('Indicates whether this is the main group of the Community Tools or not.
   
   NB! there should be only one main group');
   t('Last name');
   t('Location');
-  t('Logo');
   t('Main group');
   t('Tags');
 

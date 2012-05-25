@@ -15,10 +15,14 @@ function cmtls_init() {
     $group = og_context();
     if($group) {
       $group = node_load($group->etid);    
+      if(!(isset($group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']) && $group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri'])) {
+        $group = cmtls_get_main_group_node();    
+      }
     }
     else {
       $group = cmtls_get_main_group_node();    
     }
+    
     if(isset($group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']) && $group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']) {
       $url = image_style_url('cmtls_header', $group->field_cmtls_group_avatar[LANGUAGE_NONE][0]['uri']);
       $element = array(
@@ -1015,6 +1019,22 @@ function cmtls_create_main_group() {
     $node->group_group[$node->language][0]['value'] = 1;
     $node->group_access[$node->language][0]['value'] = 0;
     $node->og_roles_permissions [$node->language][0]['value'] = 1;
+    
+    // add group image
+    $filepath = drupal_realpath(drupal_get_path('theme', 'cmtls_base') . '/img/section-header-default.jpg');
+    // Create managed File object and associate with Image field.
+    $file = (object) array(
+      'uid' => 1,
+      'display' => 1,
+      'uri' => $filepath,
+      'filemime' => file_get_mimetype($filepath),
+      'status' => 1,
+    );
+  
+    // save the file to the root of the files directory.
+    $file = file_copy($file, 'public://');
+  
+    $node->field_cmtls_group_avatar[LANGUAGE_NONE][0] = (array)$file;
   
     node_save($node);
     

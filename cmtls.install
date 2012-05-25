@@ -49,14 +49,32 @@ function cmtls_install() {
   variable_set('og_group_type_cmtls_location', 'omitted');
 
   // enable DS view modes
-  $settings = variable_get('field_bundle_settings', array());
-  $settings['node']['cmtls_group']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['node']['cmtls_app']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['node']['cmtls_location']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['node']['cmtls_location']['view_modes']['cmtls_location_bare']['custom_settings'] = TRUE;
-  $settings['user']['user']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['comment']['comment_node_cmtls_group']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['comment']['comment_node_cmtls_app']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  $settings['comment']['comment_node_cmtls_location']['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings = variable_get('field_bundle_settings_node__cmtls_group', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings', $settings);
+  
+  $settings = variable_get('field_bundle_settings_node__cmtls_app', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_node__cmtls_app', $settings);
+  
+  $settings = variable_get('field_bundle_settings_node__cmtls_location', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  $settings['view_modes']['cmtls_location_bare']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_node__cmtls_location', $settings);
+  
+  $settings = variable_get('field_bundle_settings_user__user', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_user__user', $settings);
+  
+  $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_group', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_comment__comment_node_cmtls_group', $settings);
+  
+  $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_app', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_comment__comment_node_cmtls_app', $settings);
+  
+  $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_location', array());
+  $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
+  variable_set('field_bundle_settings_comment__comment_node_cmtls_location', $settings);
 }

@@ -121,9 +121,9 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-cmtls_common_elements-block_3' => array(
+        'views-897b488bcc6e5f3fab7f3290f9f0b7e2' => array(
           'module' => 'views',
-          'delta' => 'cmtls_common_elements-block_3',
+          'delta' => '897b488bcc6e5f3fab7f3290f9f0b7e2',
           'region' => 'preface_first',
           'weight' => '-10',
         ),

@@ -954,7 +954,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['body']['field_api_classes'] = 0;
 
   /* Display: Date and author block */
-  $handler = $view->new_display('block', 'Date and author block', 'block_2');
+  $handler = $view->new_display('block', 'Date and author block', 'cmtls_common_elements_date_author');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
@@ -1041,7 +1041,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
 
   /* Display: Breadcrumb */
-  $handler = $view->new_display('block', 'Breadcrumb', 'block_3');
+  $handler = $view->new_display('block', 'Breadcrumb', 'cmtls_common_elements_breadcrumb');
   $handler->display->display_options['defaults']['title'] = FALSE;
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'default';

@@ -9,7 +9,7 @@ include_once('cmtls.features.inc');
 function cmtls_init() {
   static $once;
   
-  if(!$once) {
+  if(!$once && function_exists('og_context')) {
     $once = TRUE;
     // add the image for the header
     $group = og_context();

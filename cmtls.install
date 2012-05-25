@@ -51,7 +51,7 @@ function cmtls_install() {
   // enable DS view modes
   $settings = variable_get('field_bundle_settings_node__cmtls_group', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
-  variable_set('field_bundle_settings', $settings);
+  variable_set('field_bundle_settings_node__cmtls_group', $settings);
   
   $settings = variable_get('field_bundle_settings_node__cmtls_app', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;

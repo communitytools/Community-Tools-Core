@@ -18,8 +18,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2012-05-25 16:36+0300\n"
-"PO-Revision-Date: 2012-05-25 16:36+0300\n"
+"POT-Creation-Date: 2012-05-28 15:24+0300\n"
+"PO-Revision-Date: 2012-05-28 15:24+0300\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: Estonian <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -93,11 +93,11 @@ msgstr ""
 
 #: cmtls.features.field.inc:2162 cmtls.features.inc:95 cmtls.fields.inc:126 plugins/access/cmtls_app_type.inc:20
 msgid "Application"
-msgstr ""
+msgstr "Tööriist"
 
 #: cmtls.features.field.inc:2163
 msgid "Application configurations"
-msgstr ""
+msgstr "Tööriist"
 
 #: cmtls.features.field.inc:2164
 msgid "Attachments"
@@ -125,15 +125,15 @@ msgstr "Grupp"
 
 #: cmtls.features.field.inc:2170
 msgid "Group content visibility"
-msgstr ""
+msgstr "Nähtavus"
 
 #: cmtls.features.field.inc:2171
 msgid "Group roles and permissions"
-msgstr ""
+msgstr "Grupi rollid ja kasutajaõigused"
 
 #: cmtls.features.field.inc:2172
 msgid "Group visibility"
-msgstr ""
+msgstr "Grupi nähtavus"
 
 #: cmtls.features.field.inc:2173
 msgid "Groups audience"
@@ -141,7 +141,7 @@ msgstr ""
 
 #: cmtls.features.field.inc:2174
 msgid "Header image"
-msgstr ""
+msgstr "Päise pilt"
 
 #: cmtls.features.field.inc:2175
 msgid "Indicates whether this is the main group of the Community Tools or not.\r\n  \r\n  NB! there should be only one main group"
@@ -425,7 +425,7 @@ msgstr ""
 
 #: cmtls.views_default.inc:1925 cmtls.module:395;396
 msgid "Locations"
-msgstr ""
+msgstr "Kohad"
 
 #: cmtls.views_default.inc:1937
 msgid "location date"
@@ -525,11 +525,11 @@ msgstr "Lisa tööriist"
 
 #: cmtls.module:355
 msgid "Sorting settings"
-msgstr ""
+msgstr "Järjestus"
 
 #: cmtls.module:366
 msgid "Sorting field"
-msgstr ""
+msgstr "Järjestuse väli"
 
 #: cmtls.module:369
 msgid "Created date"
@@ -541,7 +541,7 @@ msgstr ""
 
 #: cmtls.module:376
 msgid "Sorting order"
-msgstr ""
+msgstr "Järjekord"
 
 #: cmtls.module:379
 msgid "Ascending"
@@ -617,7 +617,7 @@ msgstr "Grupi seaded"
 
 #: cmtls.module:893
 msgid "Apps settings"
-msgstr ""
+msgstr "Menüü seaded"
 
 #: cmtls.module:1017
 msgid "This is the main group"

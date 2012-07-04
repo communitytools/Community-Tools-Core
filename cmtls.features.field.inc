@@ -1940,6 +1940,72 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'user-user-field_cmtls_description'
+  $fields['user-user-field_cmtls_description'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_description',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'text_long',
+    ),
+    'field_instance' => array(
+      'bundle' => 'user',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'Additional information, like homepage, skype etc',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'hidden',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'user',
+      'field_name' => 'field_cmtls_description',
+      'label' => 'Description',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => 1,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'rows' => '5',
+        ),
+        'type' => 'text_textarea',
+        'weight' => '-4',
+      ),
+    ),
+  );
+
   // Exported field: 'user-user-field_cmtls_firstname'
   $fields['user-user-field_cmtls_firstname'] = array(
     'field_config' => array(
@@ -2002,7 +2068,7 @@ function cmtls_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '1',
+        'weight' => '-9',
       ),
     ),
   );
@@ -2051,7 +2117,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '5',
+          'weight' => '6',
         ),
       ),
       'entity_type' => 'user',
@@ -2069,7 +2135,7 @@ function cmtls_field_default_fields() {
           'size' => '60',
         ),
         'type' => 'text_textfield',
-        'weight' => '2',
+        'weight' => '-8',
       ),
     ),
   );
@@ -2151,7 +2217,7 @@ function cmtls_field_default_fields() {
           'opt_group' => 'auto',
         ),
         'type' => 'group_audience',
-        'weight' => '5',
+        'weight' => '-3',
       ),
       'widget_type' => 'group_audience',
     ),
@@ -2159,6 +2225,7 @@ function cmtls_field_default_fields() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Additional information, like homepage, skype etc');
   t('Application');
   t('Application configurations');
   t('Attachments');

@@ -800,10 +800,12 @@ function cmtls_ds_layout_settings_info() {
     'regions' => array(
       'ds_content' => array(
         0 => 'ds_user_picture',
+        1 => 'field_cmtls_description',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'ds_content',
+      'field_cmtls_description' => 'ds_content',
     ),
     'classes' => array(),
   );

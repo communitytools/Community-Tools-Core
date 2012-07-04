@@ -116,7 +116,7 @@ function cmtls_default_rules_configuration() {
     }
   }');
   $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
-      "LABEL" : "CT member subscribe\\u002Funsubscribe cache",
+      "LABEL" : "CT member subscribe\\/unsubscribe cache",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "cmtls" ],
       "REQUIRES" : [ "cache_actions", "og" ],

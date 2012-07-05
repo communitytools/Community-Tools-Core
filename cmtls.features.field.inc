@@ -431,6 +431,80 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_app-field_cmtls_legacy_type'
+  $fields['node-cmtls_app-field_cmtls_legacy_type'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_legacy_type',
+      'foreign keys' => array(
+        'format' => array(
+          'columns' => array(
+            'format' => 'format',
+          ),
+          'table' => 'filter_format',
+        ),
+      ),
+      'indexes' => array(
+        'format' => array(
+          0 => 'format',
+        ),
+      ),
+      'module' => 'text',
+      'settings' => array(
+        'max_length' => '255',
+      ),
+      'translatable' => '0',
+      'type' => 'text',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => 'This is used by migration from D6 version of CT',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'text',
+          'settings' => array(),
+          'type' => 'text_default',
+          'weight' => 6,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_legacy_type',
+      'label' => 'Legacy type',
+      'required' => 0,
+      'settings' => array(
+        'text_processing' => '0',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'text',
+        'settings' => array(
+          'size' => '60',
+        ),
+        'type' => 'text_textfield',
+        'weight' => '6',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_app-group_audience'
   $fields['node-cmtls_app-group_audience'] = array(
     'field_config' => array(
@@ -2243,9 +2317,11 @@ function cmtls_field_default_fields() {
   
   NB! there should be only one main group');
   t('Last name');
+  t('Legacy type');
   t('Location');
   t('Main group');
   t('Tags');
+  t('This is used by migration from D6 version of CT');
 
   return $fields;
 }

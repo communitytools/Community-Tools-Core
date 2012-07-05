@@ -142,6 +142,7 @@ function cmtls_field_group_info() {
     'children' => array(
       0 => 'group_audience',
       1 => 'group_content_access',
+      2 => 'field_cmtls_legacy_type',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

@@ -151,5 +151,6 @@ features[views_view][] = cmtls_group_content
 features[views_view][] = cmtls_locations
 features[views_view][] = cmtls_member_comments
 features[views_view][] = cmtls_members
+files[] = cmtls.app.inc
 files[] = plugins/views_handler_filter_cmtls_node_type.inc
 required = 1

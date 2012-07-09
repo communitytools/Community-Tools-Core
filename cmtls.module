@@ -205,6 +205,12 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
     if($user->uid != 1) {
       $form['field_cmtls_app_configs']['#type'] = 'hidden';
     }
+
+    // preselect app menu link
+    if(isset($_GET['mlid'])) {
+      $form['menu']['link']['parent']['#default_value'] = 'main-menu:' . (int)$_GET['mlid'];
+      $form['menu']['enabled']['#default_value'] = 1;
+    }
   }
 
   if($form_id == 'cmtls_group_node_form') {
@@ -213,6 +219,16 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
     // removes the main group field from node form
     if($user->uid != 1) {
       $form['field_cmtls_main_group'] = NULL;
+    }
+
+    // get groups menu by path node/$node->nid
+    $query = db_select('menu_links', 'menu_links')
+      ->fields('menu_links', array('mlid'))
+      ->condition('menu_links.link_path', 'cmtls/groups', '=');
+
+    if($mlid = $query->execute()->fetchField()) {
+      $form['menu']['link']['parent']['#default_value'] = 'main-menu:' . $mlid;
+      $form['menu']['enabled']['#default_value'] = 1;
     }
   }
 

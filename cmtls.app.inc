@@ -194,6 +194,9 @@ function cmtls_field_schema($field) {
   return array('columns' => $columns);
 }
 
+/**
+ * returns array with app content types
+ */
 function cmtls_get_app_content_types($module = NULL) {
   $types = array();
 

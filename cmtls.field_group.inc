@@ -142,6 +142,7 @@ function cmtls_field_group_info() {
     'children' => array(
       0 => 'group_audience',
       1 => 'group_content_access',
+      2 => 'field_cmtls_legacy_type',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -283,12 +284,13 @@ function cmtls_field_group_info() {
       0 => 'group_audience',
       1 => 'field_cmtls_firstname',
       2 => 'field_cmtls_lastname',
-      3 => 'redirect',
-      4 => 'account',
-      5 => 'timezone',
-      6 => 'picture',
-      7 => 'locale',
-      8 => 'wysiwyg',
+      3 => 'field_cmtls_description',
+      4 => 'redirect',
+      5 => 'account',
+      6 => 'timezone',
+      7 => 'picture',
+      8 => 'locale',
+      9 => 'wysiwyg',
     ),
     'format_type' => 'div',
     'format_settings' => array(

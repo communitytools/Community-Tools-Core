@@ -3,8 +3,7 @@
  * @file
  * Core Field API impelementations
  * Custom field for CT app type
- * definitions and API function for adding common CT fields
- * 
+ *
  */
 
 /**
@@ -147,11 +146,11 @@ function cmtls_field_widget_form(&$form, &$form_state, $field, $instance, $langc
       foreach (module_invoke_all('cmtls_app') as $app_type => $app) {
         $app_types[$app_type] = $app['title'];
       }
-      
+
       $widget += array(
         '#type' => 'radios',
         '#default_value' => $value,
-        '#options' => $app_types, 
+        '#options' => $app_types,
       );
     break;
   }
@@ -176,11 +175,11 @@ function cmtls_field_widget_error($element, $error, $form, &$form_state) {
 
 /**
  * Implements hook_field_schema().
- * 
+ *
  */
 function cmtls_field_schema($field) {
   $columns = array();
-  
+
   // app type
   if ($field['type'] == 'cmtls_app_type') {
       $columns = array(
@@ -194,3 +193,20 @@ function cmtls_field_schema($field) {
 
   return array('columns' => $columns);
 }
+
+function cmtls_get_app_content_types($module = NULL) {
+  $types = array();
+
+  $apps = module_invoke_all('cmtls_app');
+
+  foreach ($apps as $m => $config) {
+    if(isset($config['node types'])) $types += $config['node types'];
+    if($module == $m) {
+      if(isset($config['node types'])) return $config['node types'];
+      else return array();
+    }
+  }
+
+  return $types;
+}
+

@@ -690,6 +690,11 @@ function cmtls_block_info() {
     'info' => t('CT: site slogan'),
   );
 
+  $blocks['cmtls_subscribe'] = array(
+    // info: The name of the block.
+    'info' => t('CT: subscribe'),
+  );
+
   return $blocks;
 }
 
@@ -705,6 +710,21 @@ function cmtls_block_view($delta = '') {
     case 'cmtls_powered_by':
         $block['subject'] = NULL;
         $block['content'] = '<span>' . t('Powered by <a href="@poweredby">Community Tools</a>', array('@poweredby' => 'http://communitytools.info')) . '</span>';
+      break;
+    case 'cmtls_subscribe':
+        $node = menu_get_object();
+        if(isset($node->type)) {
+          if($node->type == 'cmtls_group') {
+          }
+          elseif($node->type == 'cmtls_app') {
+            $block['subject'] = t('Subscription');
+            $block['content'] = flag_create_link('cmtls_app_follow', $node->nid);
+          }
+          elseif(in_array($node->type, array_keys(cmtls_get_app_content_types()))) {
+            $block['subject'] = t('Subscription');
+            $block['content'] = flag_create_link($node->type . '_follow', $node->nid);
+          }
+        }
       break;
     case 'cmtls_site_title':
         $node = menu_get_object();

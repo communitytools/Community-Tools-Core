@@ -30,6 +30,92 @@ function cmtls_views_api() {
 }
 
 /**
+ * Implements hook_flag_default_flags().
+ */
+function cmtls_flag_default_flags() {
+  $flags = array();
+  // Exported flag: "Follow".
+  $flags['cmtls_app_follow'] = array(
+    'content_type' => 'node',
+    'title' => 'Follow',
+    'global' => '0',
+    'types' => array(
+      0 => 'cmtls_app',
+    ),
+    'flag_short' => 'Follow',
+    'flag_long' => 'Subscribe to [node:title]',
+    'flag_message' => 'You are now subscribed to [node:title]',
+    'unflag_short' => 'Unfollow',
+    'unflag_long' => 'Unsubscribe from [node:title]',
+    'unflag_message' => 'You are now unsubscribed from [node:title]',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'show_on_page' => 1,
+    'show_on_teaser' => 0,
+    'show_on_form' => 1,
+    'show_contextual_link' => FALSE,
+    'access_author' => '',
+    'i18n' => 0,
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
+  // Exported flag: "Follow".
+  $flags['cmtls_location_follow'] = array(
+    'content_type' => 'node',
+    'title' => 'Follow',
+    'global' => '0',
+    'types' => array(
+      0 => 'cmtls_location',
+    ),
+    'flag_short' => 'Follow',
+    'flag_long' => 'Subscribe to [node:title]',
+    'flag_message' => 'You are now subscribed to [node:title]',
+    'unflag_short' => 'Unfollow',
+    'unflag_long' => 'Unsubscribe from [node:title]',
+    'unflag_message' => 'You are now unsubscribed from [node:title]',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'show_on_page' => 1,
+    'show_on_teaser' => 0,
+    'show_on_form' => 1,
+    'show_contextual_link' => FALSE,
+    'access_author' => '',
+    'i18n' => 0,
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
+  return $flags;
+}
+
+/**
  * Implements hook_image_default_styles().
  */
 function cmtls_image_default_styles() {

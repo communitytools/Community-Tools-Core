@@ -265,8 +265,12 @@ function cmtls_get_current_app() {
  */
 function cmtls_get_app_config($app = NULL) {
   if(!$app) $app = cmtls_get_current_app();
-  if(isset($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) return unserialize($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
-  else return array();
+  if(isset($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value'])) {
+    return unserialize($app->field_cmtls_app_configs[LANGUAGE_NONE][0]['value']);
+  }
+  else {
+    return array();
+  }
 }
 
 /**

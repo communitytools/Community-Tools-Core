@@ -45,7 +45,7 @@ dependencies[] = realname
 dependencies[] = references
 dependencies[] = taxonomy
 dependencies[] = views
-explanation = Field type(s) in use - see <a href="/admin/reports/fields">Field list</a>
+explanation = Field type(s) in use - see <a href="/ct2-reigo/admin/reports/fields">Field list</a>
 features[context][] = cmtls_app_page
 features[context][] = cmtls_general_app_list
 features[context][] = cmtls_general_group_app
@@ -130,6 +130,7 @@ features[field_group][] = group_location|node|cmtls_group|form
 features[field_group][] = group_tabs|node|cmtls_group|form
 features[field_group][] = group_user_layout|user|user|form
 features[flag][] = cmtls_app_follow
+features[flag][] = cmtls_group_follow
 features[flag][] = cmtls_location_follow
 features[image][] = cmtls_header
 features[image][] = cmtls_small
@@ -140,6 +141,9 @@ features[rules_config][] = rules_cmtls_application_views_cache
 features[rules_config][] = rules_cmtls_application_views_cache_resort
 features[rules_config][] = rules_cmtls_comment_views_cache
 features[rules_config][] = rules_cmtls_common_elements_views_cache
+features[rules_config][] = rules_cmtls_group_follow_own_group
+features[rules_config][] = rules_cmtls_group_notifications
+features[rules_config][] = rules_cmtls_group_thread_notifications
 features[rules_config][] = rules_cmtls_groups_views_cache
 features[rules_config][] = rules_cmtls_location_app_notifications
 features[rules_config][] = rules_cmtls_location_follow_own_thread

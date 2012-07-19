@@ -196,6 +196,12 @@ function cmtls_context_default_contexts() {
           'region' => 'content',
           'weight' => '-9',
         ),
+        'cmtls-cmtls_subscribe' => array(
+          'module' => 'cmtls',
+          'delta' => 'cmtls_subscribe',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
         'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
           'module' => 'views',
           'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',

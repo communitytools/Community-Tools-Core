@@ -73,6 +73,124 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_group_follow_own_group'] = entity_import('rules_config', '{ "rules_cmtls_group_follow_own_group" : {
+      "LABEL" : "CT Group follow own group",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "flag" ],
+      "ON" : [ "node_insert" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "node" ],
+            "type" : { "value" : { "cmtls_group" : "cmtls_group" } }
+          }
+        },
+        { "og_entity_is_group" : { "entity" : [ "node" ] } }
+      ],
+      "DO" : [
+        { "flag_flagnode" : {
+            "flag" : "cmtls_group_follow",
+            "node" : [ "node" ],
+            "flagging_user" : [ "node:author" ],
+            "permission_check" : 1
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_group_notifications'] = entity_import('rules_config', '{ "rules_cmtls_group_notifications" : {
+      "LABEL" : "CT Group notifications",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "flag" ],
+      "ON" : [ "node_insert" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "node" ],
+            "type" : { "value" : { "cmtls_app" : "cmtls_app" } }
+          }
+        },
+        { "og_entity_is_group_content" : { "entity" : [ "node" ] } }
+      ],
+      "DO" : [
+        { "entity_fetch" : {
+            "USING" : { "type" : "node", "id" : [ "node:og-membership:0:group:etid" ] },
+            "PROVIDE" : { "entity_fetched" : { "entity_fetched" : "Fetched entity" } }
+          }
+        },
+        { "flag_fetch_users_node" : {
+            "USING" : { "flag" : "cmtls_group_follow", "node" : [ "entity-fetched" ] },
+            "PROVIDE" : { "users" : { "users" : "Users who flagged" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "users" ] },
+            "ITEM" : { "list_item" : "Current list item" },
+            "DO" : [
+              { "mail" : {
+                  "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
+                  "subject" : "[site:name] has new content",
+                  "message" : "Hello [list-item:field-cmtls-firstname],\\u000D\\u000A\\u000D\\u000A[site:name] has new section \\u0022[node:title]\\u0022:\\u000D\\u000A\\u000D\\u000A[node:body]\\u000D\\u000A\\u000D\\u000A[node:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
+                  "language" : [ "" ]
+                }
+              },
+              { "flag_flagnode" : {
+                  "flag" : "cmtls_app_follow",
+                  "node" : [ "node" ],
+                  "flagging_user" : [ "list-item" ],
+                  "permission_check" : 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_group_thread_notifications'] = entity_import('rules_config', '{ "rules_cmtls_group_thread_notifications" : {
+      "LABEL" : "CT Group thread notifications",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "flag", "comment" ],
+      "ON" : [ "comment_insert" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "comment:node" ],
+            "type" : { "value" : { "cmtls_group" : "cmtls_group" } }
+          }
+        },
+        { "og_entity_is_group_content" : { "entity" : [ "comment:node" ] } }
+      ],
+      "DO" : [
+        { "flag_fetch_users_node" : {
+            "USING" : { "flag" : "cmtls_post_follow", "node" : [ "comment:node" ] },
+            "PROVIDE" : { "users" : { "users" : "Users who flagged" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "users" ] },
+            "ITEM" : { "list_item" : "Current list item" },
+            "DO" : [
+              { "mail" : {
+                  "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
+                  "subject" : "[site:name] - [comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] has commented on: [comment:node]",
+                  "message" : "[comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] commented on \\u0022[comment:node]\\u0022\\u000D\\u000A\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000A[comment:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[comment:node]\\u0022 at [comment:node:url].",
+                  "language" : [ "" ]
+                }
+              }
+            ]
+          }
+        },
+        { "flag_flagnode" : {
+            "flag" : "cmtls_post_follow",
+            "node" : [ "comment:node" ],
+            "flagging_user" : [ "comment:author" ],
+            "permission_check" : 1
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_cmtls_groups_views_cache'] = entity_import('rules_config', '{ "rules_cmtls_groups_views_cache" : {
       "LABEL" : "CT Groups views cache",
       "PLUGIN" : "reaction rule",
@@ -227,7 +345,7 @@ function cmtls_default_rules_configuration() {
     }
   }');
   $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
-      "LABEL" : "CT member subscribe\\/unsubscribe cache",
+      "LABEL" : "CT member subscribe\\u002Funsubscribe cache",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "cmtls" ],
       "REQUIRES" : [ "cache_actions", "og" ],

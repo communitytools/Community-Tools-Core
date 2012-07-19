@@ -714,11 +714,9 @@ function cmtls_block_view($delta = '') {
     case 'cmtls_subscribe':
         $node = menu_get_object();
         if(isset($node->type)) {
-          if($node->type == 'cmtls_group') {
-          }
-          elseif($node->type == 'cmtls_app') {
+          if($node->type == 'cmtls_app' || $node->type == 'cmtls_group') {
             $block['subject'] = t('Subscription');
-            $block['content'] = flag_create_link('cmtls_app_follow', $node->nid);
+            $block['content'] = flag_create_link($node->type . '_follow', $node->nid);
           }
           elseif(in_array($node->type, array_keys(cmtls_get_app_content_types()))) {
             $block['subject'] = t('Subscription');

@@ -38,6 +38,23 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_check_string_and_prefix_it'] = entity_import('rules_config', '{ "rules_cmtls_check_string_and_prefix_it" : {
+      "LABEL" : "CT check string and prefix it",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules" ],
+      "USES VARIABLES" : {
+        "varible" : { "label" : "Variable to check", "type" : "text" },
+        "prefix" : { "label" : "Prefix", "type" : "text" },
+        "result" : { "label" : "result", "type" : "text", "parameter" : false }
+      },
+      "IF" : [ { "NOT data_is_empty" : { "data" : [ "varible" ] } } ],
+      "DO" : [
+        { "data_set" : { "data" : [ "result" ], "value" : "[prefix][varible]" } }
+      ],
+      "PROVIDES VARIABLES" : [ "result" ]
+    }
+  }');
   $items['rules_cmtls_comment_views_cache'] = entity_import('rules_config', '{ "rules_cmtls_comment_views_cache" : {
       "LABEL" : "CT Comment views cache",
       "PLUGIN" : "reaction rule",
@@ -68,6 +85,319 @@ function cmtls_default_rules_configuration() {
                 "cmtls_common_elements" : "cmtls_common_elements"
               }
             }
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_daily_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_daily_newsletter" : {
+      "LABEL" : "CT daily newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules", "rules_scheduler" ],
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : { "view" : "cmtls_members_vbo_all|default" },
+            "PROVIDE" : { "entity_list" : { "group_members" : "Group members" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "group-members" ] },
+            "ITEM" : { "group_member" : "Group member" },
+            "DO" : [
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "mail_content" : "Mail content" } }
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : {
+                    "view" : "cmtls_groups_vbo_by_member|default",
+                    "args" : "[group-member:uid]"
+                  },
+                  "PROVIDE" : { "entity_list" : { "member_groups" : "Member groups" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "member-groups" ] },
+                  "ITEM" : { "member_group" : "Member group" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "mail-content" ],
+                        "value" : "[mail-content][media-comments]"
+                      }
+                    },
+                    { "views_bulk_operations_action_load_list" : {
+                        "USING" : {
+                          "view" : "cmtls_group_vbo_subscribed|default",
+                          "args" : "[group-member:uid]\\u000D\\u000A[member-group:group:gid]"
+                        },
+                        "PROVIDE" : { "entity_list" : { "subscribed_groups" : "Subscribed groups" } }
+                      }
+                    },
+                    { "LOOP" : {
+                        "USING" : { "list" : [ "subscribed_groups" ] },
+                        "ITEM" : { "subscribed_group" : "Subscribed group" },
+                        "DO" : [
+                          { "variable_add" : {
+                              "USING" : { "type" : "text" },
+                              "PROVIDE" : { "variable_added" : { "new_apps" : "New applications" } }
+                            }
+                          },
+                          { "views_bulk_operations_action_load_list" : {
+                              "USING" : {
+                                "view" : "cmtls_application_vbo_all_new|default",
+                                "args" : [ "subscribed-group:gid" ]
+                              },
+                              "PROVIDE" : { "entity_list" : { "applications" : "Applications" } }
+                            }
+                          },
+                          { "LOOP" : {
+                              "USING" : { "list" : [ "applications" ] },
+                              "ITEM" : { "application" : "Application" },
+                              "DO" : [
+                                { "data_set" : {
+                                    "data" : [ "new-apps" ],
+                                    "value" : "[new-apps]\\u000D\\u000A\\u0009\\u0022[application:title]\\u0022 [application:url]\\u000D\\u000A\\u000D\\u000A"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          { "component_rules_cmtls_check_string_and_prefix_it" : {
+                              "USING" : {
+                                "varible" : "[new-apps]",
+                                "prefix" : "New applications in \\u0022[member-group:title]\\u0022:\\u000D\\u000A"
+                              },
+                              "PROVIDE" : { "result" : { "applications_list" : "Applications list" } }
+                            }
+                          },
+                          { "data_set" : {
+                              "data" : [ "mail-content" ],
+                              "value" : "[mail-content][applications-list]"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    { "views_bulk_operations_action_load_list" : {
+                        "USING" : {
+                          "view" : "cmtls_applications_vbo_subscribed|default",
+                          "args" : "[member-group:group:gid]\\u000D\\u000A[group-member:uid]"
+                        },
+                        "PROVIDE" : { "entity_list" : { "subscribed_apps" : "Subscribed applications" } }
+                      }
+                    },
+                    { "LOOP" : {
+                        "USING" : { "list" : [ "subscribed-apps" ] },
+                        "ITEM" : { "subscribed_app" : "Subscribed application" },
+                        "DO" : [
+                          { "variable_add" : {
+                              "USING" : { "type" : "text" },
+                              "PROVIDE" : { "variable_added" : { "new_content" : "New content in application" } }
+                            }
+                          },
+                          { "views_bulk_operations_action_load_list" : {
+                              "USING" : {
+                                "view" : "cmtls_application_contents_vbo|default",
+                                "args" : [ "subscribed-app:nid" ]
+                              },
+                              "PROVIDE" : { "entity_list" : { "app_content_list" : "Application content" } }
+                            }
+                          },
+                          { "LOOP" : {
+                              "USING" : { "list" : [ "app-content-list" ] },
+                              "ITEM" : { "app_content" : "Content" },
+                              "DO" : [
+                                { "data_set" : {
+                                    "data" : [ "new-content" ],
+                                    "value" : "[new-content]\\u000D\\u000A\\u0009\\u0022[app-content:title] ([app-content:comment-count])\\u0022\\u000D\\u000A\\u0009[app-content:body]\\u000D\\u000A\\u0009Read more and manage subscription: [app-content:url]\\u000D\\u000A\\u000D\\u000A"
+                                  }
+                                }
+                              ]
+                            }
+                          },
+                          { "component_rules_cmtls_check_string_and_prefix_it" : {
+                              "USING" : {
+                                "varible" : "[new-content]",
+                                "prefix" : "New content in \\u0022[subscribed-app:title]\\u0022:\\u000D\\u000A"
+                              },
+                              "PROVIDE" : { "result" : { "application_content" : "Application content" } }
+                            }
+                          },
+                          { "data_set" : {
+                              "data" : [ "mail-content" ],
+                              "value" : "[mail-content][application-content]"
+                            }
+                          }
+                        ]
+                      }
+                    },
+                    { "component_rules_cmtls_post_comments_newsletter" : {
+                        "USING" : { "gid" : [ "member-group:group:gid" ], "uid" : [ "group-member:uid" ] },
+                        "PROVIDE" : { "result" : { "post_comments" : "Post comments" } }
+                      }
+                    },
+                    { "data_set" : { "data" : [ "mail-content" ], "value" : "[mail-content][post-comments]" } },
+                    { "component_rules_cmtls_event_comments_for_newsletter" : {
+                        "USING" : { "gid" : [ "member-group:group:gid" ], "uid" : [ "group-member:uid" ] },
+                        "PROVIDE" : { "result" : { "event_comments" : "Event comments" } }
+                      }
+                    },
+                    { "data_set" : {
+                        "data" : [ "mail-content" ],
+                        "value" : "[mail-content][event-comments]"
+                      }
+                    },
+                    { "component_rules_cmtls_location_comments_for_newsletter" : {
+                        "USING" : { "gid" : [ "member-group:group:gid" ], "uid" : [ "group-member:uid" ] },
+                        "PROVIDE" : { "result" : { "location_comments" : "Location comments" } }
+                      }
+                    },
+                    { "data_set" : {
+                        "data" : [ "mail-content" ],
+                        "value" : "[mail-content][location-comments]"
+                      }
+                    },
+                    { "component_rules_cmtls_media_comments_for_newsletter" : {
+                        "USING" : { "gid" : [ "member-group:group:gid" ], "uid" : [ "group-member:uid" ] },
+                        "PROVIDE" : { "result" : { "media_comments" : "Media comments" } }
+                      }
+                    }
+                  ]
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : { "view" : "cmtls_group_vbo_new|default" },
+                  "PROVIDE" : { "entity_list" : { "new_groups" : "New groups" } }
+                }
+              },
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "new_groups_content" : "New groups content" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "new-groups" ] },
+                  "ITEM" : { "new_group" : "New group" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "new-groups-content" ],
+                        "value" : "[new-groups-content]\\u000D\\u000A\\u0009\\u0022[new-group:title]\\u0022 [new-group:url]\\u000D\\u000A\\u000D\\u000A"
+                      }
+                    }
+                  ]
+                }
+              },
+              { "component_rules_cmtls_check_string_and_prefix_it" : {
+                  "USING" : {
+                    "varible" : "[new-groups-content]",
+                    "prefix" : "New groups:\\u000D\\u000A"
+                  },
+                  "PROVIDE" : { "result" : { "new_groups_content_full" : "New groups content full" } }
+                }
+              },
+              { "data_set" : {
+                  "data" : [ "mail-content" ],
+                  "value" : "[mail-content][new-groups-content-full]"
+                }
+              },
+              { "component_rules_cmtls_send_newsletter" : { "user" : [ "group-member" ], "content" : "[mail-content]" } }
+            ]
+          }
+        },
+        { "schedule" : {
+            "component" : "rules_cmtls_daily_newsletter",
+            "date" : "+1 day 14:00",
+            "identifier" : "CT daily newsletter"
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_event_comments_for_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_event_comments_for_newsletter" : {
+      "LABEL" : "CT Event comments for newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "USES VARIABLES" : {
+        "gid" : { "label" : "Group ID", "type" : "integer" },
+        "uid" : { "label" : "User ID", "type" : "integer" },
+        "result" : { "label" : "Result", "type" : "text", "parameter" : false }
+      },
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_events_vbo_subscribed|default",
+              "args" : "[gid]\\u000D\\u000A[uid]"
+            },
+            "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "subscribed-entities" ] },
+            "ITEM" : { "subscribed_entity" : "Subscribed entity" },
+            "DO" : [
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "content" : "Content" } }
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : {
+                    "view" : "cmtls_comments_vbo|default",
+                    "args" : [ "subscribed-entity:nid" ]
+                  },
+                  "PROVIDE" : { "entity_list" : { "comments" : "Comments" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "comments" ] },
+                  "ITEM" : { "comment" : "Comment" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "content" ],
+                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                      }
+                    }
+                  ]
+                }
+              },
+              { "component_rules_cmtls_check_string_and_prefix_it" : {
+                  "USING" : {
+                    "varible" : [ "content" ],
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                  },
+                  "PROVIDE" : { "result" : { "full_content" : "Full content" } }
+                }
+              },
+              { "data_set" : { "data" : [ "result" ], "value" : [ "full-content" ] } }
+            ]
+          }
+        }
+      ],
+      "PROVIDES VARIABLES" : [ "result" ]
+    }
+  }');
+  $items['rules_cmtls_flag_user_for_notifications_and_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_flag_user_for_notifications_and_newsletter" : {
+      "LABEL" : "CT flag user for notifications and newsletter",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "flag", "rules" ],
+      "ON" : [ "user_insert" ],
+      "DO" : [
+        { "flag_flaguser" : {
+            "flag" : "cmtls_instant_notifications",
+            "user" : [ "account" ],
+            "flagging_user" : [ "account" ],
+            "permission_check" : 1
+          }
+        },
+        { "flag_flaguser" : {
+            "flag" : "cmtls_daily_newsletter",
+            "user" : [ "account" ],
+            "flagging_user" : [ "account" ],
+            "permission_check" : 1
           }
         }
       ]
@@ -253,6 +583,70 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_location_comments_for_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_location_comments_for_newsletter" : {
+      "LABEL" : "CT Location comments for newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "USES VARIABLES" : {
+        "gid" : { "label" : "Group ID", "type" : "integer" },
+        "uid" : { "label" : "User ID", "type" : "integer" },
+        "result" : { "label" : "Result", "type" : "text", "parameter" : false }
+      },
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_locations_vbo_subscribed|default",
+              "args" : "[gid]\\u000D\\u000A[uid]"
+            },
+            "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "subscribed-entities" ] },
+            "ITEM" : { "subscribed_entity" : "Subscribed entity" },
+            "DO" : [
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "content" : "Content" } }
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : {
+                    "view" : "cmtls_comments_vbo|default",
+                    "args" : [ "subscribed-entity:nid" ]
+                  },
+                  "PROVIDE" : { "entity_list" : { "comments" : "Comments" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "comments" ] },
+                  "ITEM" : { "comment" : "Comment" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "content" ],
+                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                      }
+                    }
+                  ]
+                }
+              },
+              { "component_rules_cmtls_check_string_and_prefix_it" : {
+                  "USING" : {
+                    "varible" : [ "content" ],
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                  },
+                  "PROVIDE" : { "result" : { "full_content" : "Full content" } }
+                }
+              },
+              { "data_set" : { "data" : [ "result" ], "value" : [ "full-content" ] } }
+            ]
+          }
+        }
+      ],
+      "PROVIDES VARIABLES" : [ "result" ]
+    }
+  }');
   $items['rules_cmtls_location_follow_own_thread'] = entity_import('rules_config', '{ "rules_cmtls_location_follow_own_thread" : {
       "LABEL" : "CT Location follow own thread",
       "PLUGIN" : "reaction rule",
@@ -344,6 +738,70 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_media_comments_for_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_media_comments_for_newsletter" : {
+      "LABEL" : "CT Media comments for newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "USES VARIABLES" : {
+        "gid" : { "label" : "Group ID", "type" : "integer" },
+        "uid" : { "label" : "User ID", "type" : "integer" },
+        "result" : { "label" : "Result", "type" : "text", "parameter" : false }
+      },
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_media_vbo_subscribed|default",
+              "args" : "[gid]\\u000D\\u000A[uid]"
+            },
+            "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "subscribed-entities" ] },
+            "ITEM" : { "subscribed_entity" : "Subscribed entity" },
+            "DO" : [
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "content" : "Content" } }
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : {
+                    "view" : "cmtls_comments_vbo|default",
+                    "args" : [ "subscribed-entity:nid" ]
+                  },
+                  "PROVIDE" : { "entity_list" : { "comments" : "Comments" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "comments" ] },
+                  "ITEM" : { "comment" : "Comment" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "content" ],
+                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                      }
+                    }
+                  ]
+                }
+              },
+              { "component_rules_cmtls_check_string_and_prefix_it" : {
+                  "USING" : {
+                    "varible" : [ "content" ],
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                  },
+                  "PROVIDE" : { "result" : { "full_content" : "Full content" } }
+                }
+              },
+              { "data_set" : { "data" : [ "result" ], "value" : [ "full-content" ] } }
+            ]
+          }
+        }
+      ],
+      "PROVIDES VARIABLES" : [ "result" ]
+    }
+  }');
   $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
       "LABEL" : "CT member subscribe\\u002Funsubscribe cache",
       "PLUGIN" : "reaction rule",
@@ -378,6 +836,215 @@ function cmtls_default_rules_configuration() {
       ],
       "DO" : [
         { "cache_actions_action_clear_views_cache" : { "view" : { "value" : { "cmtls_members" : "cmtls_members" } } } }
+      ]
+    }
+  }');
+  $items['rules_cmtls_post_comments_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_post_comments_newsletter" : {
+      "LABEL" : "CT Post comments for newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "USES VARIABLES" : {
+        "gid" : { "label" : "Group ID", "type" : "integer" },
+        "uid" : { "label" : "User ID", "type" : "integer" },
+        "result" : { "label" : "Result", "type" : "text", "parameter" : false }
+      },
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_posts_vbo_subscribed|default",
+              "args" : "[gid]\\u000D\\u000A[uid]"
+            },
+            "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "subscribed-entities" ] },
+            "ITEM" : { "subscribed_entity" : "Subscribed entity" },
+            "DO" : [
+              { "variable_add" : {
+                  "USING" : { "type" : "text" },
+                  "PROVIDE" : { "variable_added" : { "content" : "Content" } }
+                }
+              },
+              { "views_bulk_operations_action_load_list" : {
+                  "USING" : {
+                    "view" : "cmtls_comments_vbo|default",
+                    "args" : [ "subscribed-entity:nid" ]
+                  },
+                  "PROVIDE" : { "entity_list" : { "comments" : "Comments" } }
+                }
+              },
+              { "LOOP" : {
+                  "USING" : { "list" : [ "comments" ] },
+                  "ITEM" : { "comment" : "Comment" },
+                  "DO" : [
+                    { "data_set" : {
+                        "data" : [ "content" ],
+                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                      }
+                    }
+                  ]
+                }
+              },
+              { "component_rules_cmtls_check_string_and_prefix_it" : {
+                  "USING" : {
+                    "varible" : [ "content" ],
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                  },
+                  "PROVIDE" : { "result" : { "full_content" : "Full content" } }
+                }
+              },
+              { "data_set" : { "data" : [ "result" ], "value" : [ "full-content" ] } }
+            ]
+          }
+        }
+      ],
+      "PROVIDES VARIABLES" : [ "result" ]
+    }
+  }');
+  $items['rules_cmtls_send_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_send_newsletter" : {
+      "LABEL" : "CT send newsletter",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules" ],
+      "USES VARIABLES" : {
+        "user" : { "label" : "User", "type" : "user" },
+        "content" : { "label" : "Content", "type" : "text" }
+      },
+      "IF" : [ { "NOT data_is_empty" : { "data" : [ "content" ] } } ],
+      "DO" : [
+        { "mail" : {
+            "to" : "\\u0022[user:name]\\u0022 \\u003C[user:mail]\\u003E",
+            "subject" : "[site:name] content updates",
+            "message" : "Hello [user:name],\\u000D\\u000A\\u000D\\u000AHere\\u0027s a summary of [site:name] content updates\\u000D\\u000A\\u000D\\u000A[content]\\u000D\\u000A---\\u000D\\u000A[site:name]",
+            "language" : [ "user:language" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_subscribe_member_to_group_on_join'] = entity_import('rules_config', '{ "rules_cmtls_subscribe_member_to_group_on_join" : {
+      "LABEL" : "CT subscribe member to group on join",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "flag", "og" ],
+      "ON" : [ "og_user_insert" ],
+      "DO" : [
+        { "entity_fetch" : {
+            "USING" : { "type" : "node", "id" : [ "og-membership:group:etid" ] },
+            "PROVIDE" : { "entity_fetched" : { "group_node" : "Group node" } }
+          }
+        },
+        { "flag_flagnode" : {
+            "flag" : "cmtls_group_follow",
+            "node" : [ "group-node" ],
+            "flagging_user" : [ "account" ],
+            "permission_check" : 1
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_subscribe_to_group_apps'] = entity_import('rules_config', '{ "rules_cmtls_subscribe_to_group_apps" : {
+      "LABEL" : "CT subscribe to group apps",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "views_bulk_operations", "flag" ],
+      "ON" : [ "flag_flagged_cmtls_group_follow" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "cmtls_group" : "cmtls_group" } }
+          }
+        },
+        { "og_entity_is_group" : { "entity" : [ "flagged-node" ] } }
+      ],
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_application_vbo_all|default",
+              "args" : [ "flagged-node:group:gid" ]
+            },
+            "PROVIDE" : { "entity_list" : { "group_applications" : "Group applications" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "group-applications" ] },
+            "ITEM" : { "application" : "Application" },
+            "DO" : [
+              { "flag_flagnode" : {
+                  "flag" : "cmtls_app_follow",
+                  "node" : [ "application" ],
+                  "flagging_user" : [ "flagging-user" ],
+                  "permission_check" : 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_unsubscribe_from_group_apps'] = entity_import('rules_config', '{ "rules_cmtls_unsubscribe_from_group_apps" : {
+      "LABEL" : "CT unsubscribe from group apps",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "views_bulk_operations", "flag" ],
+      "ON" : [ "flag_unflagged_cmtls_group_follow" ],
+      "IF" : [
+        { "node_is_of_type" : {
+            "node" : [ "flagged-node" ],
+            "type" : { "value" : { "cmtls_group" : "cmtls_group" } }
+          }
+        },
+        { "og_entity_is_group" : { "entity" : [ "flagged-node" ] } }
+      ],
+      "DO" : [
+        { "views_bulk_operations_action_load_list" : {
+            "USING" : {
+              "view" : "cmtls_application_vbo_all|default",
+              "args" : [ "flagged-node:group:gid" ]
+            },
+            "PROVIDE" : { "entity_list" : { "group_applications" : "Group applications" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "group-applications" ] },
+            "ITEM" : { "application" : "Application" },
+            "DO" : [
+              { "flag_unflagnode" : {
+                  "flag" : "cmtls_app_follow",
+                  "node" : [ "application" ],
+                  "flagging_user" : [ "flagging-user" ],
+                  "permission_check" : 1
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_unsubscribe_member_to_group_on_leaving'] = entity_import('rules_config', '{ "rules_cmtls_unsubscribe_member_to_group_on_leaving" : {
+      "LABEL" : "CT unsubscribe member to group on leaving",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "flag", "og" ],
+      "ON" : [ "og_user_delete" ],
+      "DO" : [
+        { "entity_fetch" : {
+            "USING" : { "type" : "node", "id" : [ "og-membership:group:etid" ] },
+            "PROVIDE" : { "entity_fetched" : { "group_node" : "Group node" } }
+          }
+        },
+        { "flag_unflagnode" : {
+            "flag" : "cmtls_group_follow",
+            "node" : [ "group-node" ],
+            "flagging_user" : [ "account" ],
+            "permission_check" : 1
+          }
+        }
       ]
     }
   }');

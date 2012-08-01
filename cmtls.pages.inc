@@ -69,3 +69,25 @@ function cmtls_location_autocomplete($string = '') {
 
   drupal_json_output($matches);
 }
+
+/**
+ * Manage user subscriprtions.
+ * This is a wrapper page for a view: "CT Group member subscriptions",
+ * to limit access.
+ */
+function cmtls_user_subscriptions($account) {
+  global $user;
+
+  // To override user module title.
+  $title = drupal_get_title();
+  if($user->uid == $account->uid) {
+    $title = t('My subscriptions');
+  }
+  else {
+    $title = t('Subscriptions for !username', array('!username' => format_username($account)));
+  }
+  drupal_set_title($title);
+
+  return views_embed_view('cmtls_group_member_subscriptions', 'default', $account->uid);
+}
+

@@ -73,6 +73,39 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
+  // Exported flag: "Daily newsletter".
+  $flags['cmtls_daily_newsletter'] = array(
+    'content_type' => 'user',
+    'title' => 'Daily newsletter',
+    'global' => '0',
+    'types' => array(),
+    'flag_short' => 'Receive daily newsletter',
+    'flag_long' => 'Receive daily newsletter about new content and comments in your subscribed groups, apps and threads',
+    'flag_message' => 'You will now receive daily newsletter about new content',
+    'unflag_short' => 'Turn off daily newsletter',
+    'unflag_long' => 'Turn off daily newsletter about new content and comments',
+    'unflag_message' => 'You will no longer receive daily newsletter about new content',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'show_on_profile' => 1,
+    'access_uid' => '',
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
   // Exported flag: "Follow".
   $flags['cmtls_group_follow'] = array(
     'content_type' => 'node',
@@ -106,11 +139,44 @@ function cmtls_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'cmtls',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
+  );
+  // Exported flag: "Instant notifications".
+  $flags['cmtls_instant_notifications'] = array(
+    'content_type' => 'user',
+    'title' => 'Instant notifications',
+    'global' => '0',
+    'types' => array(),
+    'flag_short' => 'Receive instant notifications',
+    'flag_long' => 'Receive instantly notifications about new content and comments in your subscribed groups, apps and threads',
+    'flag_message' => 'You will now receive notifications about new content',
+    'unflag_short' => 'Turn off instant notifications',
+    'unflag_long' => 'Turn off instant notifications about new content and comments',
+    'unflag_message' => 'You will no longer receive notifications about new content',
+    'unflag_denied_text' => '',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'show_on_profile' => 1,
+    'access_uid' => '',
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
   );
   // Exported flag: "Follow".
   $flags['cmtls_location_follow'] = array(

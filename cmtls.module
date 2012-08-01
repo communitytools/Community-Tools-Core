@@ -37,8 +37,20 @@ function cmtls_init() {
   $once = TRUE;
 }
 
-function cmtls_enable () {
+/**
+ * Implements hook_permission().
+ *
+ */
+function cmtls_permission() {
+  return array(
+    'manage own subscriptions' => array(
+      'title' => t('Manage own subscriptions'),
+      'description' => t('Allow users to manage their own subscriptions'),
+    ),
+  );
 }
+
+
 
 /**
  * Implements hook_node_load().
@@ -93,6 +105,18 @@ function cmtls_menu() {
     'file' => 'cmtls.pages.inc',
   );
 
+  // creates the add contextual task / link
+  $items['user/%user/cmtls/subscriptions'] = array(
+    'title' => t('Manage subscriptions'),
+    'description' => t('Manage CT subscriptions'),
+    'page callback' => 'cmtls_user_subscriptions',
+    'page arguments' => array(1),
+    'access callback' => 'cmtls_user_subscriptions_access',
+    'access arguments' => array(1),
+    'type' => MENU_DEFAULT_LOCAL_TASK,
+    'file' => 'cmtls.pages.inc',
+  );
+
   // creates autocomplete for locations
   $items['cmtls/location/ac'] = array(
     'title' => t('Location matching'),
@@ -103,6 +127,19 @@ function cmtls_menu() {
   );
 
   return $items;
+}
+
+/**
+ * Access to the subscription page, allow only to see own subscriptions page
+ */
+function cmtls_user_subscriptions_access($account) {
+  global $user;
+
+  if($user->uid == 1 || ($user->uid && $account->uid == $user->uid && user_access('manage own subscriptions', $account))) {
+    return TRUE;
+  }
+
+  return FALSE;
 }
 
 function cmtls_add_content_title($parent) {
@@ -720,6 +757,7 @@ function cmtls_block_info() {
  * This hook generates the contents of the blocks themselves.
  */
 function cmtls_block_view($delta = '') {
+  global $user;
   //The $delta parameter tells us which block is being requested.
   $block = NULL;
   switch ($delta) {
@@ -738,6 +776,10 @@ function cmtls_block_view($delta = '') {
             $block['subject'] = t('Subscription');
             $block['content'] = flag_create_link($node->type . '_follow', $node->nid);
           }
+        }
+        elseif (arg(0) == 'user' && arg(1) == $user->uid) {
+          $block['subject'] = t('Notifications');
+          $block['content'] = '<p>' . flag_create_link('cmtls_instant_notifications', $user->uid) . '</p><br><p>' . flag_create_link('cmtls_daily_newsletter', $user->uid) . '</p>';
         }
       break;
     case 'cmtls_site_title':
@@ -803,8 +845,6 @@ function cmtls_block_view($delta = '') {
         $block['content'] = '<h6>' . ($content ? $content : variable_get('site_slogan')) . '</h6>';
       break;
     case 'cmtls_edit_buttons':
-      global $user;
-
       $links = array();
 
       $entity = menu_get_object();

@@ -341,5 +341,41 @@ function cmtls_context_default_contexts() {
   t('Community Tools locations page');
   $export['cmtls_locations_page'] = $context;
 
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
+  $context->name = 'cmtls_user_page';
+  $context->description = 'Sets the user page';
+  $context->tag = 'CT user';
+  $context->conditions = array(
+    'user_page' => array(
+      'values' => array(
+        'view' => 'view',
+      ),
+      'options' => array(
+        'mode' => 'all',
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'cmtls-cmtls_subscribe' => array(
+          'module' => 'cmtls',
+          'delta' => 'cmtls_subscribe',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('CT user');
+  t('Sets the user page');
+  $export['cmtls_user_page'] = $context;
+
   return $export;
 }

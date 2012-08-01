@@ -2,13 +2,13 @@
 
 /**
  * Implements hook_install()
- * 
- * creates the CT taxonomy, menu and adds default fields and configuration settings to group, app, location node types 
+ *
+ * creates the CT taxonomy, menu and adds default fields and configuration settings to group, app, location node types
  */
 function cmtls_install() {
-  // set the weight so the form alter occurs after menu module  
+  // set the weight so the form alter occurs after menu module
   db_query("UPDATE {system} SET weight = 10 WHERE name = 'cmtls'");
-  
+
   // group variables
   variable_set('comment_anonymous_cmtls_group', 0);
   variable_set('comment_cmtls_group', 0);
@@ -21,8 +21,8 @@ function cmtls_install() {
   variable_set('node_preview_cmtls_group', 0);
   variable_set('node_submitted_cmtls_group', 1);
   variable_set('og_group_content_type_cmtls_group', 'omitted');
-  
-  // app variables  
+
+  // app variables
   variable_set('comment_anonymous_cmtls_app', 0);
   variable_set('comment_cmtls_app', 0);
   variable_set('comment_default_mode_cmtls_app', 0);
@@ -34,7 +34,7 @@ function cmtls_install() {
   variable_set('node_preview_cmtls_app', 1);
   variable_set('node_submitted_cmtls_app', 0);
   variable_set('og_group_type_cmtls_app', 'omitted');
-  
+
   // location variables
   variable_set('comment_anonymous_cmtls_location', 0);
   variable_set('comment_cmtls_location', 2);
@@ -52,29 +52,42 @@ function cmtls_install() {
   $settings = variable_get('field_bundle_settings_node__cmtls_group', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_node__cmtls_group', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_node__cmtls_app', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_node__cmtls_app', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_node__cmtls_location', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   $settings['view_modes']['cmtls_location_bare']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_node__cmtls_location', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_user__user', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_user__user', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_group', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_comment__comment_node_cmtls_group', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_app', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_comment__comment_node_cmtls_app', $settings);
-  
+
   $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_location', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_comment__comment_node_cmtls_location', $settings);
+}
+
+function cmtls_modules_enabled($modules) {
+  // Schedule the first daily mail
+  if (in_array('rules_scheduler', $modules)) {
+    drupal_set_message(t('mymodule is not compatible with lousy_module'), 'error');
+    rules_scheduler_schedule_task(array(
+      'date' => strtotime('+1 day 14:00'),
+      'config' => 'rules_cmtls_daily_newsletter',
+      'state' => new RulesState(),
+      'identifier' => 'CT daily newsletter',
+    ));
+  }
 }

@@ -82,7 +82,6 @@ function cmtls_install() {
 function cmtls_modules_enabled($modules) {
   // Schedule the first daily mail
   if (in_array('rules_scheduler', $modules)) {
-    drupal_set_message(t('mymodule is not compatible with lousy_module'), 'error');
     rules_scheduler_schedule_task(array(
       'date' => strtotime('+1 day 14:00'),
       'config' => 'rules_cmtls_daily_newsletter',

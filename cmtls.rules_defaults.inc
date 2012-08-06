@@ -860,7 +860,7 @@ function cmtls_default_rules_configuration() {
               { "mail" : {
                   "to" : "\\u0022[group-manager:name]\\u0022 \\u003C[group-manager:mail]\\u003E",
                   "subject" : "[site:name] - \\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate",
-                  "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate.\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\nby [flagging-user:name] ([flagging-user:url]).\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]",
+                  "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate by [flagging-user:name] ([flagging-user:url]).\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]",
                   "language" : [ "" ]
                 }
               }

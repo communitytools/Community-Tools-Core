@@ -3195,10 +3195,11 @@ function cmtls_views_default_views() {
 
   /* Display: Master */
   $handler = $view->new_display('default', 'Master', 'default');
-  $handler->display->display_options['title'] = 'My subscriptions';
+  $handler->display->display_options['title'] = 'My group subscriptions';
   $handler->display->display_options['access']['type'] = 'perm';
   $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['query']['type'] = 'views_query';
+  $handler->display->display_options['query']['options']['distinct'] = TRUE;
   $handler->display->display_options['query']['options']['query_comment'] = FALSE;
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'full';
@@ -3325,6 +3326,8 @@ function cmtls_views_default_views() {
 
   /* Display: Application subscriptions */
   $handler = $view->new_display('attachment', 'Application subscriptions', 'cmtls_subscriptions_page_apps_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My application subscriptions';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -3460,6 +3463,8 @@ function cmtls_views_default_views() {
 
   /* Display: Posts subscriptions */
   $handler = $view->new_display('attachment', 'Posts subscriptions', 'cmtls_subscriptions_page_posts_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My posts subscriptions';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -3540,6 +3545,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['field_cmtls_application']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_cmtls_application']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_application']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['delta_first_last'] = 0;
@@ -3628,6 +3634,8 @@ function cmtls_views_default_views() {
 
   /* Display: Events subscriptions */
   $handler = $view->new_display('attachment', 'Events subscriptions', 'cmtls_subscriptions_page_events_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My events subscriptions';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -3708,6 +3716,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['field_cmtls_application']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_cmtls_application']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_application']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['delta_first_last'] = 0;
@@ -3796,6 +3805,8 @@ function cmtls_views_default_views() {
 
   /* Display: Locations subscriptions */
   $handler = $view->new_display('attachment', 'Locations subscriptions', 'cmtls_subscriptions_page_locations_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My locations subscriptions';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -3876,6 +3887,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['field_cmtls_application']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_cmtls_application']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_application']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['delta_first_last'] = 0;
@@ -3964,6 +3976,8 @@ function cmtls_views_default_views() {
 
   /* Display: Media subscriptions */
   $handler = $view->new_display('attachment', 'Media subscriptions', 'cmtls_subscriptions_page_media_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'My media subscriptions';
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '20';
   $handler->display->display_options['pager']['options']['offset'] = '0';
@@ -4044,6 +4058,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['field_cmtls_application']['empty_zero'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['field_cmtls_application']['group_rows'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_application']['delta_limit'] = '1';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_offset'] = '0';
   $handler->display->display_options['fields']['field_cmtls_application']['delta_reversed'] = 0;
   $handler->display->display_options['fields']['field_cmtls_application']['delta_first_last'] = 0;
@@ -4131,7 +4146,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['render_pager'] = 0;
   $translatables['cmtls_group_member_subscriptions'] = array(
     t('Master'),
-    t('My subscriptions'),
+    t('My group subscriptions'),
     t('more'),
     t('Apply'),
     t('Reset'),
@@ -4145,17 +4160,22 @@ function cmtls_views_default_views() {
     t('Flag user'),
     t('All'),
     t('Application subscriptions'),
+    t('My application subscriptions'),
     t('group membership'),
     t('Group'),
     t('Application'),
     t('Posts subscriptions'),
+    t('My posts subscriptions'),
     t('field_cmtls_application'),
     t('Post'),
     t('Events subscriptions'),
+    t('My events subscriptions'),
     t('Event'),
     t('Locations subscriptions'),
+    t('My locations subscriptions'),
     t('Location'),
     t('Media subscriptions'),
+    t('My media subscriptions'),
     t('Media'),
   );
   $export['cmtls_group_member_subscriptions'] = $view;
@@ -6393,6 +6413,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['arguments']['group']['default_action'] = 'not found';
   $handler->display->display_options['arguments']['group']['exception']['value'] = '';
+  $handler->display->display_options['arguments']['group']['breadcrumb_enable'] = 1;
   $handler->display->display_options['arguments']['group']['breadcrumb'] = 'Comments in %1';
   $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
   $handler->display->display_options['arguments']['group']['default_argument_skip_url'] = 0;

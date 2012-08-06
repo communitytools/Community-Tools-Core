@@ -145,6 +145,47 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
+  // Exported flag: "Mark content as inappropriate or spam".
+  $flags['cmtls_inappropriate_content'] = array(
+    'content_type' => 'node',
+    'title' => 'Mark content as inappropriate or spam',
+    'global' => '0',
+    'types' => array(
+      0 => 'cmtls_event',
+      1 => 'cmtls_post',
+      2 => 'media_gallery',
+      3 => 'cmtls_location',
+    ),
+    'flag_short' => 'Mark as spam or an inappropriate content',
+    'flag_long' => 'Notify about spam or an inappropriate content',
+    'flag_message' => 'This content has been marked as spam / inappropriate and moderators are notified.',
+    'unflag_short' => 'Unmark as spam or an inappropriate content',
+    'unflag_long' => '',
+    'unflag_message' => '',
+    'unflag_denied_text' => 'This action is not available.',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'show_on_page' => 1,
+    'show_on_teaser' => 1,
+    'show_on_form' => 0,
+    'show_contextual_link' => FALSE,
+    'access_author' => '',
+    'i18n' => 0,
+    'api_version' => 2,
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+  );
   // Exported flag: "Instant notifications".
   $flags['cmtls_instant_notifications'] = array(
     'content_type' => 'user',

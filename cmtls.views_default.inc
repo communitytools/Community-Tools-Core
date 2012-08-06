@@ -2278,12 +2278,20 @@ function cmtls_views_default_views() {
   /* Display: Date and author block */
   $handler = $view->new_display('block', 'Date and author block', 'cmtls_common_elements_date_author');
   $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['defaults']['relationships'] = FALSE;
   /* Relationship: Content: Author */
   $handler->display->display_options['relationships']['uid']['id'] = 'uid';
   $handler->display->display_options['relationships']['uid']['table'] = 'node';
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['required'] = 0;
+  /* Relationship: Flags: cmtls_inappropriate_content */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'cmtls_inappropriate_content';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Post date */
   $handler->display->display_options['fields']['created']['id'] = 'created';
@@ -2361,6 +2369,30 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['comment_count']['separator'] = '';
   $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops']['id'] = 'ops';
+  $handler->display->display_options['fields']['ops']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['ops']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['ops']['label'] = '';
+  $handler->display->display_options['fields']['ops']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['ops']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['ops']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['ops']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ops']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['ops']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['ops']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['ops']['hide_alter_empty'] = 1;
 
   /* Display: Breadcrumb */
   $handler = $view->new_display('block', 'Breadcrumb', 'cmtls_common_elements_breadcrumb');
@@ -2460,6 +2492,46 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+
+  /* Display: Flag spam block */
+  $handler = $view->new_display('block', 'Flag spam block', 'cmtls_common_elements_flag_spam_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Flags: cmtls_inappropriate_content */
+  $handler->display->display_options['relationships']['flag_content_rel']['id'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['table'] = 'node';
+  $handler->display->display_options['relationships']['flag_content_rel']['field'] = 'flag_content_rel';
+  $handler->display->display_options['relationships']['flag_content_rel']['required'] = 0;
+  $handler->display->display_options['relationships']['flag_content_rel']['flag'] = 'cmtls_inappropriate_content';
+  $handler->display->display_options['relationships']['flag_content_rel']['user_scope'] = 'any';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Flags: Flag link */
+  $handler->display->display_options['fields']['ops']['id'] = 'ops';
+  $handler->display->display_options['fields']['ops']['table'] = 'flag_content';
+  $handler->display->display_options['fields']['ops']['field'] = 'ops';
+  $handler->display->display_options['fields']['ops']['relationship'] = 'flag_content_rel';
+  $handler->display->display_options['fields']['ops']['label'] = '';
+  $handler->display->display_options['fields']['ops']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['ops']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['ops']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['ops']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['ops']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['ops']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['ops']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['ops']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['ops']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['ops']['link_type'] = 'toggle';
   $translatables['cmtls_common_elements'] = array(
     t('Master'),
     t('Element'),
@@ -2485,9 +2557,11 @@ function cmtls_views_default_views() {
     t('Content block'),
     t('Date and author block'),
     t('author'),
+    t('flag'),
     t('Comments'),
     t('.'),
     t('Breadcrumb'),
+    t('Flag spam block'),
   );
   $export['cmtls_common_elements'] = $view;
 

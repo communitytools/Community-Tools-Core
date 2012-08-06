@@ -130,7 +130,7 @@ function cmtls_default_rules_configuration() {
                     { "views_bulk_operations_action_load_list" : {
                         "USING" : {
                           "view" : "cmtls_group_vbo_subscribed|default",
-                          "args" : "[group-member:uid]\\u000D\\u000A[member-group:group:gid]"
+                          "args" : "[group-member:uid]\\r\\n[member-group:group:gid]"
                         },
                         "PROVIDE" : { "entity_list" : { "subscribed_groups" : "Subscribed groups" } }
                       }
@@ -158,7 +158,7 @@ function cmtls_default_rules_configuration() {
                               "DO" : [
                                 { "data_set" : {
                                     "data" : [ "new-apps" ],
-                                    "value" : "[new-apps]\\u000D\\u000A\\u0009\\u0022[application:title]\\u0022 [application:url]\\u000D\\u000A\\u000D\\u000A"
+                                    "value" : "[new-apps]\\r\\n\\t\\u0022[application:title]\\u0022 [application:url]\\r\\n\\r\\n"
                                   }
                                 }
                               ]
@@ -167,7 +167,7 @@ function cmtls_default_rules_configuration() {
                           { "component_rules_cmtls_check_string_and_prefix_it" : {
                               "USING" : {
                                 "varible" : "[new-apps]",
-                                "prefix" : "New applications in \\u0022[member-group:title]\\u0022:\\u000D\\u000A"
+                                "prefix" : "New applications in \\u0022[member-group:title]\\u0022:\\r\\n"
                               },
                               "PROVIDE" : { "result" : { "applications_list" : "Applications list" } }
                             }
@@ -183,7 +183,7 @@ function cmtls_default_rules_configuration() {
                     { "views_bulk_operations_action_load_list" : {
                         "USING" : {
                           "view" : "cmtls_applications_vbo_subscribed|default",
-                          "args" : "[member-group:group:gid]\\u000D\\u000A[group-member:uid]"
+                          "args" : "[member-group:group:gid]\\r\\n[group-member:uid]"
                         },
                         "PROVIDE" : { "entity_list" : { "subscribed_apps" : "Subscribed applications" } }
                       }
@@ -211,7 +211,7 @@ function cmtls_default_rules_configuration() {
                               "DO" : [
                                 { "data_set" : {
                                     "data" : [ "new-content" ],
-                                    "value" : "[new-content]\\u000D\\u000A\\u0009\\u0022[app-content:title] ([app-content:comment-count])\\u0022\\u000D\\u000A\\u0009[app-content:body]\\u000D\\u000A\\u0009Read more and manage subscription: [app-content:url]\\u000D\\u000A\\u000D\\u000A"
+                                    "value" : "[new-content]\\r\\n\\t\\u0022[app-content:title] ([app-content:comment-count])\\u0022\\r\\n\\t[app-content:body]\\r\\n\\tRead more and manage subscription: [app-content:url]\\r\\n\\r\\n"
                                   }
                                 }
                               ]
@@ -220,7 +220,7 @@ function cmtls_default_rules_configuration() {
                           { "component_rules_cmtls_check_string_and_prefix_it" : {
                               "USING" : {
                                 "varible" : "[new-content]",
-                                "prefix" : "New content in \\u0022[subscribed-app:title]\\u0022:\\u000D\\u000A"
+                                "prefix" : "New content in \\u0022[subscribed-app:title]\\u0022:\\r\\n"
                               },
                               "PROVIDE" : { "result" : { "application_content" : "Application content" } }
                             }
@@ -283,17 +283,14 @@ function cmtls_default_rules_configuration() {
                   "DO" : [
                     { "data_set" : {
                         "data" : [ "new-groups-content" ],
-                        "value" : "[new-groups-content]\\u000D\\u000A\\u0009\\u0022[new-group:title]\\u0022 [new-group:url]\\u000D\\u000A\\u000D\\u000A"
+                        "value" : "[new-groups-content]\\r\\n\\t\\u0022[new-group:title]\\u0022 [new-group:url]\\r\\n\\r\\n"
                       }
                     }
                   ]
                 }
               },
               { "component_rules_cmtls_check_string_and_prefix_it" : {
-                  "USING" : {
-                    "varible" : "[new-groups-content]",
-                    "prefix" : "New groups:\\u000D\\u000A"
-                  },
+                  "USING" : { "varible" : "[new-groups-content]", "prefix" : "New groups:\\r\\n" },
                   "PROVIDE" : { "result" : { "new_groups_content_full" : "New groups content full" } }
                 }
               },
@@ -319,7 +316,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Event comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -329,7 +326,7 @@ function cmtls_default_rules_configuration() {
         { "views_bulk_operations_action_load_list" : {
             "USING" : {
               "view" : "cmtls_events_vbo_subscribed|default",
-              "args" : "[gid]\\u000D\\u000A[uid]"
+              "args" : "[gid]\\r\\n[uid]"
             },
             "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
           }
@@ -357,7 +354,7 @@ function cmtls_default_rules_configuration() {
                   "DO" : [
                     { "data_set" : {
                         "data" : [ "content" ],
-                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                        "value" : "[content]\\r\\n\\t[comment:body]\\r\\n\\tby [comment:author:name]\\r\\n\\t[comment:url]\\r\\n\\r\\n"
                       }
                     }
                   ]
@@ -366,7 +363,7 @@ function cmtls_default_rules_configuration() {
               { "component_rules_cmtls_check_string_and_prefix_it" : {
                   "USING" : {
                     "varible" : [ "content" ],
-                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\r\\n"
                   },
                   "PROVIDE" : { "result" : { "full_content" : "Full content" } }
                 }
@@ -460,7 +457,7 @@ function cmtls_default_rules_configuration() {
               { "mail" : {
                   "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
                   "subject" : "[site:name] has new content",
-                  "message" : "Hello [list-item:field-cmtls-firstname],\\u000D\\u000A\\u000D\\u000A[site:name] has new section \\u0022[node:title]\\u0022:\\u000D\\u000A\\u000D\\u000A[node:body]\\u000D\\u000A\\u000D\\u000A[node:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
+                  "message" : "Hello [list-item:field-cmtls-firstname],\\r\\n\\r\\n[site:name] has new section \\u0022[node:title]\\u0022:\\r\\n\\r\\n[node:body]\\r\\n\\r\\n[node:url]\\r\\n---\\r\\nYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
                   "language" : [ "" ]
                 }
               },
@@ -504,7 +501,7 @@ function cmtls_default_rules_configuration() {
               { "mail" : {
                   "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
                   "subject" : "[site:name] - [comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] has commented on: [comment:node]",
-                  "message" : "[comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] commented on \\u0022[comment:node]\\u0022\\u000D\\u000A\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000A[comment:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[comment:node]\\u0022 at [comment:node:url].",
+                  "message" : "[comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] commented on \\u0022[comment:node]\\u0022\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n[comment:url]\\r\\n---\\r\\nYou can change notification settings for \\u0022[comment:node]\\u0022 at [comment:node:url].",
                   "language" : [ "" ]
                 }
               }
@@ -573,7 +570,7 @@ function cmtls_default_rules_configuration() {
               { "mail" : {
                   "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
                   "subject" : "[site:name] has new content",
-                  "message" : "Hello [list-item:field-cmtls-firstname],\\u000D\\u000A\\u000D\\u000A[site:name] has new location \\u0022[node:title]\\u0022:\\u000D\\u000A\\u000D\\u000A[node:body]\\u000D\\u000A\\u000D\\u000A[node:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
+                  "message" : "Hello [list-item:field-cmtls-firstname],\\r\\n\\r\\n[site:name] has new location \\u0022[node:title]\\u0022:\\r\\n\\r\\n[node:body]\\r\\n\\r\\n[node:url]\\r\\n---\\r\\nYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
                   "language" : [ "" ]
                 }
               }
@@ -587,7 +584,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Location comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -597,7 +594,7 @@ function cmtls_default_rules_configuration() {
         { "views_bulk_operations_action_load_list" : {
             "USING" : {
               "view" : "cmtls_locations_vbo_subscribed|default",
-              "args" : "[gid]\\u000D\\u000A[uid]"
+              "args" : "[gid]\\r\\n[uid]"
             },
             "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
           }
@@ -625,7 +622,7 @@ function cmtls_default_rules_configuration() {
                   "DO" : [
                     { "data_set" : {
                         "data" : [ "content" ],
-                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                        "value" : "[content]\\r\\n\\t[comment:body]\\r\\n\\tby [comment:author:name]\\r\\n\\t[comment:url]\\r\\n\\r\\n"
                       }
                     }
                   ]
@@ -634,7 +631,7 @@ function cmtls_default_rules_configuration() {
               { "component_rules_cmtls_check_string_and_prefix_it" : {
                   "USING" : {
                     "varible" : [ "content" ],
-                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\r\\n"
                   },
                   "PROVIDE" : { "result" : { "full_content" : "Full content" } }
                 }
@@ -697,7 +694,7 @@ function cmtls_default_rules_configuration() {
               { "mail" : {
                   "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
                   "subject" : "[site:name] - [comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] has commented on: [comment:node]",
-                  "message" : "[comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] commented on \\u0022[comment:node]\\u0022\\u000D\\u000A\\u000D\\u000A[comment:body]\\u000D\\u000A\\u000D\\u000A[comment:url]\\u000D\\u000A---\\u000D\\u000AYou can change notification settings for \\u0022[comment:node]\\u0022 at [comment:node:url].",
+                  "message" : "[comment:author:field-cmtls-firstname] [comment:author:field-cmtls-lastname] commented on \\u0022[comment:node]\\u0022\\r\\n\\r\\n[comment:body]\\r\\n\\r\\n[comment:url]\\r\\n---\\r\\nYou can change notification settings for \\u0022[comment:node]\\u0022 at [comment:node:url].",
                   "language" : [ "" ]
                 }
               }
@@ -742,7 +739,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Media comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -752,7 +749,7 @@ function cmtls_default_rules_configuration() {
         { "views_bulk_operations_action_load_list" : {
             "USING" : {
               "view" : "cmtls_media_vbo_subscribed|default",
-              "args" : "[gid]\\u000D\\u000A[uid]"
+              "args" : "[gid]\\r\\n[uid]"
             },
             "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
           }
@@ -780,7 +777,7 @@ function cmtls_default_rules_configuration() {
                   "DO" : [
                     { "data_set" : {
                         "data" : [ "content" ],
-                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                        "value" : "[content]\\r\\n\\t[comment:body]\\r\\n\\tby [comment:author:name]\\r\\n\\t[comment:url]\\r\\n\\r\\n"
                       }
                     }
                   ]
@@ -789,7 +786,7 @@ function cmtls_default_rules_configuration() {
               { "component_rules_cmtls_check_string_and_prefix_it" : {
                   "USING" : {
                     "varible" : [ "content" ],
-                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\r\\n"
                   },
                   "PROVIDE" : { "result" : { "full_content" : "Full content" } }
                 }
@@ -803,7 +800,7 @@ function cmtls_default_rules_configuration() {
     }
   }');
   $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
-      "LABEL" : "CT member subscribe\\u002Funsubscribe cache",
+      "LABEL" : "CT member subscribe\\/unsubscribe cache",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "cmtls" ],
       "REQUIRES" : [ "cache_actions", "og" ],
@@ -839,11 +836,46 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_notify_about_spam_inappropriate_content'] = entity_import('rules_config', '{ "rules_cmtls_notify_about_spam_inappropriate_content" : {
+      "LABEL" : "CT notify about spam inappropriate content",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "flag" ],
+      "ON" : [ "flag_flagged_cmtls_inappropriate_content" ],
+      "DO" : [
+        { "component_rules_cmtls_unpublish_content_that_has_been_flagged_as_spam" : {
+            "count" : "[flagged-node:flag-cmtls-inappropriate-content-count]",
+            "flagged_node" : [ "flagged-node" ]
+          }
+        },
+        { "og_get_managers" : {
+            "USING" : { "group_content" : [ "flagged-node" ] },
+            "PROVIDE" : { "group_managers" : { "group_managers" : "List of group managers" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "group-managers" ] },
+            "ITEM" : { "group_manager" : "Group manager" },
+            "DO" : [
+              { "mail" : {
+                  "to" : "\\u0022[group-manager:name]\\u0022 \\u003C[group-manager:mail]\\u003E",
+                  "subject" : "[site:name] - \\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate",
+                  "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate.\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\nby [flagging-user:name] ([flagging-user:url]).\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]",
+                  "language" : [ "" ]
+                }
+              },
+              { "drupal_message" : { "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate.\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\nby [flagging-user:name] ([flagging-user:url]).\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]" } }
+            ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_cmtls_post_comments_newsletter'] = entity_import('rules_config', '{ "rules_cmtls_post_comments_newsletter" : {
       "LABEL" : "CT Post comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -853,7 +885,7 @@ function cmtls_default_rules_configuration() {
         { "views_bulk_operations_action_load_list" : {
             "USING" : {
               "view" : "cmtls_posts_vbo_subscribed|default",
-              "args" : "[gid]\\u000D\\u000A[uid]"
+              "args" : "[gid]\\r\\n[uid]"
             },
             "PROVIDE" : { "entity_list" : { "subscribed_entities" : "Subscribed entities" } }
           }
@@ -881,7 +913,7 @@ function cmtls_default_rules_configuration() {
                   "DO" : [
                     { "data_set" : {
                         "data" : [ "content" ],
-                        "value" : "[content]\\u000D\\u000A\\u0009[comment:body]\\u000D\\u000A\\u0009by [comment:author:name]\\u000D\\u000A\\u0009[comment:url]\\u000D\\u000A\\u000D\\u000A"
+                        "value" : "[content]\\r\\n\\t[comment:body]\\r\\n\\tby [comment:author:name]\\r\\n\\t[comment:url]\\r\\n\\r\\n"
                       }
                     }
                   ]
@@ -890,7 +922,7 @@ function cmtls_default_rules_configuration() {
               { "component_rules_cmtls_check_string_and_prefix_it" : {
                   "USING" : {
                     "varible" : [ "content" ],
-                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\u000D\\u000A"
+                    "prefix" : "New comments in \\u0022[subscribed-entity:title] ([subscribed-entity:comment-count])\\u0022\\r\\n"
                   },
                   "PROVIDE" : { "result" : { "full_content" : "Full content" } }
                 }
@@ -917,7 +949,7 @@ function cmtls_default_rules_configuration() {
         { "mail" : {
             "to" : "\\u0022[user:name]\\u0022 \\u003C[user:mail]\\u003E",
             "subject" : "[site:name] content updates",
-            "message" : "Hello [user:name],\\u000D\\u000A\\u000D\\u000AHere\\u0027s a summary of [site:name] content updates\\u000D\\u000A\\u000D\\u000A[content]\\u000D\\u000A---\\u000D\\u000A[site:name]",
+            "message" : "Hello [user:name],\\r\\n\\r\\nHere\\u0027s a summary of [site:name] content updates\\r\\n\\r\\n[content]\\r\\n---\\r\\n[site:name]",
             "language" : [ "user:language" ]
           }
         }
@@ -984,6 +1016,19 @@ function cmtls_default_rules_configuration() {
           }
         }
       ]
+    }
+  }');
+  $items['rules_cmtls_unpublish_content_that_has_been_flagged_as_spam'] = entity_import('rules_config', '{ "rules_cmtls_unpublish_content_that_has_been_flagged_as_spam" : {
+      "LABEL" : "CT unpublish content that has been flagged as spam",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules" ],
+      "USES VARIABLES" : {
+        "count" : { "label" : "Count", "type" : "text" },
+        "flagged_node" : { "label" : "Flagged node", "type" : "node" }
+      },
+      "IF" : [ { "data_is" : { "data" : [ "count" ], "value" : "3" } } ],
+      "DO" : [ { "node_unpublish" : { "node" : [ "flagged-node" ] } } ]
     }
   }');
   $items['rules_cmtls_unsubscribe_from_group_apps'] = entity_import('rules_config', '{ "rules_cmtls_unsubscribe_from_group_apps" : {

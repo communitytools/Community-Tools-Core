@@ -863,8 +863,7 @@ function cmtls_default_rules_configuration() {
                   "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate.\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\nby [flagging-user:name] ([flagging-user:url]).\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]",
                   "language" : [ "" ]
                 }
-              },
-              { "drupal_message" : { "message" : "\\u0022[flagged-node:title]\\u0022 is marked as spam or inappropriate.\\r\\nThis has been marked by [flagged-node:flag-cmtls-inappropriate-content-count] users, when this reaches 3 the content is automatically unpublished.\\r\\nby [flagging-user:name] ([flagging-user:url]).\\r\\n\\r\\nReview here: [flagged-node:edit-url].\\r\\n---\\r\\n[site:name]" } }
+              }
             ]
           }
         }

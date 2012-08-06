@@ -180,11 +180,11 @@ function cmtls_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => '',
     'i18n' => 0,
-    'api_version' => 2,
     'module' => 'cmtls',
     'locked' => array(
       0 => 'name',
     ),
+    'api_version' => 2,
   );
   // Exported flag: "Instant notifications".
   $flags['cmtls_instant_notifications'] = array(

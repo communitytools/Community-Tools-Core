@@ -836,6 +836,40 @@ function cmtls_default_rules_configuration() {
       ]
     }
   }');
+  $items['rules_cmtls_notify_about_spam_inappropriate_comment'] = entity_import('rules_config', '{ "rules_cmtls_notify_about_spam_inappropriate_comment" : {
+      "LABEL" : "CT notify about spam inappropriate comment",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og", "flag" ],
+      "ON" : [ "flag_flagged_cmtls_inappropriate_comment" ],
+      "DO" : [
+        { "component_rules_cmtls_unpublish_comment_that_has_been_flagged_as_spam" : {
+            "count" : "[flagged-comment:flag-cmtls-inappropriate-comment-count]",
+            "flagged_comment" : [ "flagged-comment" ]
+          }
+        },
+        { "og_get_managers" : {
+            "USING" : { "group_content" : [ "flagged-comment:node" ] },
+            "PROVIDE" : { "group_managers" : { "group_managers" : "List of group managers" } }
+          }
+        },
+        { "LOOP" : {
+            "USING" : { "list" : [ "group-managers" ] },
+            "ITEM" : { "group_manager" : "Group manager" },
+            "DO" : [
+              { "mail" : {
+                  "to" : "\\u0022[group-manager:name]\\u0022 \\u003C[group-manager:mail]\\u003E",
+                  "subject" : "[site:name] - Comment \\u0022[flagged-comment:title]\\u0022 is marked as spam or inappropriate",
+                  "message" : "Comment \\u0022[flagged-comment:title]\\u0022 for \\u0022[flagged-comment:node:title]\\u0022 is marked as spam or inappropriate by [flagging-user:name] ([flagging-user:url]).\\r\\nThis has been marked by [flagged-comment:node:flag-cmtls-inappropriate-comment-count] users, when this reaches 3 the comment is automatically unpublished.\\r\\n\\r\\nReview here: [flagged-comment:edit-url].\\r\\n---\\r\\n[site:name]",
+                  "language" : [ "" ]
+                }
+              }
+            ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_cmtls_notify_about_spam_inappropriate_content'] = entity_import('rules_config', '{ "rules_cmtls_notify_about_spam_inappropriate_content" : {
       "LABEL" : "CT notify about spam inappropriate content",
       "PLUGIN" : "reaction rule",
@@ -1014,6 +1048,21 @@ function cmtls_default_rules_configuration() {
             ]
           }
         }
+      ]
+    }
+  }');
+  $items['rules_cmtls_unpublish_comment_that_has_been_flagged_as_spam'] = entity_import('rules_config', '{ "rules_cmtls_unpublish_comment_that_has_been_flagged_as_spam" : {
+      "LABEL" : "CT unpublish comment that has been flagged as spam",
+      "PLUGIN" : "rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules" ],
+      "USES VARIABLES" : {
+        "count" : { "label" : "Count", "type" : "text" },
+        "flagged_comment" : { "label" : "Flagged comment", "type" : "comment" }
+      },
+      "IF" : [ { "data_is" : { "data" : [ "count" ], "value" : "3" } } ],
+      "DO" : [
+        { "data_set" : { "data" : [ "flagged-comment:status" ], "value" : "0" } }
       ]
     }
   }');

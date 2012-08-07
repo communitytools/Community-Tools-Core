@@ -145,6 +145,43 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
+  // Exported flag: "Mark comment as inappropriate or spam".
+  $flags['cmtls_inappropriate_comment'] = array(
+    'content_type' => 'comment',
+    'title' => 'Mark comment as inappropriate or spam',
+    'global' => '0',
+    'types' => array(
+      0 => 'cmtls_event',
+      1 => 'cmtls_post',
+      2 => 'media_gallery',
+      3 => 'cmtls_location',
+    ),
+    'flag_short' => 'Mark as spam or an inappropriate comment',
+    'flag_long' => 'Notify about spam or an inappropriate comment',
+    'flag_message' => 'This comment has been marked as spam / inappropriate and moderators are notified.',
+    'unflag_short' => 'Unmark as spam or an inappropriate content',
+    'unflag_long' => '',
+    'unflag_message' => '',
+    'unflag_denied_text' => 'You have marked this as spam.',
+    'link_type' => 'toggle',
+    'roles' => array(
+      'flag' => array(
+        0 => '2',
+        1 => '3',
+      ),
+      'unflag' => array(
+        0 => '3',
+      ),
+    ),
+    'weight' => 0,
+    'access_author' => 'comment_others',
+    'show_on_comment' => 1,
+    'module' => 'cmtls',
+    'locked' => array(
+      0 => 'name',
+    ),
+    'api_version' => 2,
+  );
   // Exported flag: "Mark content as inappropriate or spam".
   $flags['cmtls_inappropriate_content'] = array(
     'content_type' => 'node',
@@ -162,7 +199,7 @@ function cmtls_flag_default_flags() {
     'unflag_short' => 'Unmark as spam or an inappropriate content',
     'unflag_long' => '',
     'unflag_message' => '',
-    'unflag_denied_text' => 'This action is not available.',
+    'unflag_denied_text' => 'You have marked this as spam.',
     'link_type' => 'toggle',
     'roles' => array(
       'flag' => array(
@@ -175,10 +212,10 @@ function cmtls_flag_default_flags() {
     ),
     'weight' => 0,
     'show_on_page' => 1,
-    'show_on_teaser' => 1,
+    'show_on_teaser' => 0,
     'show_on_form' => 0,
     'show_contextual_link' => FALSE,
-    'access_author' => '',
+    'access_author' => 'others',
     'i18n' => 0,
     'module' => 'cmtls',
     'locked' => array(

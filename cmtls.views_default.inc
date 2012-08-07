@@ -2978,6 +2978,8 @@ function cmtls_views_default_views() {
 
   /* Display: All groups page */
   $handler = $view->new_display('page', 'All groups page', 'all_groups_page');
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['path'] = 'cmtls/groups';
   $handler->display->display_options['menu']['type'] = 'normal';
   $handler->display->display_options['menu']['title'] = 'Groups';

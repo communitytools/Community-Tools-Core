@@ -37,7 +37,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -270,7 +270,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('Content'),
     t('Post date'),
@@ -301,7 +301,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['exposed_form']['type'] = 'basic';
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'table';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -339,7 +339,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['weight']['field'] = 'weight';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_view'] = 'self';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_new_items_bottom_list'] = 1;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -380,7 +380,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('All'),
     t('CT Application settings page'),
   );
@@ -407,7 +407,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -573,7 +573,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -609,7 +609,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('Content'),
     t('All'),
   );
@@ -636,7 +636,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -841,7 +841,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['title']['id'] = 'title';
   $handler->display->display_options['sorts']['title']['table'] = 'node';
   $handler->display->display_options['sorts']['title']['field'] = 'title';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -884,7 +884,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('Content'),
     t('Nid'),
     t('All'),
@@ -911,7 +911,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -997,7 +997,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['weight']['field'] = 'weight';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_view'] = 'cmtls_application_settings:cmtls_app_settings_page';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_new_items_bottom_list'] = 1;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -1036,7 +1036,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('<a href="[path]" data-nid="[nid]" class="cmtls-app-select-link">[title]</a>'),
     t('All'),
     t('Applications list block'),
@@ -1063,7 +1063,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['pager']['type'] = 'none';
   $handler->display->display_options['style_plugin'] = 'default';
   $handler->display->display_options['row_plugin'] = 'fields';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -1344,7 +1344,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['weight']['field'] = 'weight';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_view'] = 'cmtls_application_settings:cmtls_app_settings_page';
   $handler->display->display_options['sorts']['weight']['draggableviews_setting_new_items_bottom_list'] = 1;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -1393,7 +1393,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('flag'),
     t('Flag user'),
     t('<a href="[path]" data-nid="[nid]" class="cmtls-app-select-link">[title]</a>'),
@@ -1456,7 +1456,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'comment';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -1563,7 +1563,7 @@ function cmtls_views_default_views() {
   $handler = $view->new_display('page', 'Group comments page', 'cmtls_group_comments_page');
   $handler->display->display_options['display_description'] = 'All comments in a group';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -1684,7 +1684,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -1711,7 +1711,7 @@ function cmtls_views_default_views() {
     t('- All -'),
     t('Offset'),
     t('Content'),
-    t('group membership'),
+    t('OG membership from node'),
     t('Member comments page'),
     t('All comments posted in Community Tools groups by a member'),
     t('All'),
@@ -2591,7 +2591,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -2793,7 +2793,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
   $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -2850,7 +2850,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('flag'),
     t('Flag user'),
@@ -2898,12 +2898,12 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_options']['advanced'] = 0;
   $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'field_data_field_cmtls_main_group|field_cmtls_main_group_value';
   $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'cmtls_teaser';
-  /* Relationship: Group: Node group */
+  /* Relationship: OG group: OG group from Node */
   $handler->display->display_options['relationships']['og_rel']['id'] = 'og_rel';
   $handler->display->display_options['relationships']['og_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_rel']['field'] = 'og_rel';
   $handler->display->display_options['relationships']['og_rel']['required'] = 1;
-  /* Relationship: OG group: OG membership */
+  /* Relationship: OG group: OG membership from OG group */
   $handler->display->display_options['relationships']['og_membership']['id'] = 'og_membership';
   $handler->display->display_options['relationships']['og_membership']['table'] = 'og';
   $handler->display->display_options['relationships']['og_membership']['field'] = 'og_membership';
@@ -3024,8 +3024,8 @@ function cmtls_views_default_views() {
     t('Items per page'),
     t('- All -'),
     t('Offset'),
-    t('group'),
-    t('OG membership'),
+    t('node being the OG group'),
+    t('OG membership from OG group'),
     t('Title'),
     t('All groups page'),
     t('My groups page'),
@@ -3071,7 +3071,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['field'] = 'field_cmtls_application_nid';
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['required'] = 1;
   $handler->display->display_options['relationships']['field_cmtls_application_nid']['delta'] = '-1';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -3222,7 +3222,7 @@ function cmtls_views_default_views() {
   $handler = $view->new_display('block', 'Wall content', 'cmtls_group_page_content');
   $handler->display->display_options['display_description'] = 'Community Tools group wall content';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -3248,7 +3248,7 @@ function cmtls_views_default_views() {
     t('- All -'),
     t('Offset'),
     t('field_cmtls_application'),
-    t('group membership'),
+    t('OG membership from node'),
     t('author'),
     t('Comments'),
     t('.'),
@@ -3420,7 +3420,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -3557,7 +3557,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -3728,7 +3728,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -3899,7 +3899,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -4070,7 +4070,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -4237,7 +4237,7 @@ function cmtls_views_default_views() {
     t('All'),
     t('Application subscriptions'),
     t('My application subscriptions'),
-    t('group membership'),
+    t('OG membership from node'),
     t('Group'),
     t('Application'),
     t('Posts subscriptions'),
@@ -4505,7 +4505,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['uid']['field'] = 'uid';
   $handler->display->display_options['relationships']['uid']['relationship'] = 'flag_content_rel';
   $handler->display->display_options['relationships']['uid']['required'] = 0;
-  /* Relationship: Group: Node group */
+  /* Relationship: OG group: OG group from Node */
   $handler->display->display_options['relationships']['og_rel']['id'] = 'og_rel';
   $handler->display->display_options['relationships']['og_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_rel']['field'] = 'og_rel';
@@ -4657,7 +4657,7 @@ function cmtls_views_default_views() {
     t('Desc'),
     t('flag'),
     t('Flag user'),
-    t('group'),
+    t('node being the OG group'),
     t('OG group'),
     t('All'),
   );
@@ -4691,12 +4691,12 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group: Node group */
+  /* Relationship: OG group: OG group from Node */
   $handler->display->display_options['relationships']['og_rel']['id'] = 'og_rel';
   $handler->display->display_options['relationships']['og_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_rel']['field'] = 'og_rel';
   $handler->display->display_options['relationships']['og_rel']['required'] = 1;
-  /* Relationship: OG group: OG membership */
+  /* Relationship: OG group: OG membership from OG group */
   $handler->display->display_options['relationships']['og_membership']['id'] = 'og_membership';
   $handler->display->display_options['relationships']['og_membership']['table'] = 'og';
   $handler->display->display_options['relationships']['og_membership']['field'] = 'og_membership';
@@ -4934,8 +4934,8 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group'),
-    t('OG membership'),
+    t('node being the OG group'),
+    t('OG membership from OG group'),
     t('Content'),
     t('All'),
   );
@@ -4976,7 +4976,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_options']['advanced'] = 0;
   $handler->display->display_options['row_options']['grouping_fieldset']['group_field'] = 'node|sticky';
   $handler->display->display_options['row_options']['default_fieldset']['view_mode'] = 'cmtls_location_bare';
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -5028,6 +5028,10 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['last_comment_timestamp']['exposed'] = TRUE;
   $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
   /* Filter criterion: Content: Published */
   $handler->display->display_options['filters']['status']['id'] = 'status';
   $handler->display->display_options['filters']['status']['table'] = 'node';
@@ -5072,7 +5076,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['not'] = 0;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -5088,7 +5092,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['not'] = 0;
 
   /* Display: Application map block */
-  $handler = $view->new_display('block', 'Application map block', 'block_1');
+  $handler = $view->new_display('block', 'Application map block', 'cmtls_location_app_map_block');
   $handler->display->display_options['display_description'] = 'Locations on map on the application page';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
@@ -5268,7 +5272,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['not'] = 0;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -5288,7 +5292,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'node';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['group'] = 1;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
   /* Filter criterion: Content: Type */
   $handler->display->display_options['filters']['type']['id'] = 'type';
@@ -5297,6 +5301,21 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['type']['value'] = array(
     'cmtls_location' => 'cmtls_location',
   );
+  $handler->display->display_options['filters']['type']['group'] = 1;
+  /* Filter criterion: Location: Longitude */
+  $handler->display->display_options['filters']['longitude']['id'] = 'longitude';
+  $handler->display->display_options['filters']['longitude']['table'] = 'location';
+  $handler->display->display_options['filters']['longitude']['field'] = 'longitude';
+  $handler->display->display_options['filters']['longitude']['operator'] = '!=';
+  $handler->display->display_options['filters']['longitude']['value']['value'] = '0.000000';
+  $handler->display->display_options['filters']['longitude']['group'] = 2;
+  /* Filter criterion: Location: Latitude */
+  $handler->display->display_options['filters']['latitude']['id'] = 'latitude';
+  $handler->display->display_options['filters']['latitude']['table'] = 'location';
+  $handler->display->display_options['filters']['latitude']['field'] = 'latitude';
+  $handler->display->display_options['filters']['latitude']['operator'] = '!=';
+  $handler->display->display_options['filters']['latitude']['value']['value'] = '0.000000';
+  $handler->display->display_options['filters']['latitude']['group'] = 2;
   $translatables['cmtls_locations'] = array(
     t('Master'),
     t('Locations'),
@@ -5309,7 +5328,7 @@ function cmtls_views_default_views() {
     t('Items per page'),
     t('- All -'),
     t('Offset'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('location date'),
     t('Title'),
@@ -5350,7 +5369,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -5552,7 +5571,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
   $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -5609,7 +5628,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('flag'),
     t('Flag user'),
@@ -5647,7 +5666,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -5849,7 +5868,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
   $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -5906,7 +5925,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('flag'),
     t('Flag user'),
@@ -5971,7 +5990,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'comment';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -6068,7 +6087,7 @@ function cmtls_views_default_views() {
     t('- All -'),
     t('Offset'),
     t('Content'),
-    t('group membership'),
+    t('OG membership from node'),
     t('All'),
     t('Comments by %1'),
     t('Posted comments page'),
@@ -6114,7 +6133,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_options']['alternating_fieldset']['item_2'] = 'full';
   $handler->display->display_options['row_options']['alternating_fieldset']['item_3'] = 'full';
   $handler->display->display_options['row_options']['alternating_fieldset']['item_4'] = 'full';
-  /* Relationship: Group membership: User group membership */
+  /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -6164,7 +6183,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['created']['relationship'] = 'og_membership_rel';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -6183,7 +6202,7 @@ function cmtls_views_default_views() {
   $handler = $view->new_display('page', 'Group members page', 'cmtls_group_members_page');
   $handler->display->display_options['display_description'] = 'Members of a specific group';
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -6214,7 +6233,7 @@ function cmtls_views_default_views() {
     t('Items per page'),
     t('- All -'),
     t('Offset'),
-    t('group membership'),
+    t('OG membership from user'),
     t('Latest group members block'),
     t('Latest members'),
     t('The latest Community Tools group members'),
@@ -6250,7 +6269,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: User group membership */
+  /* Relationship: OG membership: OG membership from User */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'users';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -6389,7 +6408,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from user'),
     t('flag'),
     t('User'),
   );
@@ -6428,7 +6447,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['relationships']['nid']['table'] = 'comment';
   $handler->display->display_options['relationships']['nid']['field'] = 'nid';
   $handler->display->display_options['relationships']['nid']['required'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -6482,7 +6501,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['created']['table'] = 'comment';
   $handler->display->display_options['sorts']['created']['field'] = 'created';
   $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -6545,7 +6564,7 @@ function cmtls_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('Content'),
-    t('group membership'),
+    t('OG membership from node'),
     t('flag'),
     t('Flag user'),
     t('Title'),
@@ -6580,7 +6599,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['row_plugin'] = 'fields';
   $handler->display->display_options['row_options']['hide_empty'] = 0;
   $handler->display->display_options['row_options']['default_field_elements'] = 1;
-  /* Relationship: Group membership: Node group membership */
+  /* Relationship: OG membership: OG membership from Node */
   $handler->display->display_options['relationships']['og_membership_rel']['id'] = 'og_membership_rel';
   $handler->display->display_options['relationships']['og_membership_rel']['table'] = 'node';
   $handler->display->display_options['relationships']['og_membership_rel']['field'] = 'og_membership_rel';
@@ -6782,7 +6801,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['sorts']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
   $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
   $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
-  /* Contextual filter: OG membership: Group gid */
+  /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
   $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
   $handler->display->display_options['arguments']['group']['field'] = 'group';
@@ -6839,7 +6858,7 @@ function cmtls_views_default_views() {
     t('Sort by'),
     t('Asc'),
     t('Desc'),
-    t('group membership'),
+    t('OG membership from node'),
     t('field_cmtls_application'),
     t('flag'),
     t('Flag user'),

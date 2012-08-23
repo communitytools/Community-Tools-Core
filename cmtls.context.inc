@@ -312,9 +312,9 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-cmtls_locations-block_1' => array(
+        'views-9db159747292ed7435fa7bad4fa56124' => array(
           'module' => 'views',
-          'delta' => 'cmtls_locations-block_1',
+          'delta' => '9db159747292ed7435fa7bad4fa56124',
           'region' => 'content',
           'weight' => '-10',
         ),

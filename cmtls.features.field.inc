@@ -535,6 +535,7 @@ function cmtls_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'cmtls_app',
       'default_value' => NULL,
+      'default_value_function' => 'og_field_audience_default_value',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -1866,6 +1867,7 @@ function cmtls_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'cmtls_location',
       'default_value' => NULL,
+      'default_value_function' => 'og_field_audience_default_value',
       'deleted' => '0',
       'description' => '',
       'display' => array(
@@ -2244,6 +2246,7 @@ function cmtls_field_default_fields() {
     'field_instance' => array(
       'bundle' => 'user',
       'default_value' => NULL,
+      'default_value_function' => 'og_field_audience_default_value',
       'deleted' => '0',
       'description' => '',
       'display' => array(

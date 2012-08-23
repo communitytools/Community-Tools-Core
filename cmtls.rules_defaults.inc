@@ -799,6 +799,56 @@ function cmtls_default_rules_configuration() {
       "PROVIDES VARIABLES" : [ "result" ]
     }
   }');
+  $items['rules_cmtls_member_subscribe_active'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_active" : {
+      "LABEL" : "CT member subscribe (Active)",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og" ],
+      "ON" : [ "og_user_insert" ],
+      "IF" : [ { "data_is" : { "data" : [ "og-membership:state" ], "value" : "1" } } ],
+      "DO" : [
+        { "mail" : {
+            "to" : [ "account:mail" ],
+            "subject" : "Your membership request was approved for \\u0027[og_membership:group:label]\\u0027\\r\\n",
+            "message" : "[account:name],\\r\\n\\r\\nYou are now a member in the group \\u0027[og_membership:group:label]\\u0027 located at [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
+            "language" : [ "account:language" ]
+          }
+        },
+        { "mail" : {
+            "to" : [ "og-membership:group:manager:mail" ],
+            "subject" : "[account:name] joined [og_membership:group:label]",
+            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] joined [og_membership:group:label] in [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
+            "language" : [ "account:language" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_member_subscribe_pending'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_pending" : {
+      "LABEL" : "CT member subscribe (Pending)",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og" ],
+      "ON" : [ "og_user_insert" ],
+      "IF" : [ { "data_is" : { "data" : [ "og-membership:state" ], "value" : "2" } } ],
+      "DO" : [
+        { "mail" : {
+            "to" : [ "account:mail" ],
+            "subject" : "Your membership request for \\u0027[og_membership:group:label]\\u0027",
+            "message" : "[account:name],\\r\\n\\r\\nYour membership to group \\u0027[og_membership:group:label]\\u0027 located at [og_membership:group:url] is pending approval.\\r\\n---\\r\\n[site:name]",
+            "language" : [ "account:language" ]
+          }
+        },
+        { "mail" : {
+            "to" : [ "og-membership:group:manager:mail" ],
+            "subject" : "[account:name] membership request [og_membership:group:label]",
+            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] requests membership for group \\u0027[og_membership:group:label]\\u0027 in [og_membership:group:url].\\r\\n\\r\\n[og_membership:og-membership-request]\\r\\n---\\r\\n[site:name]",
+            "language" : [ "account:language" ]
+          }
+        }
+      ]
+    }
+  }');
   $items['rules_cmtls_member_subscribe_unsubscribe_cache'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_unsubscribe_cache" : {
       "LABEL" : "CT member subscribe\\/unsubscribe cache",
       "PLUGIN" : "reaction rule",

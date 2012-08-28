@@ -186,7 +186,7 @@ function cmtls_create_content_access($parent) {
 }
 
 /**
- * Implements hook_form_alter().
+ * Implements hook_form_FORM_ID_alter().
  *
  * preselects menu and app for CT content nodes
  * adds location autocomplete
@@ -336,6 +336,31 @@ function cmtls_get_app_config($app = NULL) {
  */
 function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
   $form['#submit'][] = 'cmtls_user_register_add_to_main_group';
+}
+
+/**
+ * Implements hook_user_update()
+ *
+ * Saves user facebook avatar as user picture, this allows the image module
+ * to save different styles of pictures
+ */
+function cmtls_user_update(&$edit, $account, $category) {
+  // If user has fb account linked, get the picture
+  if($fbu = fb_get_fbu($account->uid)) {
+    // Get the image from FB Graph API
+    $result = system_retrieve_file('https://graph.facebook.com/' . $fbu . '/picture?type=large', 'public://fb_avatars/' . $fbu . 'jpg', $managed = TRUE, $replace = FILE_EXISTS_REPLACE);
+    if($result->fid) {
+      //Update the user record.
+      $query = db_merge('users')
+        ->key(array(
+          'name' => $edit['name'],
+        ))
+        ->fields(array(
+          'picture' => $result->fid,
+        ))
+        ->execute();
+    }
+  }
 }
 
 /**

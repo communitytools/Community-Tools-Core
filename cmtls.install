@@ -77,6 +77,9 @@ function cmtls_install() {
   $settings = variable_get('field_bundle_settings_comment__comment_node_cmtls_location', array());
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_comment__comment_node_cmtls_location', $settings);
+
+  // Add updates.
+  cmtls_update_7201();
 }
 
 function cmtls_modules_enabled($modules) {
@@ -89,4 +92,12 @@ function cmtls_modules_enabled($modules) {
       'identifier' => 'CT daily newsletter',
     ));
   }
+}
+
+/**
+ * Update 2.0-beta2
+ */
+function cmtls_update_7201() {
+  // Create the folder for Facebook avatars.
+  drupal_mkdir('public://fb_avatars');
 }

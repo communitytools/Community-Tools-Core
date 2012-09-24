@@ -3,7 +3,7 @@
     <?php if (isset($latitude) && isset($longitude)): ?>
       <?php // Assume that 0, 0 is invalid. ?>
       <?php if ($latitude != 0 || $longitude != 0): ?>
-         <span>has-geo-coords</span>
+         <span>Geotagged</span>
       <?php endif; ?>
     <?php endif; ?>
     <?php if (!empty($name)): ?>

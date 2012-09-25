@@ -174,6 +174,45 @@ function cmtls_context_default_contexts() {
   $context = new stdClass();
   $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
   $context->api_version = 3;
+  $context->name = 'cmtls_general_tools';
+  $context->description = 'Sets the buttons and follow blocks';
+  $context->tag = 'CT general';
+  $context->conditions = array(
+    'sitewide' => array(
+      'values' => array(
+        1 => 1,
+      ),
+    ),
+  );
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'cmtls-cmtls_edit_buttons' => array(
+          'module' => 'cmtls',
+          'delta' => 'cmtls_edit_buttons',
+          'region' => 'preface_second',
+          'weight' => '-10',
+        ),
+        'cmtls-cmtls_subscribe' => array(
+          'module' => 'cmtls',
+          'delta' => 'cmtls_subscribe',
+          'region' => 'preface_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
+  $context->condition_mode = 1;
+
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('CT general');
+  t('Sets the buttons and follow blocks');
+  $export['cmtls_general_tools'] = $context;
+
+  $context = new stdClass();
+  $context->disabled = FALSE; /* Edit this to true to make a default context disabled initially */
+  $context->api_version = 3;
   $context->name = 'cmtls_group_page';
   $context->description = 'Community Tools group page';
   $context->tag = 'CT group';
@@ -195,12 +234,6 @@ function cmtls_context_default_contexts() {
           'delta' => '529099a455b0fa960718b1af2e03cae6',
           'region' => 'content',
           'weight' => '-9',
-        ),
-        'cmtls-cmtls_subscribe' => array(
-          'module' => 'cmtls',
-          'delta' => 'cmtls_subscribe',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
         ),
         'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
           'module' => 'views',
@@ -250,12 +283,6 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'cmtls-cmtls_subscribe' => array(
-          'module' => 'cmtls',
-          'delta' => 'cmtls_subscribe',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
         'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
           'module' => 'views',
           'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',
@@ -318,12 +345,6 @@ function cmtls_context_default_contexts() {
           'region' => 'content',
           'weight' => '-10',
         ),
-        'cmtls-cmtls_subscribe' => array(
-          'module' => 'cmtls',
-          'delta' => 'cmtls_subscribe',
-          'region' => 'sidebar_first',
-          'weight' => '-10',
-        ),
         'views-70e4ff6f0b0b36bd4a7ff6e634319a80' => array(
           'module' => 'views',
           'delta' => '70e4ff6f0b0b36bd4a7ff6e634319a80',
@@ -357,18 +378,7 @@ function cmtls_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'cmtls-cmtls_subscribe' => array(
-          'module' => 'cmtls',
-          'delta' => 'cmtls_subscribe',
-          'region' => 'sidebar_second',
-          'weight' => '-10',
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables

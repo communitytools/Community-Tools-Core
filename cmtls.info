@@ -54,6 +54,7 @@ features[context][] = cmtls_general_app_list
 features[context][] = cmtls_general_group_app
 features[context][] = cmtls_general_group_breadcrumb
 features[context][] = cmtls_general_title
+features[context][] = cmtls_general_tools
 features[context][] = cmtls_group_page
 features[context][] = cmtls_location_page
 features[context][] = cmtls_locations_page

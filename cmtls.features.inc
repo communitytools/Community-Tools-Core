@@ -145,10 +145,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Mark comment as inappropriate or spam".
+  // Exported flag: "Flag".
   $flags['cmtls_inappropriate_comment'] = array(
     'content_type' => 'comment',
-    'title' => 'Mark comment as inappropriate or spam',
+    'title' => 'Flag',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',
@@ -182,10 +182,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Mark content as inappropriate or spam".
+  // Exported flag: "Flag".
   $flags['cmtls_inappropriate_content'] = array(
     'content_type' => 'node',
-    'title' => 'Mark content as inappropriate or spam',
+    'title' => 'Flag',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',

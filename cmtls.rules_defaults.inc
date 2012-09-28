@@ -799,50 +799,60 @@ function cmtls_default_rules_configuration() {
       "PROVIDES VARIABLES" : [ "result" ]
     }
   }');
-  $items['rules_cmtls_member_subscribe_active'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_active" : {
-      "LABEL" : "CT member subscribe (Active)",
+  $items['rules_cmtls_member_approved'] = entity_import('rules_config', '{ "rules_cmtls_member_approved" : {
+      "LABEL" : "CT member approved",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "cmtls" ],
       "REQUIRES" : [ "rules", "og" ],
-      "ON" : [ "og_user_insert" ],
-      "IF" : [ { "data_is" : { "data" : [ "og-membership:state" ], "value" : "1" } } ],
+      "ON" : [ "og_user_approved" ],
       "DO" : [
         { "mail" : {
             "to" : [ "account:mail" ],
-            "subject" : "Your membership request was approved for \\u0027[og_membership:group:label]\\u0027\\r\\n",
-            "message" : "[account:name],\\r\\n\\r\\nYou are now a member in the group \\u0027[og_membership:group:label]\\u0027 located at [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
-            "language" : [ "account:language" ]
-          }
-        },
-        { "mail" : {
-            "to" : [ "og-membership:group:manager:mail" ],
-            "subject" : "[account:name] joined [og_membership:group:label]",
-            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] joined [og_membership:group:label] in [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
+            "subject" : "Your membership request for \\u0022[og_membership:group:label]\\u0022 has been approved",
+            "message" : "[account:name],\\r\\n\\r\\nYour membership request for group \\u0022[og_membership:group:label]\\u0022 located at [og_membership:group:url] has been approved, you are now a member.\\r\\n---\\r\\n[site:name]",
             "language" : [ "account:language" ]
           }
         }
       ]
     }
   }');
-  $items['rules_cmtls_member_subscribe_pending'] = entity_import('rules_config', '{ "rules_cmtls_member_subscribe_pending" : {
-      "LABEL" : "CT member subscribe (Pending)",
+  $items['rules_cmtls_member_remove_from_group_active_blocked'] = entity_import('rules_config', '{ "rules_cmtls_member_remove_from_group_active_blocked" : {
+      "LABEL" : "CT member remove from group (Active, Blocked)",
       "PLUGIN" : "reaction rule",
       "TAGS" : [ "cmtls" ],
       "REQUIRES" : [ "rules", "og" ],
-      "ON" : [ "og_user_insert" ],
+      "ON" : [ "og_user_delete" ],
+      "IF" : [
+        { "data_is" : {
+            "data" : [ "og-membership:state" ],
+            "op" : "IN",
+            "value" : { "value" : { "1" : "1", "3" : "3" } }
+          }
+        }
+      ],
+      "DO" : [
+        { "mail" : {
+            "to" : [ "account:mail" ],
+            "subject" : "Your membership in \\u0022[og_membership:group:label]\\u0022 has been removed",
+            "message" : "[account:name],\\r\\n\\r\\nYour membership in group \\u0022[og_membership:group:label]\\u0022 located at [og_membership:group:url] is removed, you are no longer a member.\\r\\n---\\r\\n[site:name]",
+            "language" : [ "account:language" ]
+          }
+        }
+      ]
+    }
+  }');
+  $items['rules_cmtls_member_remove_from_group_pending'] = entity_import('rules_config', '{ "rules_cmtls_member_remove_from_group_pending" : {
+      "LABEL" : "CT member remove from group (Pending)",
+      "PLUGIN" : "reaction rule",
+      "TAGS" : [ "cmtls" ],
+      "REQUIRES" : [ "rules", "og" ],
+      "ON" : [ "og_user_delete" ],
       "IF" : [ { "data_is" : { "data" : [ "og-membership:state" ], "value" : "2" } } ],
       "DO" : [
         { "mail" : {
             "to" : [ "account:mail" ],
-            "subject" : "Your membership request for \\u0027[og_membership:group:label]\\u0027",
-            "message" : "[account:name],\\r\\n\\r\\nYour membership to group \\u0027[og_membership:group:label]\\u0027 located at [og_membership:group:url] is pending approval.\\r\\n---\\r\\n[site:name]",
-            "language" : [ "account:language" ]
-          }
-        },
-        { "mail" : {
-            "to" : [ "og-membership:group:manager:mail" ],
-            "subject" : "[account:name] membership request [og_membership:group:label]",
-            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] requests membership for group \\u0027[og_membership:group:label]\\u0027 in [og_membership:group:url].\\r\\n\\r\\n[og_membership:og-membership-request]\\r\\n---\\r\\n[site:name]",
+            "subject" : "Your membership request for \\u0022[og_membership:group:label]\\u0022 has been denied",
+            "message" : "[account:name],\\r\\n\\r\\nYour membership request for group \\u0022[og_membership:group:label]\\u0022 located at [og_membership:group:url] has been denied.\\r\\n---\\r\\n[site:name]",
             "language" : [ "account:language" ]
           }
         }

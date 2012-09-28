@@ -122,11 +122,6 @@ function cmtls_default_rules_configuration() {
                   "USING" : { "list" : [ "member-groups" ] },
                   "ITEM" : { "member_group" : "Member group" },
                   "DO" : [
-                    { "data_set" : {
-                        "data" : [ "mail-content" ],
-                        "value" : "[mail-content][media-comments]"
-                      }
-                    },
                     { "views_bulk_operations_action_load_list" : {
                         "USING" : {
                           "view" : "cmtls_group_vbo_subscribed|default",
@@ -262,6 +257,11 @@ function cmtls_default_rules_configuration() {
                     { "component_rules_cmtls_media_comments_for_newsletter" : {
                         "USING" : { "gid" : [ "member-group:group:gid" ], "uid" : [ "group-member:uid" ] },
                         "PROVIDE" : { "result" : { "media_comments" : "Media comments" } }
+                      }
+                    },
+                    { "data_set" : {
+                        "data" : [ "mail-content" ],
+                        "value" : "[mail-content][media-comments]"
                       }
                     }
                   ]

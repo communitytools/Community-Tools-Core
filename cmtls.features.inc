@@ -145,10 +145,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Flag".
+  // Exported flag: "Report".
   $flags['cmtls_inappropriate_comment'] = array(
     'content_type' => 'comment',
-    'title' => 'Flag',
+    'title' => 'Report',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',
@@ -182,10 +182,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Flag".
+  // Exported flag: "Report".
   $flags['cmtls_inappropriate_content'] = array(
     'content_type' => 'node',
-    'title' => 'Flag',
+    'title' => 'Report',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',

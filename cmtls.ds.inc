@@ -319,7 +319,7 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'default';
   $ds_fieldsetting->settings = array(
     'ds_user_picture' => array(
-      'weight' => '0',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'ds_picture_cmtls_small',
     ),
@@ -839,13 +839,13 @@ function cmtls_ds_layout_settings_info() {
     'hide_sidebars' => 0,
     'regions' => array(
       'ds_content' => array(
-        0 => 'ds_user_picture',
-        1 => 'field_cmtls_description',
+        0 => 'field_cmtls_description',
+        1 => 'ds_user_picture',
       ),
     ),
     'fields' => array(
-      'ds_user_picture' => 'ds_content',
       'field_cmtls_description' => 'ds_content',
+      'ds_user_picture' => 'ds_content',
     ),
     'classes' => array(),
   );

@@ -48,7 +48,7 @@ dependencies[] = rules_scheduler
 dependencies[] = taxonomy
 dependencies[] = views
 dependencies[] = views_bulk_operations
-explanation = Field type(s) in use - see <a href="/admin/reports/fields">Field list</a>
+explanation = Field type(s) in use - see <a href="/kultuurikoda/admin/reports/fields">Field list</a>
 features[context][] = cmtls_app_page
 features[context][] = cmtls_general_app_list
 features[context][] = cmtls_general_group_app

@@ -145,10 +145,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Report".
+  // Exported flag: "Mark as spam or an inappropriate comment".
   $flags['cmtls_inappropriate_comment'] = array(
     'content_type' => 'comment',
-    'title' => 'Report',
+    'title' => 'Mark as spam or an inappropriate comment',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',
@@ -156,7 +156,7 @@ function cmtls_flag_default_flags() {
       2 => 'media_gallery',
       3 => 'cmtls_location',
     ),
-    'flag_short' => 'Mark as spam or an inappropriate comment',
+    'flag_short' => 'Report',
     'flag_long' => 'Notify about spam or an inappropriate comment',
     'flag_message' => 'This comment has been marked as spam / inappropriate and moderators are notified.',
     'unflag_short' => 'Unmark as spam or an inappropriate content',
@@ -182,10 +182,10 @@ function cmtls_flag_default_flags() {
     ),
     'api_version' => 2,
   );
-  // Exported flag: "Report".
+  // Exported flag: "Mark as spam or an inappropriate content".
   $flags['cmtls_inappropriate_content'] = array(
     'content_type' => 'node',
-    'title' => 'Report',
+    'title' => 'Mark as spam or an inappropriate content',
     'global' => '0',
     'types' => array(
       0 => 'cmtls_event',
@@ -193,7 +193,7 @@ function cmtls_flag_default_flags() {
       2 => 'media_gallery',
       3 => 'cmtls_location',
     ),
-    'flag_short' => 'Mark as spam or an inappropriate content',
+    'flag_short' => 'Report',
     'flag_long' => 'Notify about spam or an inappropriate content',
     'flag_message' => 'This content has been marked as spam / inappropriate and moderators are notified.',
     'unflag_short' => 'Unmark as spam or an inappropriate content',

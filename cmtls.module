@@ -345,20 +345,22 @@ function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
  * to save different styles of pictures
  */
 function cmtls_user_update(&$edit, $account, $category) {
-  // If user has fb account linked, get the picture
-  if($fbu = fb_get_fbu($account->uid)) {
-    // Get the image from FB Graph API
-    $result = system_retrieve_file('https://graph.facebook.com/' . $fbu . '/picture?type=large', 'public://fb_avatars/' . $fbu . 'jpg', $managed = TRUE, $replace = FILE_EXISTS_REPLACE);
-    if($result->fid) {
-      //Update the user record.
-      $query = db_merge('users')
-        ->key(array(
-          'name' => $edit['name'],
-        ))
-        ->fields(array(
-          'picture' => $result->fid,
-        ))
-        ->execute();
+  if(function_exists('fb_get_fbu')) {
+    // If user has fb account linked, get the picture
+    if($fbu = fb_get_fbu($account->uid)) {
+      // Get the image from FB Graph API
+      $result = system_retrieve_file('https://graph.facebook.com/' . $fbu . '/picture?type=large', 'public://fb_avatars/' . $fbu . 'jpg', $managed = TRUE, $replace = FILE_EXISTS_REPLACE);
+      if($result->fid) {
+        //Update the user record.
+        $query = db_merge('users')
+          ->key(array(
+            'name' => $edit['name'],
+          ))
+          ->fields(array(
+            'picture' => $result->fid,
+          ))
+          ->execute();
+      }
     }
   }
 }

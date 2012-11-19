@@ -380,8 +380,8 @@ function cmtls_user_register_add_to_main_group($form, &$form_state) {
 function cmtls_cmtls_app_config($config) {
 
   $defaults = array(
-    'sorting_field' => 'node_title',
-    'sorting_dir' => 'ASC'
+    'cmtls_location_sorting_field' => 'cmtls_location_title',
+    'cmtls_location_sorting_dir' => 'cmtls_location_asc'
   );
 
   $settings = array_merge($defaults, isset($config['cmtls_location']) ? $config['cmtls_location'] : array());
@@ -397,28 +397,76 @@ function cmtls_cmtls_app_config($config) {
     ),
   );
 
-  $form['cmtls_location']['sorting_field'] = array(
+  $form['cmtls_location']['cmtls_location_sorting_field'] = array(
     '#type' => 'radios',
     '#title' => t('Sorting field'),
-    '#default_value' => $settings['sorting_field'],
+    '#default_value' => $settings['cmtls_location_sorting_field'],
     '#options' => array(
-      'node_created' => t('Created date'),
-      'node_title' => t('Location title'),
+      'cmtls_location_created' => t('Created date'),
+      'cmtls_location_title' => t('Location title'),
     ),
   );
 
-  $form['cmtls_location']['sorting_dir'] = array(
+  $form['cmtls_location']['cmtls_location_sorting_dir'] = array(
     '#type' => 'radios',
     '#title' => t('Sorting order'),
-    '#default_value' => $settings['sorting_dir'],
+    '#default_value' => $settings['cmtls_location_sorting_dir'],
     '#options' => array(
-      'ASC' => t('Ascending'),
-      'DESC' => t('Descending'),
+      'cmtls_location_asc' => t('Ascending'),
+      'cmtls_location_desc' => t('Descending'),
     ),
   );
 
   return $form;
 }
+
+/**
+ * Implements hook_views_query_alter().
+ *
+ * Sorts the application page view by instance configuration.
+ *
+ * @see cmtls_post_cmtls_app_config()
+ */
+function cmtls_views_query_alter(&$view, &$query) {
+  if($view->name == 'cmtls_locations') {
+    $config = cmtls_get_app_config();
+
+    // The field to sort by.
+    if($config['cmtls_location']['cmtls_location_sorting_field'] && !isset($_POST['sort_by'])) {
+      switch ($config['cmtls_location']['cmtls_location_sorting_field']) {
+        case 'cmtls_location_created':
+            $sort = 'node_created';
+          break;
+        case 'cmtls_location_title':
+            $sort = 'node_title';
+          break;
+        default:
+            $sort = 'node_title';
+          break;
+      }
+
+      $query->orderby[1]['field'] = $_POST['sort_by'] = $_GET['sort_by'] = $sort;
+    }
+
+    // The sort direction.
+    if($config['cmtls_location']['cmtls_location_sorting_dir'] && !isset($_POST['sort_order'])) {
+      switch ($config['cmtls_location']['cmtls_location_sorting_dir']) {
+        case 'cmtls_location_asc':
+            $dir = 'ASC';
+          break;
+        case 'cmtls_location_desc':
+            $dir = 'DESC';
+          break;
+        default:
+            $dir = 'ASC';
+          break;
+      }
+
+      $query->orderby[1]['direction'] = $_POST['sort_order'] = $_GET['sort_order'] = $dir;
+    }
+  }
+}
+
 
 /**
  * Implements hook_cmtls_app

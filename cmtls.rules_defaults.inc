@@ -569,7 +569,7 @@ function cmtls_default_rules_configuration() {
             "DO" : [
               { "mail" : {
                   "to" : "\\u0022[list-item:field-cmtls-firstname] [list-item:field-cmtls-lastname]\\u0022 \\u003C[list-item:mail]\\u003E",
-                  "subject" : "[site:name] has new content",
+                  "subject" : "[site:name] has new content: \\u0022[node:title]\\u0022",
                   "message" : "Hello [list-item:field-cmtls-firstname],\\r\\n\\r\\n[site:name] has new location \\u0022[node:title]\\u0022:\\r\\n\\r\\n[node:body]\\r\\n\\r\\n[node:url]\\r\\n---\\r\\nYou can change notification settings for \\u0022[entity-fetched:title]\\u0022 at [entity-fetched:url].",
                   "language" : [ "" ]
                 }

@@ -6163,6 +6163,14 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['status']['table'] = 'users';
   $handler->display->display_options['filters']['status']['field'] = 'status';
   $handler->display->display_options['filters']['status']['value'] = '1';
+  /* Filter criterion: OG membership: State */
+  $handler->display->display_options['filters']['state']['id'] = 'state';
+  $handler->display->display_options['filters']['state']['table'] = 'og_membership';
+  $handler->display->display_options['filters']['state']['field'] = 'state';
+  $handler->display->display_options['filters']['state']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['filters']['state']['value'] = array(
+    1 => '1',
+  );
 
   /* Display: Latest group members block */
   $handler = $view->new_display('block', 'Latest group members block', 'cmtls_group_latest_members_block');

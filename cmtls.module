@@ -429,7 +429,9 @@ function cmtls_cmtls_app_config($config) {
  */
 function cmtls_views_query_alter(&$view, &$query) {
   if($view->name == 'cmtls_locations') {
+    if($view->current_display == 'cmtls_location_app_map_block') return;
     $config = cmtls_get_app_config();
+    $orderby = array();
 
     // The field to sort by.
     if($config['cmtls_location']['cmtls_location_sorting_field'] && !isset($_POST['sort_by'])) {
@@ -445,7 +447,7 @@ function cmtls_views_query_alter(&$view, &$query) {
           break;
       }
 
-      $query->orderby[1]['field'] = $_POST['sort_by'] = $_GET['sort_by'] = $sort;
+      $orderby['field'] = $_POST['sort_by'] = $_GET['sort_by'] = $sort;
     }
 
     // The sort direction.
@@ -462,7 +464,12 @@ function cmtls_views_query_alter(&$view, &$query) {
           break;
       }
 
-      $query->orderby[1]['direction'] = $_POST['sort_order'] = $_GET['sort_order'] = $dir;
+      $orderby['direction'] = $_POST['sort_order'] = $_GET['sort_order'] = $dir;
+    }
+
+    if(!empty($orderby)) {
+      // The index is 1 because this view has at index 0 sticky sorting.
+      $query->orderby[1] = $orderby;
     }
   }
 }
@@ -957,11 +964,11 @@ function cmtls_block_view($delta = '') {
           $groups = og_get_group_ids('node', array($node->nid));
           $goto_options['query']['gid'] = $groups[$node->nid];
           if(og_user_access($groups[$node->nid], 'update own cmtls_app content')) {
-      	    $goto_options['query']['gid'] = $groups[$node->nid];
-      	    if(og_user_access($groups[$node->nid], 'administer group')) {
-      	      $links[] = '<li>'.l(t('Group settings'), 'node/' . (int)arg(1) . '/group', $goto_options) . '</li>';
-      	      $links[] = '<li>'.l(t('Apps settings'), 'cmtls/apps/'.$groups[$node->nid], $goto_options) . '</li>';
-      	    }
+            $goto_options['query']['gid'] = $groups[$node->nid];
+            if(og_user_access($groups[$node->nid], 'administer group')) {
+              $links[] = '<li>'.l(t('Group settings'), 'node/' . (int)arg(1) . '/group', $goto_options) . '</li>';
+              $links[] = '<li>'.l(t('Apps settings'), 'cmtls/apps/'.$groups[$node->nid], $goto_options) . '</li>';
+            }
           }
         }
         // group preselect for apps

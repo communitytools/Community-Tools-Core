@@ -26,18 +26,7 @@ function cmtls_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array(
-    'block' => array(
-      'blocks' => array(
-        'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
-          'module' => 'views',
-          'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',
-          'region' => 'sidebar_second',
-          'weight' => '-8',
-        ),
-      ),
-    ),
-  );
+  $context->reactions = array();
   $context->condition_mode = 1;
 
   // Translatables
@@ -283,23 +272,23 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
+        'views-232f47dca370db2ede449d3046af1658' => array(
           'module' => 'views',
-          'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',
+          'delta' => '232f47dca370db2ede449d3046af1658',
           'region' => 'sidebar_second',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
         'views-d3b739be3a716e61b54f0c1254eefd60' => array(
           'module' => 'views',
           'delta' => 'd3b739be3a716e61b54f0c1254eefd60',
           'region' => 'sidebar_second',
-          'weight' => '-8',
+          'weight' => '-9',
         ),
         'views-53e22d565fc4333e016372c7c33e1bfc' => array(
           'module' => 'views',
           'delta' => '53e22d565fc4333e016372c7c33e1bfc',
           'region' => 'sidebar_second',
-          'weight' => '-7',
+          'weight' => '-8',
         ),
       ),
     ),
@@ -339,9 +328,9 @@ function cmtls_context_default_contexts() {
   $context->reactions = array(
     'block' => array(
       'blocks' => array(
-        'views-9db159747292ed7435fa7bad4fa56124' => array(
+        'views-3f36ddec57f396963096cf36fb8c74ad' => array(
           'module' => 'views',
-          'delta' => '9db159747292ed7435fa7bad4fa56124',
+          'delta' => '3f36ddec57f396963096cf36fb8c74ad',
           'region' => 'content',
           'weight' => '-10',
         ),
@@ -349,7 +338,7 @@ function cmtls_context_default_contexts() {
           'module' => 'views',
           'delta' => '70e4ff6f0b0b36bd4a7ff6e634319a80',
           'region' => 'sidebar_first',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
       ),
     ),

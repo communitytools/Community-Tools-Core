@@ -1985,156 +1985,6 @@ function cmtls_views_default_views() {
   $handler->display->display_options['filters']['status']['group'] = 0;
   $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
 
-  /* Display: Location block */
-  $handler = $view->new_display('block', 'Location block', 'cmtls_location_map_block');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Location';
-  $handler->display->display_options['display_description'] = 'Location with small map';
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'gmap';
-  $handler->display->display_options['style_options']['macro'] = '[gmap zoom=13 |width=100% |height=200px |control=None |type=Map]';
-  $handler->display->display_options['style_options']['markers'] = 'nodetype';
-  $handler->display->display_options['style_options']['markertype'] = 'blank';
-  $handler->display->display_options['style_options']['latfield'] = 'title';
-  $handler->display->display_options['style_options']['lonfield'] = 'title';
-  $handler->display->display_options['style_options']['markerfield'] = 'title';
-  $handler->display->display_options['style_options']['enablermt'] = 0;
-  $handler->display->display_options['style_options']['rmtfield'] = 'title';
-  $handler->display->display_options['style_options']['center_on_nodearg'] = 1;
-  $handler->display->display_options['style_options']['center_on_nodearg_arg'] = 'nid';
-  $handler->display->display_options['style_options']['highlight_nodearg_arg'] = 'nid';
-  $handler->display->display_options['style_options']['tooltipenabled'] = 1;
-  $handler->display->display_options['style_options']['tooltipfield'] = 'title';
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['title']['link_to_node'] = 0;
-  /* Field: Content: Nid */
-  $handler->display->display_options['fields']['nid']['id'] = 'nid';
-  $handler->display->display_options['fields']['nid']['table'] = 'node';
-  $handler->display->display_options['fields']['nid']['field'] = 'nid';
-  $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['nid']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['nid']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['nid']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['nid']['element_label_colon'] = 1;
-  $handler->display->display_options['fields']['nid']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['nid']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['nid']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['nid']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['nid']['link_to_node'] = 0;
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Location (field_cmtls_location) */
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['id'] = 'field_cmtls_location_lid';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['table'] = 'field_data_field_cmtls_location';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['field'] = 'field_cmtls_location_lid';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['operator'] = 'not empty';
-
-  /* Display: Address attachment */
-  $handler = $view->new_display('attachment', 'Address attachment', 'cmtls_location_map_block_address');
-  $handler->display->display_options['defaults']['title'] = FALSE;
-  $handler->display->display_options['title'] = 'Location';
-  $handler->display->display_options['display_description'] = 'The address for the location map block';
-  $handler->display->display_options['pager']['type'] = 'none';
-  $handler->display->display_options['pager']['options']['offset'] = '0';
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Location: Address */
-  $handler->display->display_options['fields']['address']['id'] = 'address';
-  $handler->display->display_options['fields']['address']['table'] = 'location';
-  $handler->display->display_options['fields']['address']['field'] = 'address';
-  $handler->display->display_options['fields']['address']['label'] = '';
-  $handler->display->display_options['fields']['address']['alter']['alter_text'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['make_link'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['absolute'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['external'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['replace_spaces'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['trim_whitespace'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['nl2br'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['word_boundary'] = 1;
-  $handler->display->display_options['fields']['address']['alter']['ellipsis'] = 1;
-  $handler->display->display_options['fields']['address']['alter']['strip_tags'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['trim'] = 0;
-  $handler->display->display_options['fields']['address']['alter']['html'] = 0;
-  $handler->display->display_options['fields']['address']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['address']['element_default_classes'] = 1;
-  $handler->display->display_options['fields']['address']['hide_empty'] = 0;
-  $handler->display->display_options['fields']['address']['empty_zero'] = 0;
-  $handler->display->display_options['fields']['address']['hide_alter_empty'] = 0;
-  $handler->display->display_options['fields']['address']['hide'] = array(
-    'locpick' => 'locpick',
-    'province_name' => 'province_name',
-    'country_name' => 'country_name',
-    'map_link' => 'map_link',
-    'coords' => 'coords',
-    'name' => 0,
-    'street' => 0,
-    'additional' => 0,
-    'city' => 0,
-    'province' => 0,
-    'postal_code' => 0,
-    'country' => 0,
-    'fax' => 0,
-    'phone' => 0,
-  );
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Location (field_cmtls_location) */
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['id'] = 'field_cmtls_location_lid';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['table'] = 'field_data_field_cmtls_location';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['field'] = 'field_cmtls_location_lid';
-  $handler->display->display_options['filters']['field_cmtls_location_lid']['operator'] = 'not empty';
-  $handler->display->display_options['displays'] = array(
-    'cmtls_location_map_block' => 'cmtls_location_map_block',
-    'default' => 0,
-  );
-  $handler->display->display_options['attachment_position'] = 'after';
-
   /* Display: Attachments block */
   $handler = $view->new_display('block', 'Attachments block', 'cmtls_node_attachments_block');
   $handler->display->display_options['defaults']['title'] = FALSE;
@@ -2532,6 +2382,177 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['ops']['empty_zero'] = 0;
   $handler->display->display_options['fields']['ops']['hide_alter_empty'] = 1;
   $handler->display->display_options['fields']['ops']['link_type'] = 'toggle';
+
+  /* Display: Geometry OL */
+  $handler = $view->new_display('openlayers', 'Geometry OL', 'cmtls_common_geometry_ol_overlay');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Geometry OL';
+  $handler->display->display_options['display_description'] = 'Geometry block data overlay';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_data';
+  $handler->display->display_options['style_options']['data_source'] = array(
+    'value' => 'wkt',
+    'other_lat' => 'title',
+    'other_lon' => 'title',
+    'wkt' => 'field_cmtls_geometry',
+    'other_top' => 'title',
+    'other_right' => 'title',
+    'other_bottom' => 'title',
+    'other_left' => 'title',
+    'name_field' => 'title',
+    'description_field' => '',
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['row_options']['hide_empty'] = 1;
+  $handler->display->display_options['row_options']['default_field_elements'] = 1;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['title']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['hide_alter_empty'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 0;
+  /* Field: Content: Map */
+  $handler->display->display_options['fields']['field_cmtls_geometry']['id'] = 'field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['table'] = 'field_data_field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['field'] = 'field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['click_sort_column'] = 'wkt';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['fields']['field_cmtls_geometry']['field_api_classes'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+  /* Display: Geometry block */
+  $handler = $view->new_display('block', 'Geometry block', 'cmtls_common_geometry_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Location';
+  $handler->display->display_options['display_description'] = 'Displays the items geometry';
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_map';
+  $handler->display->display_options['style_options']['map'] = 'cmtls_geometry_side_map';
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+
+  /* Display: Address attachment */
+  $handler = $view->new_display('attachment', 'Address attachment', 'cmtls_geometry_block_attachment');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['title'] = 'Address';
+  $handler->display->display_options['display_description'] = 'The address for the geometry block';
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['pager']['type'] = 'none';
+  $handler->display->display_options['pager']['options']['offset'] = '0';
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Address */
+  $handler->display->display_options['fields']['field_cmtls_address']['id'] = 'field_cmtls_address';
+  $handler->display->display_options['fields']['field_cmtls_address']['table'] = 'field_data_field_cmtls_address';
+  $handler->display->display_options['fields']['field_cmtls_address']['field'] = 'field_cmtls_address';
+  $handler->display->display_options['fields']['field_cmtls_address']['label'] = '';
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cmtls_address']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_address']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_address']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_address']['click_sort_column'] = 'country';
+  $handler->display->display_options['fields']['field_cmtls_address']['settings'] = array(
+    'use_widget_handlers' => 1,
+    'format_handlers' => array(
+      'address' => 'address',
+    ),
+  );
+  $handler->display->display_options['fields']['field_cmtls_address']['field_api_classes'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  $handler->display->display_options['displays'] = array(
+    'cmtls_common_geometry_block' => 'cmtls_common_geometry_block',
+    'default' => 0,
+    'cmtls_node_attachments_block' => 0,
+    'cmtls_node_tags_block' => 0,
+    'block_1' => 0,
+    'cmtls_common_elements_date_author' => 0,
+    'cmtls_common_elements_breadcrumb' => 0,
+    'cmtls_common_elements_flag_spam_block' => 0,
+  );
+  $handler->display->display_options['attachment_position'] = 'after';
   $translatables['cmtls_common_elements'] = array(
     t('Master'),
     t('Element'),
@@ -2542,12 +2563,6 @@ function cmtls_views_default_views() {
     t('Asc'),
     t('Desc'),
     t('All'),
-    t('Location block'),
-    t('Location'),
-    t('Location with small map'),
-    t('Nid'),
-    t('Address attachment'),
-    t('The address for the location map block'),
     t('Attachments block'),
     t('Files'),
     t('Node attachments'),
@@ -2562,6 +2577,15 @@ function cmtls_views_default_views() {
     t('.'),
     t('Breadcrumb'),
     t('Flag spam block'),
+    t('Geometry OL'),
+    t('Geometry block data overlay'),
+    t('Map'),
+    t('Geometry block'),
+    t('Location'),
+    t('Displays the items geometry'),
+    t('Address attachment'),
+    t('Address'),
+    t('The address for the geometry block'),
   );
   $export['cmtls_common_elements'] = $view;
 
@@ -5003,31 +5027,6 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['title']['hide_empty'] = 0;
   $handler->display->display_options['fields']['title']['empty_zero'] = 0;
   $handler->display->display_options['fields']['title']['link_to_node'] = 1;
-  /* Sort criterion: Content: Sticky */
-  $handler->display->display_options['sorts']['sticky']['id'] = 'sticky';
-  $handler->display->display_options['sorts']['sticky']['table'] = 'node';
-  $handler->display->display_options['sorts']['sticky']['field'] = 'sticky';
-  $handler->display->display_options['sorts']['sticky']['order'] = 'DESC';
-  /* Sort criterion: Content: Post date */
-  $handler->display->display_options['sorts']['created']['id'] = 'created';
-  $handler->display->display_options['sorts']['created']['table'] = 'node';
-  $handler->display->display_options['sorts']['created']['field'] = 'created';
-  $handler->display->display_options['sorts']['created']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['created']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['created']['expose']['label'] = 'location date';
-  /* Sort criterion: Content: Title */
-  $handler->display->display_options['sorts']['title']['id'] = 'title';
-  $handler->display->display_options['sorts']['title']['table'] = 'node';
-  $handler->display->display_options['sorts']['title']['field'] = 'title';
-  $handler->display->display_options['sorts']['title']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['title']['expose']['label'] = 'Title';
-  /* Sort criterion: Content: Last comment time */
-  $handler->display->display_options['sorts']['last_comment_timestamp']['id'] = 'last_comment_timestamp';
-  $handler->display->display_options['sorts']['last_comment_timestamp']['table'] = 'node_comment_statistics';
-  $handler->display->display_options['sorts']['last_comment_timestamp']['field'] = 'last_comment_timestamp';
-  $handler->display->display_options['sorts']['last_comment_timestamp']['order'] = 'DESC';
-  $handler->display->display_options['sorts']['last_comment_timestamp']['exposed'] = TRUE;
-  $handler->display->display_options['sorts']['last_comment_timestamp']['expose']['label'] = 'Last comment time';
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
     2 => 'OR',
@@ -5091,53 +5090,177 @@ function cmtls_views_default_views() {
   $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
   $handler->display->display_options['arguments']['group']['not'] = 0;
 
+  /* Display: Page map OL overlay */
+  $handler = $view->new_display('openlayers', 'Page map OL overlay', 'page_map_ol_overlay');
+  $handler->display->display_options['pager']['type'] = 'some';
+  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
+  $handler->display->display_options['style_plugin'] = 'openlayers_data';
+  $handler->display->display_options['style_options']['data_source'] = array(
+    'value' => 'wkt',
+    'other_lat' => 'title',
+    'other_lon' => 'title',
+    'wkt' => 'field_cmtls_geometry',
+    'other_top' => 'title',
+    'other_right' => 'title',
+    'other_bottom' => 'title',
+    'other_left' => 'title',
+    'name_field' => 'title',
+    'description_field' => 'body',
+  );
+  $handler->display->display_options['defaults']['style_options'] = FALSE;
+  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
+  $handler->display->display_options['row_plugin'] = 'fields';
+  $handler->display->display_options['defaults']['row_options'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Title */
+  $handler->display->display_options['fields']['title']['id'] = 'title';
+  $handler->display->display_options['fields']['title']['table'] = 'node';
+  $handler->display->display_options['fields']['title']['field'] = 'title';
+  $handler->display->display_options['fields']['title']['label'] = '';
+  $handler->display->display_options['fields']['title']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['title']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['title']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['title']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['title']['link_to_node'] = 1;
+  /* Field: Content: Map */
+  $handler->display->display_options['fields']['field_cmtls_geometry']['id'] = 'field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['table'] = 'field_data_field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['field'] = 'field_cmtls_geometry';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['label'] = '';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['field_cmtls_geometry']['click_sort_column'] = 'wkt';
+  $handler->display->display_options['fields']['field_cmtls_geometry']['settings'] = array(
+    'data' => 'full',
+  );
+  $handler->display->display_options['fields']['field_cmtls_geometry']['field_api_classes'] = 0;
+  /* Field: Content: Description */
+  $handler->display->display_options['fields']['body']['id'] = 'body';
+  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
+  $handler->display->display_options['fields']['body']['field'] = 'body';
+  $handler->display->display_options['fields']['body']['label'] = '';
+  $handler->display->display_options['fields']['body']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['body']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['body']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['body']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['body']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['body']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['body']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['body']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['body']['type'] = 'text_summary_or_trimmed';
+  $handler->display->display_options['fields']['body']['settings'] = array(
+    'trim_length' => '100',
+  );
+  $handler->display->display_options['fields']['body']['field_api_classes'] = 0;
+  $handler->display->display_options['defaults']['arguments'] = FALSE;
+  /* Contextual filter: Content: Application (field_cmtls_application) */
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['id'] = 'field_cmtls_application_nid';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['table'] = 'field_data_field_cmtls_application';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['field'] = 'field_cmtls_application_nid';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['exception']['value'] = '';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_argument_type'] = 'node';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['field_cmtls_application_nid']['not'] = 0;
+  /* Contextual filter: OG membership: OG group gid */
+  $handler->display->display_options['arguments']['group']['id'] = 'group';
+  $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
+  $handler->display->display_options['arguments']['group']['field'] = 'group';
+  $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
+  $handler->display->display_options['arguments']['group']['default_action'] = 'default';
+  $handler->display->display_options['arguments']['group']['exception']['value'] = '';
+  $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
+  $handler->display->display_options['arguments']['group']['default_argument_skip_url'] = 0;
+  $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
+  $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
+  $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
+  $handler->display->display_options['arguments']['group']['break_phrase'] = 0;
+  $handler->display->display_options['arguments']['group']['not'] = 0;
+  $handler->display->display_options['filter_groups']['groups'] = array(
+    1 => 'AND',
+    2 => 'OR',
+  );
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Type */
+  $handler->display->display_options['filters']['type']['id'] = 'type';
+  $handler->display->display_options['filters']['type']['table'] = 'node';
+  $handler->display->display_options['filters']['type']['field'] = 'type';
+  $handler->display->display_options['filters']['type']['value'] = array(
+    'cmtls_location' => 'cmtls_location',
+  );
+  /* Filter criterion: Content: Title */
+  $handler->display->display_options['filters']['title']['id'] = 'title';
+  $handler->display->display_options['filters']['title']['table'] = 'node';
+  $handler->display->display_options['filters']['title']['field'] = 'title';
+  $handler->display->display_options['filters']['title']['operator'] = 'contains';
+  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
+  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
+  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
+  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
+  $handler->display->display_options['filters']['title']['expose']['required'] = 0;
+  $handler->display->display_options['filters']['title']['expose']['multiple'] = FALSE;
+  /* Filter criterion: Content: Map (field_cmtls_geometry:wkt) */
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['id'] = 'field_cmtls_geometry_wkt';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['table'] = 'field_data_field_cmtls_geometry';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['field'] = 'field_cmtls_geometry_wkt';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['operator'] = 'not empty';
+
   /* Display: Application map block */
-  $handler = $view->new_display('block', 'Application map block', 'cmtls_location_app_map_block');
+  $handler = $view->new_display('block', 'Application map block', 'cmtls_locations_map_app_block');
   $handler->display->display_options['display_description'] = 'Locations on map on the application page';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'gmapextended';
-  $handler->display->display_options['style_options']['grouping'] = array(
-    0 => array(
-      'field' => '',
-      'rendered' => 1,
-      'rendered_strip' => 0,
-    ),
-    1 => array(
-      'field' => '',
-      'rendered' => 1,
-      'rendered_strip' => 0,
-    ),
-  );
-  $handler->display->display_options['style_options']['fallback_values'] = array(
-    'text' => '',
-    'rmt' => '',
-    'iwq' => '',
-    'iwo' => '',
-    'link' => '',
-    'latitude' => '',
-    'longitude' => '',
-    'title' => '',
-    'markername' => '',
-    'offset' => '',
-  );
-  $handler->display->display_options['style_options']['field_purposes'] = array(
-    'title' => 'title',
-    'body' => 'text',
-    'nid' => '',
-    'latitude' => 'latitude',
-    'longitude' => 'longitude',
-  );
-  $handler->display->display_options['style_options']['macro'] = '[gmap |width=100% |height=550px |control=Large |type=Map]';
-  $handler->display->display_options['style_options']['markertype'] = '';
+  $handler->display->display_options['style_plugin'] = 'openlayers_map';
+  $handler->display->display_options['style_options']['map'] = 'cmtls_location_full_map';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['row_options']['hide_empty'] = 0;
-  $handler->display->display_options['row_options']['default_field_elements'] = 1;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
@@ -5302,20 +5425,11 @@ function cmtls_views_default_views() {
     'cmtls_location' => 'cmtls_location',
   );
   $handler->display->display_options['filters']['type']['group'] = 1;
-  /* Filter criterion: Location: Longitude */
-  $handler->display->display_options['filters']['longitude']['id'] = 'longitude';
-  $handler->display->display_options['filters']['longitude']['table'] = 'location';
-  $handler->display->display_options['filters']['longitude']['field'] = 'longitude';
-  $handler->display->display_options['filters']['longitude']['operator'] = '!=';
-  $handler->display->display_options['filters']['longitude']['value']['value'] = '0.000000';
-  $handler->display->display_options['filters']['longitude']['group'] = 2;
-  /* Filter criterion: Location: Latitude */
-  $handler->display->display_options['filters']['latitude']['id'] = 'latitude';
-  $handler->display->display_options['filters']['latitude']['table'] = 'location';
-  $handler->display->display_options['filters']['latitude']['field'] = 'latitude';
-  $handler->display->display_options['filters']['latitude']['operator'] = '!=';
-  $handler->display->display_options['filters']['latitude']['value']['value'] = '0.000000';
-  $handler->display->display_options['filters']['latitude']['group'] = 2;
+  /* Filter criterion: Content: Map (field_cmtls_geometry:wkt) */
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['id'] = 'field_cmtls_geometry_wkt';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['table'] = 'field_data_field_cmtls_geometry';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['field'] = 'field_cmtls_geometry_wkt';
+  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['operator'] = 'not empty';
   $translatables['cmtls_locations'] = array(
     t('Master'),
     t('Locations'),
@@ -5330,12 +5444,11 @@ function cmtls_views_default_views() {
     t('Offset'),
     t('OG membership from node'),
     t('field_cmtls_application'),
-    t('location date'),
     t('Title'),
-    t('Last comment time'),
     t('Application content block'),
     t('Locations on the application page'),
     t('All'),
+    t('Page map OL overlay'),
     t('Application map block'),
     t('Locations on map on the application page'),
     t('Latitude'),

@@ -298,7 +298,88 @@ function cmtls_field_default_fields() {
           'summary_rows' => 5,
         ),
         'type' => 'text_textarea_with_summary',
-        'weight' => '3',
+        'weight' => '5',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-cmtls_app-field_cmtls_address'
+  $fields['node-cmtls_app-field_cmtls_address'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_address',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'addressfield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'addressfield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'default_value' => array(
+        0 => array(
+          'element_key' => 'node|cmtls_app|field_cmtls_address|und|0',
+          'thoroughfare' => '',
+          'premise' => '',
+          'postal_code' => '',
+          'locality' => '',
+          'country' => 'EE',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              0 => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => 8,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_address',
+      'label' => 'Address',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'addressfield',
+        'settings' => array(
+          'available_countries' => array(),
+          'format_handlers' => array(
+            'address' => 'address',
+            'address-hide-country' => 'address-hide-country',
+            'name-full' => 0,
+            'name-oneline' => 'name-oneline',
+            'organisation' => 0,
+          ),
+        ),
+        'type' => 'addressfield_standard',
+        'weight' => '33',
       ),
     ),
   );
@@ -369,7 +450,7 @@ function cmtls_field_default_fields() {
           'rows' => '5',
         ),
         'type' => 'text_textarea',
-        'weight' => '2',
+        'weight' => '7',
       ),
     ),
   );
@@ -426,7 +507,75 @@ function cmtls_field_default_fields() {
         'module' => 'cmtls',
         'settings' => array(),
         'type' => 'cmtls_app_type_select',
-        'weight' => '1',
+        'weight' => '3',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-cmtls_app-field_cmtls_geometry'
+  $fields['node-cmtls_app-field_cmtls_geometry'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_geometry',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_app',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => 'full',
+          ),
+          'type' => 'geofield_wkt',
+          'weight' => 7,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_geometry',
+      'label' => 'Map',
+      'required' => 0,
+      'settings' => array(
+        'local_solr' => array(
+          'enabled' => FALSE,
+          'lat_field' => 'lat',
+          'lng_field' => 'lng',
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'data_storage' => 'collection',
+          'openlayers_map' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '32',
       ),
     ),
   );
@@ -762,6 +911,155 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_group-field_cmtls_address'
+  $fields['node-cmtls_group-field_cmtls_address'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_address',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'addressfield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'addressfield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_group',
+      'default_value' => array(
+        0 => array(
+          'element_key' => 'node|cmtls_group|field_cmtls_address|und|0',
+          'thoroughfare' => '',
+          'premise' => '',
+          'postal_code' => '',
+          'locality' => '',
+          'country' => 'EE',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              0 => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => 15,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_address',
+      'label' => 'Address',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'addressfield',
+        'settings' => array(
+          'available_countries' => array(),
+          'format_handlers' => array(
+            'address' => 'address',
+            'address-hide-country' => 'address-hide-country',
+            'name-full' => 0,
+            'name-oneline' => 'name-oneline',
+            'organisation' => 0,
+          ),
+        ),
+        'type' => 'addressfield_standard',
+        'weight' => '33',
+      ),
+    ),
+  );
+
+  // Exported field: 'node-cmtls_group-field_cmtls_geometry'
+  $fields['node-cmtls_group-field_cmtls_geometry'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_geometry',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'geofield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_group',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => 'full',
+          ),
+          'type' => 'geofield_wkt',
+          'weight' => 14,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_geometry',
+      'label' => 'Map',
+      'required' => 0,
+      'settings' => array(
+        'local_solr' => array(
+          'enabled' => FALSE,
+          'lat_field' => 'lat',
+          'lng_field' => 'lng',
+        ),
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'data_storage' => 'collection',
+          'openlayers_map' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
+        'weight' => '32',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_group-field_cmtls_group_avatar'
   $fields['node-cmtls_group-field_cmtls_group_avatar'] = array(
     'field_config' => array(
@@ -853,151 +1151,6 @@ function cmtls_field_default_fields() {
         ),
         'type' => 'image_image',
         'weight' => '13',
-      ),
-    ),
-  );
-
-  // Exported field: 'node-cmtls_group-field_cmtls_location'
-  $fields['node-cmtls_group-field_cmtls_location'] = array(
-    'field_config' => array(
-      'active' => '1',
-      'cardinality' => '1',
-      'deleted' => '0',
-      'entity_types' => array(),
-      'field_name' => 'field_cmtls_location',
-      'foreign keys' => array(),
-      'indexes' => array(
-        'lid' => array(
-          0 => 'lid',
-        ),
-      ),
-      'module' => 'location_cck',
-      'settings' => array(
-        'gmap_macro' => '[gmap ]',
-        'gmap_marker' => 'small orange',
-        'location_settings' => array(
-          'display' => array(
-            'hide' => array(
-              'additional' => 'additional',
-              'city' => 0,
-              'coords' => 'coords',
-              'country' => 0,
-              'country_name' => 'country_name',
-              'fax' => 0,
-              'locpick' => 'locpick',
-              'map_link' => 0,
-              'name' => 0,
-              'phone' => 0,
-              'postal_code' => 0,
-              'province' => 0,
-              'province_name' => 'province_name',
-              'street' => 0,
-            ),
-          ),
-          'form' => array(
-            'fields' => array(
-              'additional' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '-97',
-              ),
-              'city' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-96',
-              ),
-              'country' => array(
-                'collect' => '1',
-                'default' => 'ee',
-                'weight' => '-93',
-              ),
-              'fax' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '30',
-              ),
-              'locpick' => array(
-                'collect' => '1',
-                'weight' => '-100',
-              ),
-              'name' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-99',
-              ),
-              'phone' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '25',
-              ),
-              'postal_code' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-94',
-              ),
-              'province' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-95',
-              ),
-              'street' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-98',
-              ),
-            ),
-          ),
-        ),
-      ),
-      'translatable' => '0',
-      'type' => 'location',
-    ),
-    'field_instance' => array(
-      'bundle' => 'cmtls_group',
-      'default_value' => NULL,
-      'deleted' => '0',
-      'description' => '',
-      'display' => array(
-        'cmtls_group_short' => array(
-          'label' => 'hidden',
-          'module' => 'cmtls',
-          'settings' => array(),
-          'type' => 'cmtls_location_formatter',
-          'weight' => '4',
-        ),
-        'cmtls_teaser' => array(
-          'label' => 'hidden',
-          'module' => 'cmtls',
-          'settings' => array(),
-          'type' => 'cmtls_location_formatter',
-          'weight' => '10',
-        ),
-        'default' => array(
-          'label' => 'hidden',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '10',
-        ),
-        'teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => '4',
-        ),
-      ),
-      'entity_type' => 'node',
-      'field_name' => 'field_cmtls_location',
-      'label' => 'Location',
-      'required' => 0,
-      'settings' => array(
-        'user_register_form' => FALSE,
-      ),
-      'widget' => array(
-        'active' => 0,
-        'module' => 'location_cck',
-        'settings' => array(),
-        'type' => 'location',
-        'weight' => '2',
       ),
     ),
   );
@@ -1441,6 +1594,93 @@ function cmtls_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_location-field_cmtls_address'
+  $fields['node-cmtls_location-field_cmtls_address'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_address',
+      'foreign keys' => array(),
+      'indexes' => array(),
+      'module' => 'addressfield',
+      'settings' => array(),
+      'translatable' => '0',
+      'type' => 'addressfield',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_location',
+      'default_value' => array(
+        0 => array(
+          'element_key' => 'node|cmtls_location|field_cmtls_address|und|0',
+          'thoroughfare' => '',
+          'premise' => '',
+          'postal_code' => '',
+          'locality' => '',
+          'country' => 'EE',
+        ),
+      ),
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_location_bare' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              0 => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => 17,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_address',
+      'label' => 'Address',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'addressfield',
+        'settings' => array(
+          'available_countries' => array(),
+          'format_handlers' => array(
+            'address' => 'address',
+            'address-hide-country' => 'address-hide-country',
+            'name-full' => 0,
+            'name-oneline' => 'name-oneline',
+            'organisation' => 0,
+          ),
+        ),
+        'type' => 'addressfield_standard',
+        'weight' => '5',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_location-field_cmtls_application'
   $fields['node-cmtls_location-field_cmtls_application'] = array(
     'field_config' => array(
@@ -1607,100 +1847,20 @@ function cmtls_field_default_fields() {
     ),
   );
 
-  // Exported field: 'node-cmtls_location-field_cmtls_location'
-  $fields['node-cmtls_location-field_cmtls_location'] = array(
+  // Exported field: 'node-cmtls_location-field_cmtls_geometry'
+  $fields['node-cmtls_location-field_cmtls_geometry'] = array(
     'field_config' => array(
       'active' => '1',
       'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
-      'field_name' => 'field_cmtls_location',
+      'field_name' => 'field_cmtls_geometry',
       'foreign keys' => array(),
-      'indexes' => array(
-        'lid' => array(
-          0 => 'lid',
-        ),
-      ),
-      'module' => 'location_cck',
-      'settings' => array(
-        'gmap_macro' => '[gmap ]',
-        'gmap_marker' => 'small orange',
-        'location_settings' => array(
-          'display' => array(
-            'hide' => array(
-              'additional' => 'additional',
-              'city' => 0,
-              'coords' => 'coords',
-              'country' => 0,
-              'country_name' => 'country_name',
-              'fax' => 0,
-              'locpick' => 'locpick',
-              'map_link' => 0,
-              'name' => 0,
-              'phone' => 0,
-              'postal_code' => 0,
-              'province' => 0,
-              'province_name' => 'province_name',
-              'street' => 0,
-            ),
-          ),
-          'form' => array(
-            'fields' => array(
-              'additional' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '-97',
-              ),
-              'city' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-96',
-              ),
-              'country' => array(
-                'collect' => '1',
-                'default' => 'ee',
-                'weight' => '-93',
-              ),
-              'fax' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '30',
-              ),
-              'locpick' => array(
-                'collect' => '1',
-                'weight' => '-100',
-              ),
-              'name' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-99',
-              ),
-              'phone' => array(
-                'collect' => '0',
-                'default' => '',
-                'weight' => '25',
-              ),
-              'postal_code' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-94',
-              ),
-              'province' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-95',
-              ),
-              'street' => array(
-                'collect' => '1',
-                'default' => '',
-                'weight' => '-98',
-              ),
-            ),
-          ),
-        ),
-      ),
+      'indexes' => array(),
+      'module' => 'geofield',
+      'settings' => array(),
       'translatable' => '0',
-      'type' => 'location',
+      'type' => 'geofield',
     ),
     'field_instance' => array(
       'bundle' => 'cmtls_location',
@@ -1712,40 +1872,50 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '2',
+          'weight' => 0,
         ),
         'cmtls_teaser' => array(
-          'label' => 'hidden',
-          'module' => 'cmtls',
-          'settings' => array(),
-          'type' => 'cmtls_location_formatter',
-          'weight' => '3',
-        ),
-        'default' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'geofield',
+          'settings' => array(
+            'data' => 'full',
+          ),
+          'type' => 'geofield_wkt',
+          'weight' => 16,
         ),
         'teaser' => array(
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '4',
+          'weight' => 0,
         ),
       ),
       'entity_type' => 'node',
-      'field_name' => 'field_cmtls_location',
-      'label' => 'Location',
+      'field_name' => 'field_cmtls_geometry',
+      'label' => 'Map',
       'required' => 0,
       'settings' => array(
+        'local_solr' => array(
+          'enabled' => FALSE,
+          'lat_field' => 'lat',
+          'lng_field' => 'lng',
+        ),
         'user_register_form' => FALSE,
       ),
       'widget' => array(
-        'active' => 0,
-        'module' => 'location_cck',
-        'settings' => array(),
-        'type' => 'location',
+        'active' => 1,
+        'module' => 'geofield',
+        'settings' => array(
+          'data_storage' => 'collection',
+          'openlayers_map' => 'geofield_widget_map',
+        ),
+        'type' => 'geofield_openlayers',
         'weight' => '4',
       ),
     ),
@@ -2303,6 +2473,7 @@ function cmtls_field_default_fields() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Additional information, like homepage, skype etc');
+  t('Address');
   t('Application');
   t('Application configurations');
   t('Attachments');
@@ -2321,8 +2492,8 @@ function cmtls_field_default_fields() {
   NB! there should be only one main group');
   t('Last name');
   t('Legacy type');
-  t('Location');
   t('Main group');
+  t('Map');
   t('Tags');
   t('This is used by migration from D6 version of CT');
 

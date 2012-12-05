@@ -18,10 +18,10 @@ function cmtls_field_group_info() {
   $field_group->entity_type = 'node';
   $field_group->bundle = 'cmtls_app';
   $field_group->mode = 'form';
-  $field_group->parent_name = '';
+  $field_group->parent_name = 'group_tabs';
   $field_group->data = array(
     'label' => 'Advanced',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
       0 => 'group_hidden',
     ),
@@ -79,7 +79,7 @@ function cmtls_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Advanced',
-    'weight' => '5',
+    'weight' => '7',
     'children' => array(
       0 => 'group_content_access',
       1 => 'group_hidden',
@@ -96,6 +96,36 @@ function cmtls_field_group_info() {
     ),
   );
   $export['group_advanced|node|cmtls_location|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_application|node|cmtls_app|form';
+  $field_group->group_name = 'group_application';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'cmtls_app';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_tabs';
+  $field_group->data = array(
+    'label' => 'Application',
+    'weight' => '0',
+    'children' => array(
+      0 => 'body',
+      1 => 'field_cmtls_app_type',
+      2 => 'title',
+    ),
+    'format_type' => 'htab',
+    'format_settings' => array(
+      'label' => 'Application',
+      'instance_settings' => array(
+        'required_fields' => 1,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'open',
+    ),
+  );
+  $export['group_application|node|cmtls_app|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -138,11 +168,12 @@ function cmtls_field_group_info() {
   $field_group->parent_name = 'group_advanced';
   $field_group->data = array(
     'label' => 'Hidden',
-    'weight' => '5',
+    'weight' => '34',
     'children' => array(
       0 => 'group_audience',
-      1 => 'group_content_access',
+      1 => 'field_cmtls_app_configs',
       2 => 'field_cmtls_legacy_type',
+      3 => 'group_content_access',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -198,8 +229,8 @@ function cmtls_field_group_info() {
     'label' => 'Hidden',
     'weight' => '11',
     'children' => array(
-      0 => 'field_cmtls_application',
-      1 => 'group_audience',
+      0 => 'group_audience',
+      1 => 'field_cmtls_application',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(
@@ -217,6 +248,35 @@ function cmtls_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_location|node|cmtls_app|form';
+  $field_group->group_name = 'group_location';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'cmtls_app';
+  $field_group->mode = 'form';
+  $field_group->parent_name = 'group_tabs';
+  $field_group->data = array(
+    'label' => 'Location',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_cmtls_geometry',
+      1 => 'field_cmtls_address',
+    ),
+    'format_type' => 'htab',
+    'format_settings' => array(
+      'label' => 'Location',
+      'instance_settings' => array(
+        'required_fields' => 0,
+        'classes' => '',
+        'description' => '',
+      ),
+      'formatter' => 'closed',
+    ),
+  );
+  $export['group_location|node|cmtls_app|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_location|node|cmtls_group|form';
   $field_group->group_name = 'group_location';
   $field_group->entity_type = 'node';
@@ -228,6 +288,8 @@ function cmtls_field_group_info() {
     'weight' => '10',
     'children' => array(
       0 => 'field_cmtls_location',
+      1 => 'field_cmtls_geometry',
+      2 => 'field_cmtls_address',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -240,6 +302,33 @@ function cmtls_field_group_info() {
     ),
   );
   $export['group_location|node|cmtls_group|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_tabs|node|cmtls_app|form';
+  $field_group->group_name = 'group_tabs';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'cmtls_app';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Tabs',
+    'weight' => '1',
+    'children' => array(
+      0 => 'group_advanced',
+      1 => 'group_location',
+      2 => 'group_application',
+    ),
+    'format_type' => 'htabs',
+    'format_settings' => array(
+      'formatter' => '',
+      'instance_settings' => array(
+        'classes' => '',
+      ),
+    ),
+  );
+  $export['group_tabs|node|cmtls_app|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */

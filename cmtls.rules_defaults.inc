@@ -877,7 +877,7 @@ function cmtls_default_rules_configuration() {
         { "mail" : {
             "to" : [ "og-membership:group:manager:mail" ],
             "subject" : "[account:name] joined [og_membership:group:label]",
-            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] joined [og_membership:group:label] in [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
+            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] ([account:mail]) joined [og_membership:group:label] in [og_membership:group:url]\\r\\n---\\r\\n[site:name]",
             "language" : [ "account:language" ]
           }
         }
@@ -902,7 +902,7 @@ function cmtls_default_rules_configuration() {
         { "mail" : {
             "to" : [ "og-membership:group:manager:mail" ],
             "subject" : "[account:name] membership request [og_membership:group:label]",
-            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] requests membership for group \\u0027[og_membership:group:label]\\u0027 in [og_membership:group:url].\\r\\n\\r\\n[og_membership:og-membership-request]\\r\\n---\\r\\n[site:name]",
+            "message" : "[og-membership:group:manager:name],\\r\\n\\r\\n[account:name] ([account:mail]) requests membership for group \\u0027[og_membership:group:label]\\u0027 in [og_membership:group:url].\\r\\n\\r\\n[og_membership:og-membership-request]\\r\\n---\\r\\n[site:name]",
             "language" : [ "account:language" ]
           }
         }

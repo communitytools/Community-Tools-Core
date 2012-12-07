@@ -258,6 +258,11 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'cmtls_location';
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
+    'cmtls_comments_count' => array(
+      'weight' => '5',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'cmtls_location_indicator' => array(
       'weight' => '2',
       'label' => 'hidden',
@@ -364,6 +369,26 @@ function cmtls_ds_custom_fields_info() {
     ),
   );
   $export['cmtls_comment_spam_flag_link'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'cmtls_comments_count';
+  $ds_field->label = 'Comments count';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<?php
+
+print views_embed_view(\'cmtls_common_elements\', \'cmtls_common_comment_count_block\', $entity->nid);
+',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 0,
+  );
+  $export['cmtls_comments_count'] = $ds_field;
 
   $ds_field = new stdClass();
   $ds_field->api_version = 1;
@@ -740,6 +765,7 @@ function cmtls_ds_layout_settings_info() {
         0 => 'cmtls_location_indicator',
         1 => 'field_cmtls_address',
         2 => 'field_cmtls_tags',
+        3 => 'cmtls_comments_count',
       ),
     ),
     'fields' => array(
@@ -748,6 +774,7 @@ function cmtls_ds_layout_settings_info() {
       'cmtls_location_indicator' => 'footer',
       'field_cmtls_address' => 'footer',
       'field_cmtls_tags' => 'footer',
+      'cmtls_comments_count' => 'footer',
     ),
     'classes' => array(),
   );

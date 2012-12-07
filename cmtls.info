@@ -80,6 +80,7 @@ features[ds_field_settings][] = node|cmtls_location|default
 features[ds_field_settings][] = user|user|cmtls_teaser
 features[ds_field_settings][] = user|user|default
 features[ds_fields][] = cmtls_comment_spam_flag_link
+features[ds_fields][] = cmtls_comments_count
 features[ds_fields][] = cmtls_group_members
 features[ds_fields][] = cmtls_group_subscription
 features[ds_fields][] = cmtls_location_indicator

@@ -2553,6 +2553,78 @@ function cmtls_views_default_views() {
     'cmtls_common_elements_flag_spam_block' => 0,
   );
   $handler->display->display_options['attachment_position'] = 'after';
+
+  /* Display: Comment count block */
+  $handler = $view->new_display('block', 'Comment count block', 'cmtls_common_comment_count_block');
+  $handler->display->display_options['defaults']['title'] = FALSE;
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  $handler->display->display_options['defaults']['fields'] = FALSE;
+  /* Field: Content: Path */
+  $handler->display->display_options['fields']['path']['id'] = 'path';
+  $handler->display->display_options['fields']['path']['table'] = 'node';
+  $handler->display->display_options['fields']['path']['field'] = 'path';
+  $handler->display->display_options['fields']['path']['exclude'] = TRUE;
+  $handler->display->display_options['fields']['path']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['make_link'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['path']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['path']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['path']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['path']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['path']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['path']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['path']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['path']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['path']['absolute'] = 1;
+  /* Field: Content: Comment count */
+  $handler->display->display_options['fields']['comment_count']['id'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['fields']['comment_count']['field'] = 'comment_count';
+  $handler->display->display_options['fields']['comment_count']['label'] = 'Comments';
+  $handler->display->display_options['fields']['comment_count']['alter']['alter_text'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['make_link'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['path'] = '[path]';
+  $handler->display->display_options['fields']['comment_count']['alter']['absolute'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['external'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['replace_spaces'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim_whitespace'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['nl2br'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['word_boundary'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['ellipsis'] = 1;
+  $handler->display->display_options['fields']['comment_count']['alter']['more_link'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['strip_tags'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['trim'] = 0;
+  $handler->display->display_options['fields']['comment_count']['alter']['html'] = 0;
+  $handler->display->display_options['fields']['comment_count']['element_label_colon'] = 1;
+  $handler->display->display_options['fields']['comment_count']['element_default_classes'] = 1;
+  $handler->display->display_options['fields']['comment_count']['hide_empty'] = 0;
+  $handler->display->display_options['fields']['comment_count']['empty_zero'] = 0;
+  $handler->display->display_options['fields']['comment_count']['hide_alter_empty'] = 1;
+  $handler->display->display_options['fields']['comment_count']['separator'] = '';
+  $handler->display->display_options['fields']['comment_count']['format_plural'] = 0;
+  $handler->display->display_options['defaults']['filters'] = FALSE;
+  /* Filter criterion: Content: Published */
+  $handler->display->display_options['filters']['status']['id'] = 'status';
+  $handler->display->display_options['filters']['status']['table'] = 'node';
+  $handler->display->display_options['filters']['status']['field'] = 'status';
+  $handler->display->display_options['filters']['status']['value'] = 1;
+  $handler->display->display_options['filters']['status']['group'] = 0;
+  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
+  /* Filter criterion: Content: Comment count */
+  $handler->display->display_options['filters']['comment_count']['id'] = 'comment_count';
+  $handler->display->display_options['filters']['comment_count']['table'] = 'node_comment_statistics';
+  $handler->display->display_options['filters']['comment_count']['field'] = 'comment_count';
+  $handler->display->display_options['filters']['comment_count']['operator'] = '>';
+  $handler->display->display_options['filters']['comment_count']['value']['value'] = '0';
   $translatables['cmtls_common_elements'] = array(
     t('Master'),
     t('Element'),
@@ -2586,6 +2658,9 @@ function cmtls_views_default_views() {
     t('Address attachment'),
     t('Address'),
     t('The address for the geometry block'),
+    t('Comment count block'),
+    t('Path'),
+    t('[path]'),
   );
   $export['cmtls_common_elements'] = $view;
 

@@ -1631,10 +1631,16 @@ function cmtls_field_default_fields() {
           'weight' => 0,
         ),
         'cmtls_teaser' => array(
-          'label' => 'above',
-          'settings' => array(),
-          'type' => 'hidden',
-          'weight' => 0,
+          'label' => 'hidden',
+          'module' => 'addressfield',
+          'settings' => array(
+            'format_handlers' => array(
+              0 => 'address',
+            ),
+            'use_widget_handlers' => 1,
+          ),
+          'type' => 'addressfield_default',
+          'weight' => '3',
         ),
         'default' => array(
           'label' => 'above',
@@ -1732,7 +1738,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '14',
+          'weight' => '18',
         ),
         'default' => array(
           'label' => 'above',
@@ -1809,7 +1815,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '17',
         ),
         'default' => array(
           'label' => 'above',
@@ -1878,7 +1884,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => 0,
+          'weight' => '13',
         ),
         'default' => array(
           'label' => 'above',
@@ -1972,7 +1978,7 @@ function cmtls_field_default_fields() {
           'module' => 'taxonomy',
           'settings' => array(),
           'type' => 'taxonomy_term_reference_link',
-          'weight' => '2',
+          'weight' => '4',
         ),
         'default' => array(
           'label' => 'above',
@@ -2051,7 +2057,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '15',
         ),
         'default' => array(
           'label' => 'above',
@@ -2144,7 +2150,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '16',
         ),
         'default' => array(
           'label' => 'above',

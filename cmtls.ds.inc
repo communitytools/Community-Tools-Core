@@ -258,6 +258,11 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->bundle = 'cmtls_location';
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
+    'cmtls_location_indicator' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
     'title' => array(
       'weight' => '0',
       'label' => 'hidden',
@@ -393,6 +398,27 @@ function cmtls_ds_custom_fields_info() {
     'use_token' => 0,
   );
   $export['cmtls_group_subscription'] = $ds_field;
+
+  $ds_field = new stdClass();
+  $ds_field->api_version = 1;
+  $ds_field->field = 'cmtls_location_indicator';
+  $ds_field->label = 'Location indicator';
+  $ds_field->field_type = 5;
+  $ds_field->entities = array(
+    'node' => 'node',
+  );
+  $ds_field->properties = array(
+    'code' => array(
+      'value' => '<?php
+
+if(isset($entity->field_cmtls_geometry[LANGUAGE_NONE][0][\'wkt\']) && $entity->field_cmtls_geometry[LANGUAGE_NONE][0][\'wkt\']) {
+  echo \'<div class="cmtls-location-indicator"><span>Geotagged</span></div>\';
+}',
+      'format' => 'ds_code',
+    ),
+    'use_token' => 0,
+  );
+  $export['cmtls_location_indicator'] = $ds_field;
 
   return $export;
 }
@@ -711,15 +737,17 @@ function cmtls_ds_layout_settings_info() {
         1 => 'body',
       ),
       'footer' => array(
-        0 => 'field_cmtls_tags',
-        1 => 'field_cmtls_location',
+        0 => 'cmtls_location_indicator',
+        1 => 'field_cmtls_address',
+        2 => 'field_cmtls_tags',
       ),
     ),
     'fields' => array(
       'title' => 'middle',
       'body' => 'middle',
+      'cmtls_location_indicator' => 'footer',
+      'field_cmtls_address' => 'footer',
       'field_cmtls_tags' => 'footer',
-      'field_cmtls_location' => 'footer',
     ),
     'classes' => array(),
   );

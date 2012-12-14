@@ -101,3 +101,47 @@ function cmtls_update_7201() {
   // Create the folder for Facebook avatars.
   drupal_mkdir('public://fb_avatars');
 }
+
+/**
+ * Update 2.0-beta3
+ */
+function cmtls_update_7202() {
+  // Add new modules.
+  module_enable(array(
+    'geofield',
+    'geophp',
+    'addressfield',
+    'openlayers',
+    'openlayers_views',
+  ));
+
+  // Revert features so the geofield and addressfield will become available.
+  cmtls_features_revert(array('cmtls'));
+
+  // Convert locations to geofields and addressfields.
+  $nodes = node_load_multiple(array(), array(
+    'type' => 'cmtls_location',
+  ));
+  $nodes += node_load_multiple(array(), array(
+    'type' => 'cmtls_group',
+  ));
+  $nodes += node_load_multiple(array(), array(
+    'type' => 'cmtls_app',
+  ));
+
+  if(sizeof($nodes)) {
+    cmtls_convert_node_location($nodes);
+  }
+
+  // Delete location fields.
+  $instance = field_info_instance('node', 'field_cmtls_location', 'cmtls_group');
+  field_delete_instance($instance);
+
+  $instance = field_info_instance('node', 'field_cmtls_location', 'cmtls_app');
+  field_delete_instance($instance);
+
+  $instance = field_info_instance('node', 'field_cmtls_location', 'cmtls_location');
+  field_delete_instance($instance);
+
+  field_purge_batch(100);
+}

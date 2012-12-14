@@ -1193,3 +1193,94 @@ function cmtls_og_role_grant_permissions($rid, $permissions = array()) {
       ->execute();
   }
 }
+
+/**
+ * Force revert all feature components.
+ *
+ * $modules array of feature modules
+ */
+function cmtls_features_revert($modules) {
+  module_load_include('inc', 'features', 'features.export');
+  features_include();
+  foreach ($modules as $module) {
+    if (($feature = feature_load($module, TRUE)) && module_exists($module)) {
+      $components = array();
+      // Forcefully revert all components of a feature.
+      foreach (array_keys($feature->info['features']) as $component) {
+        if (features_hook($component, 'features_revert')) {
+          $components[] = $component;
+        }
+      }
+    }
+    foreach ($components as $component) {
+      features_revert(array($module => array($component)));
+    }
+  }
+}
+
+/**
+ * Converts node location to geofield and addressfield.
+ *
+ * $nodes array of nodes to convert.
+ */
+function cmtls_convert_node_location(&$nodes) {
+  foreach ($nodes as &$node) {
+    if(isset($node->field_cmtls_location[LANGUAGE_NONE][0]) && $node->field_cmtls_location[LANGUAGE_NONE][0]['lid']) {
+      $update = FALSE;
+
+      // Geofield.
+      if($node->field_cmtls_location[LANGUAGE_NONE][0]['locpick']['user_latitude']) {
+        $lat = $node->field_cmtls_location[LANGUAGE_NONE][0]['locpick']['user_latitude'];
+        $lon = $node->field_cmtls_location[LANGUAGE_NONE][0]['locpick']['user_longitude'];
+        $node->field_cmtls_geometry[LANGUAGE_NONE][0] = array(
+          'wkt' => 'POINT (' . $lon . ' ' . $lat . ')',
+          'geo_type' => 'point',
+          'lat' => $lat,
+          'lon' => $lon,
+          'left' => $lon,
+          'top' => $lat,
+          'right' => $lon,
+          'bottom' => $lat,
+          'srid' => NULL,
+          'accuracy' => NULL,
+          'source' => NULL,
+        );
+        $update = TRUE;
+      }
+
+      // Addressfield.
+      if($node->field_cmtls_location[LANGUAGE_NONE][0]['name']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['street']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['additional']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['city']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['province']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['postal_code']
+        || $node->field_cmtls_location[LANGUAGE_NONE][0]['country']
+      ) {
+        $node->field_cmtls_address[LANGUAGE_NONE][0] = array(
+            'country' => strtoupper($node->field_cmtls_location[LANGUAGE_NONE][0]['country']),
+            'administrative_area' => NULL,
+            'sub_administrative_area' => NULL,
+            'locality' => $node->field_cmtls_location[LANGUAGE_NONE][0]['city'],
+            'dependent_locality' => NULL,
+            'postal_code' => $node->field_cmtls_location[LANGUAGE_NONE][0]['postal_code'],
+            'thoroughfare' => $node->field_cmtls_location[LANGUAGE_NONE][0]['street'],
+            'premise' => trim($node->field_cmtls_location[LANGUAGE_NONE][0]['additional']
+              . ' ' . $node->field_cmtls_location[LANGUAGE_NONE][0]['province_name']),
+            'sub_premise' => NULL,
+            'organisation_name' => NULL,
+            'name_line' => $node->field_cmtls_location[LANGUAGE_NONE][0]['name'],
+            'first_name' => NULL,
+            'last_name' => NULL,
+            'data' => NULL,
+        );
+        $update = TRUE;
+      }
+
+      if($update) {
+        field_attach_presave('node', $node);
+        field_attach_update('node', $node);
+      }
+    }
+  }
+}

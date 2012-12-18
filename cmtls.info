@@ -222,6 +222,7 @@ features[views_view][] = cmtls_members
 features[views_view][] = cmtls_members_vbo_all
 features[views_view][] = cmtls_post_comments_vbo_all_subscribed
 features[views_view][] = cmtls_posts_vbo_subscribed
+features[views_view][] = cmtls_tags
 files[] = cmtls.app.inc
 files[] = plugins/views_handler_filter_cmtls_node_type.inc
 required = 1

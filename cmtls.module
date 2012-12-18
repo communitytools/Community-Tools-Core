@@ -354,7 +354,7 @@ function cmtls_user_update(&$edit, $account, $category) {
         //Update the user record.
         $query = db_merge('users')
           ->key(array(
-            'name' => $edit['name'],
+            'uid' => $account->uid,
           ))
           ->fields(array(
             'picture' => $result->fid,

@@ -1023,7 +1023,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '15',
         ),
         'default' => array(
           'label' => 'above',

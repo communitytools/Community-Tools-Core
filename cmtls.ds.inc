@@ -199,7 +199,7 @@ function cmtls_ds_field_settings_info() {
       'format' => 'default',
     ),
     'cmtls_group_subscription' => array(
-      'weight' => '7',
+      'weight' => '6',
       'label' => 'hidden',
       'format' => 'default',
     ),
@@ -217,11 +217,6 @@ function cmtls_ds_field_settings_info() {
         'wrapper' => 'h2',
         'class' => '',
       ),
-    ),
-    'post_date' => array(
-      'weight' => '6',
-      'label' => 'hidden',
-      'format' => 'ds_post_date_long',
     ),
   );
   $export['node|cmtls_group|cmtls_teaser'] = $ds_fieldsetting;
@@ -702,8 +697,7 @@ function cmtls_ds_layout_settings_info() {
         2 => 'field_cmtls_address',
       ),
       'right_column' => array(
-        0 => 'post_date',
-        1 => 'cmtls_group_subscription',
+        0 => 'cmtls_group_subscription',
       ),
     ),
     'fields' => array(
@@ -713,7 +707,6 @@ function cmtls_ds_layout_settings_info() {
       'cmtls_group_members' => 'footer',
       'cmtls_location_indicator' => 'footer',
       'field_cmtls_address' => 'footer',
-      'post_date' => 'right_column',
       'cmtls_group_subscription' => 'right_column',
     ),
     'classes' => array(),

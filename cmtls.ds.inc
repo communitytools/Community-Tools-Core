@@ -194,17 +194,22 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
     'cmtls_group_members' => array(
-      'weight' => '0',
+      'weight' => '3',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'cmtls_group_subscription' => array(
-      'weight' => '0',
+      'weight' => '7',
+      'label' => 'hidden',
+      'format' => 'default',
+    ),
+    'cmtls_location_indicator' => array(
+      'weight' => '4',
       'label' => 'hidden',
       'format' => 'default',
     ),
     'title' => array(
-      'weight' => '0',
+      'weight' => '1',
       'label' => 'hidden',
       'format' => 'default',
       'formatter_settings' => array(
@@ -212,6 +217,11 @@ function cmtls_ds_field_settings_info() {
         'wrapper' => 'h2',
         'class' => '',
       ),
+    ),
+    'post_date' => array(
+      'weight' => '6',
+      'label' => 'hidden',
+      'format' => 'ds_post_date_long',
     ),
   );
   $export['node|cmtls_group|cmtls_teaser'] = $ds_fieldsetting;
@@ -679,28 +689,32 @@ function cmtls_ds_layout_settings_info() {
     'hide_empty_regions' => 1,
     'hide_sidebars' => 0,
     'regions' => array(
+      'left_column' => array(
+        0 => 'field_cmtls_group_avatar',
+      ),
       'middle' => array(
         0 => 'title',
         1 => 'body',
       ),
-      'right_column' => array(
-        0 => 'cmtls_group_subscription',
-      ),
       'footer' => array(
         0 => 'cmtls_group_members',
-        1 => 'field_cmtls_location',
+        1 => 'cmtls_location_indicator',
+        2 => 'field_cmtls_address',
       ),
-      'left_column' => array(
-        0 => 'field_cmtls_group_avatar',
+      'right_column' => array(
+        0 => 'post_date',
+        1 => 'cmtls_group_subscription',
       ),
     ),
     'fields' => array(
-      'title' => 'middle',
-      'cmtls_group_subscription' => 'right_column',
-      'cmtls_group_members' => 'footer',
-      'body' => 'middle',
       'field_cmtls_group_avatar' => 'left_column',
-      'field_cmtls_location' => 'footer',
+      'title' => 'middle',
+      'body' => 'middle',
+      'cmtls_group_members' => 'footer',
+      'cmtls_location_indicator' => 'footer',
+      'field_cmtls_address' => 'footer',
+      'post_date' => 'right_column',
+      'cmtls_group_subscription' => 'right_column',
     ),
     'classes' => array(),
   );

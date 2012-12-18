@@ -1109,7 +1109,7 @@ function cmtls_field_default_fields() {
           'module' => 'image',
           'settings' => array(
             'image_link' => 'content',
-            'image_style' => 'cmtls_small',
+            'image_style' => '',
           ),
           'type' => 'image',
           'weight' => '3',
@@ -1146,7 +1146,7 @@ function cmtls_field_default_fields() {
         'active' => 1,
         'module' => 'image',
         'settings' => array(
-          'preview_image_style' => 'cmtls_small',
+          'preview_image_style' => '',
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',

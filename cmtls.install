@@ -78,6 +78,8 @@ function cmtls_install() {
   $settings['view_modes']['cmtls_teaser']['custom_settings'] = TRUE;
   variable_set('field_bundle_settings_comment__comment_node_cmtls_location', $settings);
 
+  cmtls_install_timeago();
+
   // Add updates.
   cmtls_update_7201();
 }
@@ -144,4 +146,33 @@ function cmtls_update_7202() {
   field_delete_instance($instance);
 
   field_purge_batch(100);
+
+  cmtls_install_timeago();
+}
+
+/**
+ * Installs timeago module and creates default settings.
+ */
+function cmtls_install_timeago() {
+  // Add modules.
+  module_enable(array(
+    'libraries',
+    'timeago',
+  ));
+
+  // Create timeago formats based on existing date format.
+  $format = '<\s\p\a\n \c\l\a\s\s="\t\i\m\e\a\g\o" \t\i\t\l\e="c">l, j F Y - H:i</\s\p\a\n>';
+
+  variable_set('timeago_comment', 0);
+  variable_set('timeago_node', 0);
+  variable_set('timeago_elem', 'span');
+  variable_set('date_format_cmtls_timeago', $format);
+
+  db_insert('date_format_type')
+    ->fields(array(
+      'title' => 'CT timeago',
+      'type' => 'cmtls_timeago',
+      'locked' => 1,
+    ))
+    ->execute();
 }

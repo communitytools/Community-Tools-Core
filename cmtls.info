@@ -26,7 +26,6 @@ dependencies[] = geophp
 dependencies[] = image
 dependencies[] = libraries
 dependencies[] = list
-dependencies[] = location_node
 dependencies[] = media
 dependencies[] = menu
 dependencies[] = node_reference

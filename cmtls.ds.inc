@@ -18,9 +18,14 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
     'post_date' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'ds_post_date_cmtls_timeago',
+    ),
+    'title' => array(
       'weight' => '3',
       'label' => 'hidden',
-      'format' => 'ds_post_date_short',
+      'format' => 'default',
     ),
     'author' => array(
       'weight' => '1',
@@ -68,9 +73,14 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
     'post_date' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'ds_post_date_cmtls_timeago',
+    ),
+    'title' => array(
       'weight' => '3',
       'label' => 'hidden',
-      'format' => 'ds_post_date_short',
+      'format' => 'default',
     ),
     'author' => array(
       'weight' => '1',
@@ -118,9 +128,14 @@ function cmtls_ds_field_settings_info() {
   $ds_fieldsetting->view_mode = 'cmtls_teaser';
   $ds_fieldsetting->settings = array(
     'post_date' => array(
+      'weight' => '2',
+      'label' => 'hidden',
+      'format' => 'ds_post_date_cmtls_timeago',
+    ),
+    'title' => array(
       'weight' => '3',
       'label' => 'hidden',
-      'format' => 'ds_post_date_short',
+      'format' => 'default',
     ),
     'author' => array(
       'weight' => '1',
@@ -472,20 +487,18 @@ function cmtls_ds_layout_settings_info() {
     'regions' => array(
       'left_column' => array(
         0 => 'ds_user_picture',
-        1 => 'author',
       ),
       'middle' => array(
-        0 => 'comment_body',
-      ),
-      'footer' => array(
-        0 => 'post_date',
+        0 => 'author',
+        1 => 'post_date',
+        2 => 'title',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'left_column',
-      'author' => 'left_column',
-      'comment_body' => 'middle',
-      'post_date' => 'footer',
+      'author' => 'middle',
+      'post_date' => 'middle',
+      'title' => 'middle',
     ),
     'classes' => array(),
   );
@@ -534,20 +547,18 @@ function cmtls_ds_layout_settings_info() {
     'regions' => array(
       'left_column' => array(
         0 => 'ds_user_picture',
-        1 => 'author',
       ),
       'middle' => array(
-        0 => 'comment_body',
-      ),
-      'footer' => array(
-        0 => 'post_date',
+        0 => 'author',
+        1 => 'post_date',
+        2 => 'title',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'left_column',
-      'author' => 'left_column',
-      'comment_body' => 'middle',
-      'post_date' => 'footer',
+      'author' => 'middle',
+      'post_date' => 'middle',
+      'title' => 'middle',
     ),
     'classes' => array(),
   );
@@ -596,20 +607,18 @@ function cmtls_ds_layout_settings_info() {
     'regions' => array(
       'left_column' => array(
         0 => 'ds_user_picture',
-        1 => 'author',
       ),
       'middle' => array(
-        0 => 'comment_body',
-      ),
-      'footer' => array(
-        0 => 'post_date',
+        0 => 'author',
+        1 => 'post_date',
+        2 => 'title',
       ),
     ),
     'fields' => array(
       'ds_user_picture' => 'left_column',
-      'author' => 'left_column',
-      'comment_body' => 'middle',
-      'post_date' => 'footer',
+      'author' => 'middle',
+      'post_date' => 'middle',
+      'title' => 'middle',
     ),
     'classes' => array(),
   );

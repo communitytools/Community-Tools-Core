@@ -46,10 +46,9 @@ function cmtls_field_default_fields() {
       'display' => array(
         'cmtls_teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '2',
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -115,10 +114,9 @@ function cmtls_field_default_fields() {
       'display' => array(
         'cmtls_teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '2',
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'default' => array(
           'label' => 'hidden',
@@ -191,10 +189,9 @@ function cmtls_field_default_fields() {
       'display' => array(
         'cmtls_teaser' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
-          'weight' => '2',
+          'type' => 'hidden',
+          'weight' => '4',
         ),
         'default' => array(
           'label' => 'hidden',

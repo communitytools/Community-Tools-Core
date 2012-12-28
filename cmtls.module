@@ -214,6 +214,7 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
 
   // add location autocomplete
   if($form_id != 'cmtls_location_node_form' && in_array($form_id, $app_form_ids) && isset($_GET['aid'])) {
+    // TODO: needs a remake with geofield/addressfield
     drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.location_ac.js');
   }
 

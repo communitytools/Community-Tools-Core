@@ -10,6 +10,11 @@ include_once('cmtls.features.inc');
 function cmtls_init() {
   static $once;
 
+  $current_item = menu_get_object();
+  if(isset($current_item->type) && $current_item->type == 'cmtls_app') {
+    cmtls_set_current_application($current_item);
+  }
+
   if(!$once && function_exists('og_context')) {
     $once = TRUE;
     // add the image for the header
@@ -66,21 +71,11 @@ function cmtls_node_load($nodes, $types) {
        // hardcoded node field for app types
       if(!isset($node->field_cmtls_app_type[LANGUAGE_NONE][0]['cmtls_app_type'])) continue; //
       $node->cmtls_app_type = $node->field_cmtls_app_type[LANGUAGE_NONE][0]['cmtls_app_type'];
-      // Set the current app, but only if site is in the current app or node is
-      // applications child node (defined in hook_cmtls_info node types).
-      cmtls_add_conf('current_app', $node);
-      drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.active_app.js');
-      drupal_add_js(array(
-        'cmtls' => array(
-          'current_app' => array(
-            'nid' => (int)$node->nid,
-          ),
-        )), 'setting');
       break;
     }
     elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
       $app = node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']);
-      cmtls_add_conf('current_app', $app);
+      cmtls_set_current_application($app);
       break;
     }
   }
@@ -1284,4 +1279,18 @@ function cmtls_convert_node_location(&$nodes) {
       }
     }
   }
+}
+
+/**
+ * Helper function to set current application.
+ */
+function cmtls_set_current_application($node) {
+  cmtls_add_conf('current_app', $node);
+  drupal_add_js(drupal_get_path('module', 'cmtls') . '/js/cmtls.active_app.js');
+  drupal_add_js(array(
+    'cmtls' => array(
+      'current_app' => array(
+        'nid' => (int)$node->nid,
+      ),
+    )), 'setting');
 }

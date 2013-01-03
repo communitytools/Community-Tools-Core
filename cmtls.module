@@ -75,7 +75,6 @@ function cmtls_node_load($nodes, $types) {
     }
     elseif(isset($node->field_cmtls_application) && $node->field_cmtls_application && $node->field_cmtls_application[LANGUAGE_NONE][0]['nid'] && in_array($node->type, $node_types)) {
       $app = node_load($node->field_cmtls_application[LANGUAGE_NONE][0]['nid']);
-      cmtls_set_current_application($app);
       break;
     }
   }

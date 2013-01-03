@@ -316,7 +316,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Event comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -584,7 +584,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Location comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -739,7 +739,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Media comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },
@@ -1018,7 +1018,7 @@ function cmtls_default_rules_configuration() {
       "LABEL" : "CT Post comments for newsletter",
       "PLUGIN" : "rule",
       "TAGS" : [ "cmtls" ],
-      "REQUIRES" : [ "rules", "views_bulk_operations" ],
+      "REQUIRES" : [ "views_bulk_operations", "rules" ],
       "USES VARIABLES" : {
         "gid" : { "label" : "Group ID", "type" : "integer" },
         "uid" : { "label" : "User ID", "type" : "integer" },

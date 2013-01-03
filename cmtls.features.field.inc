@@ -872,8 +872,9 @@ function cmtls_field_default_fields() {
         ),
         'default' => array(
           'label' => 'hidden',
+          'module' => 'text',
           'settings' => array(),
-          'type' => 'hidden',
+          'type' => 'text_default',
           'weight' => '0',
         ),
         'teaser' => array(
@@ -940,27 +941,16 @@ function cmtls_field_default_fields() {
       'display' => array(
         'cmtls_teaser' => array(
           'label' => 'hidden',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
+          'module' => 'cmtls',
+          'settings' => array(),
+          'type' => 'cmtls_addressfield',
           'weight' => '5',
         ),
         'default' => array(
           'label' => 'above',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
-          'weight' => 15,
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '17',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1024,12 +1014,9 @@ function cmtls_field_default_fields() {
         ),
         'default' => array(
           'label' => 'above',
-          'module' => 'geofield',
-          'settings' => array(
-            'data' => 'full',
-          ),
-          'type' => 'geofield_wkt',
-          'weight' => 14,
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '16',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1121,7 +1108,7 @@ function cmtls_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '3',
+          'weight' => '12',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1211,7 +1198,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '13',
+          'weight' => '15',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1291,7 +1278,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '11',
+          'weight' => '13',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1379,7 +1366,7 @@ function cmtls_field_default_fields() {
           'label' => 'hidden',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '1',
+          'weight' => '11',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1471,7 +1458,7 @@ function cmtls_field_default_fields() {
           'label' => 'above',
           'settings' => array(),
           'type' => 'hidden',
-          'weight' => '12',
+          'weight' => '14',
         ),
         'teaser' => array(
           'label' => 'above',
@@ -1635,14 +1622,9 @@ function cmtls_field_default_fields() {
         ),
         'cmtls_teaser' => array(
           'label' => 'hidden',
-          'module' => 'addressfield',
-          'settings' => array(
-            'format_handlers' => array(
-              0 => 'address',
-            ),
-            'use_widget_handlers' => 1,
-          ),
-          'type' => 'addressfield_default',
+          'module' => 'cmtls',
+          'settings' => array(),
+          'type' => 'cmtls_addressfield',
           'weight' => '3',
         ),
         'default' => array(

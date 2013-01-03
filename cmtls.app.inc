@@ -63,9 +63,9 @@ function cmtls_field_formatter_info() {
       'label' => t('Default'),
       'field types' => array('cmtls_app_type'),
     ),
-    'cmtls_location_formatter' => array(
-      'label' => t('Fancy'),
-      'field types' => array('location'),
+    'cmtls_addressfield' => array(
+      'label' => t('CT address formatter'),
+      'field types' => array('addressfield'),
     ),
   );
 }
@@ -77,9 +77,6 @@ function cmtls_field_formatter_info() {
  */
 function cmtls_field_formatter_view($entity_type, $entity, $field, $instance, $langcode, $items, $display) {
   $element = array();
-
-  $settings = $field['settings']['location_settings'];
-  $hide = (isset($settings['display']['hide'])) ? array_keys(array_filter($settings['display']['hide'])) : array();
 
   switch ($display['type']) {
     // This formatter simply outputs the app type and description
@@ -99,13 +96,36 @@ function cmtls_field_formatter_view($entity_type, $entity, $field, $instance, $l
         }
       }
       break;
-    case 'cmtls_location_formatter':
-      foreach ($items as $delta => $item) {
-        if (!empty($item['lid']) || !empty($entity->in_preview)) {
-          $element[$delta]['#theme'] = 'cmtls_location';
-          $element[$delta]['#location'] = $item;
-          $element[$delta]['#hide'] = $hide;
-        }
+    // Format the addresfield ignoring the country.
+    case 'cmtls_addressfield':
+      $handlers = $instance['widget']['settings']['format_handlers'];
+      foreach ($items as $delta => $address) {
+        // Skip the address if only country is given.
+        if(!($address['administrative_area']
+          || $address['administrative_area']
+          || $address['sub_administrative_area']
+          || $address['postal_code']
+          || $address['locality']
+          || $address['dependent_locality']
+          || $address['thoroughfare']
+          || $address['sub_premise']
+          || $address['organisation_name']
+          || $address['name_line']
+          || $address['first_name']
+          || $address['last_name']
+          || $address['data']
+          || $address['premise'])) continue;
+        // Remove the country from display.
+        $address['country'] = NULL;
+        // Generate the address format.
+        $context = array(
+          'mode' => 'render',
+          'field' => $field,
+          'instance' => $instance,
+          'langcode' => $langcode,
+          'delta' => $delta,
+        );
+        $element[$delta] = addressfield_generate($address, $handlers, $context);
       }
       break;
   }

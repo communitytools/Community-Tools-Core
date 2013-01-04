@@ -855,8 +855,12 @@ function cmtls_block_view($delta = '') {
           }
         }
         elseif (arg(0) == 'user' && arg(1) == $user->uid) {
-          $block['subject'] = t('Notifications');
-          $block['content'] = '<p>' . flag_create_link('cmtls_instant_notifications', $user->uid) . '</p><br><p>' . flag_create_link('cmtls_daily_newsletter', $user->uid) . '</p>';
+          $instant_notifications = flag_create_link('cmtls_instant_notifications', $user->uid);
+          $daily_newsletter = flag_create_link('cmtls_daily_newsletter', $user->uid);
+          if($instant_notifications || $daily_newsletter) {
+            $block['subject'] = t('Notifications');
+            $block['content'] = '<p>' . $instant_notifications . '</p><br><p>' . $daily_newsletter . '</p>';
+          }
         }
       break;
     case 'cmtls_site_title':

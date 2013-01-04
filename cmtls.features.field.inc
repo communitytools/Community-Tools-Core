@@ -872,9 +872,8 @@ function cmtls_field_default_fields() {
         ),
         'default' => array(
           'label' => 'hidden',
-          'module' => 'text',
           'settings' => array(),
-          'type' => 'text_default',
+          'type' => 'hidden',
           'weight' => '0',
         ),
         'teaser' => array(

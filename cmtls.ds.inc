@@ -732,14 +732,6 @@ function cmtls_ds_layout_settings_info() {
   $ds_layout->settings = array(
     'hide_empty_regions' => 1,
     'hide_sidebars' => 0,
-    'regions' => array(
-      'ds_content' => array(
-        0 => 'body',
-      ),
-    ),
-    'fields' => array(
-      'body' => 'ds_content',
-    ),
     'classes' => array(),
   );
   $export['node|cmtls_group|default'] = $ds_layout;

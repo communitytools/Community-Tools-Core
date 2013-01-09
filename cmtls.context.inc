@@ -26,7 +26,18 @@ function cmtls_context_default_contexts() {
       ),
     ),
   );
-  $context->reactions = array();
+  $context->reactions = array(
+    'block' => array(
+      'blocks' => array(
+        'views-232f47dca370db2ede449d3046af1658' => array(
+          'module' => 'views',
+          'delta' => '232f47dca370db2ede449d3046af1658',
+          'region' => 'sidebar_second',
+          'weight' => '-10',
+        ),
+      ),
+    ),
+  );
   $context->condition_mode = 1;
 
   // Translatables
@@ -224,23 +235,23 @@ function cmtls_context_default_contexts() {
           'region' => 'content',
           'weight' => '-9',
         ),
-        'views-cb129c8a19431ae6b2fd1711646e2de2' => array(
+        'views-232f47dca370db2ede449d3046af1658' => array(
           'module' => 'views',
-          'delta' => 'cb129c8a19431ae6b2fd1711646e2de2',
+          'delta' => '232f47dca370db2ede449d3046af1658',
           'region' => 'sidebar_second',
-          'weight' => '-9',
+          'weight' => '-10',
         ),
         'views-e77b8b5723833505a9050ca84e36015c' => array(
           'module' => 'views',
           'delta' => 'e77b8b5723833505a9050ca84e36015c',
           'region' => 'sidebar_second',
-          'weight' => '-8',
+          'weight' => '-9',
         ),
         'views-46d8ed88f8cfdc87b69f60ac1c127427' => array(
           'module' => 'views',
           'delta' => '46d8ed88f8cfdc87b69f60ac1c127427',
           'region' => 'sidebar_second',
-          'weight' => '-7',
+          'weight' => '-8',
         ),
       ),
     ),

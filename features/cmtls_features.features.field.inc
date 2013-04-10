@@ -7,7 +7,7 @@
 /**
  * Implements hook_field_default_fields().
  */
-function cmtls_field_default_fields() {
+function cmtls_features_field_default_fields() {
   $fields = array();
 
   // Exported field: 'comment-comment_node_cmtls_app-comment_body'

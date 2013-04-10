@@ -7,7 +7,7 @@
 /**
  * Implements hook_ds_field_settings_info().
  */
-function cmtls_ds_field_settings_info() {
+function cmtls_features_ds_field_settings_info() {
   $export = array();
 
   $ds_fieldsetting = new stdClass();
@@ -362,7 +362,7 @@ function cmtls_ds_field_settings_info() {
 /**
  * Implements hook_ds_custom_fields_info().
  */
-function cmtls_ds_custom_fields_info() {
+function cmtls_features_ds_custom_fields_info() {
   $export = array();
 
   $ds_field = new stdClass();
@@ -471,7 +471,7 @@ if(isset($entity->field_cmtls_geometry[LANGUAGE_NONE][0][\'wkt\']) && $entity->f
 /**
  * Implements hook_ds_layout_settings_info().
  */
-function cmtls_ds_layout_settings_info() {
+function cmtls_features_ds_layout_settings_info() {
   $export = array();
 
   $ds_layout = new stdClass();
@@ -932,7 +932,7 @@ function cmtls_ds_layout_settings_info() {
 /**
  * Implements hook_ds_view_modes_info().
  */
-function cmtls_ds_view_modes_info() {
+function cmtls_features_ds_view_modes_info() {
   $export = array();
 
   $ds_view_mode = new stdClass();

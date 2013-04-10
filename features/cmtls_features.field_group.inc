@@ -7,7 +7,7 @@
 /**
  * Implements hook_field_group_info().
  */
-function cmtls_field_group_info() {
+function cmtls_features_field_group_info() {
   $export = array();
 
   $field_group = new stdClass();

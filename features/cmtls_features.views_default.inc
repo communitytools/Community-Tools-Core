@@ -7,7 +7,7 @@
 /**
  * Implements hook_views_default_views().
  */
-function cmtls_views_default_views() {
+function cmtls_features_views_default_views() {
   $export = array();
 
   $view = new view();

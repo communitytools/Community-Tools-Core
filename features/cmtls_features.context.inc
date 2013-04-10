@@ -7,7 +7,7 @@
 /**
  * Implements hook_context_default_contexts().
  */
-function cmtls_context_default_contexts() {
+function cmtls_features_context_default_contexts() {
   $export = array();
 
   $context = new stdClass();

@@ -7,7 +7,7 @@
 /**
  * Implements hook_openlayers_maps().
  */
-function cmtls_openlayers_maps() {
+function cmtls_features_openlayers_maps() {
   $export = array();
 
   $openlayers_maps = new stdClass();

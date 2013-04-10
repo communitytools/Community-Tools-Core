@@ -7,7 +7,7 @@
 /**
  * Implements hook_default_rules_configuration().
  */
-function cmtls_default_rules_configuration() {
+function cmtls_features_default_rules_configuration() {
   $items = array();
   $items['rules_cmtls_application_views_cache'] = entity_import('rules_config', '{ "rules_cmtls_application_views_cache" : {
       "LABEL" : "CT Application views cache",

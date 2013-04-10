@@ -7,7 +7,7 @@
 /**
  * Implements hook_taxonomy_default_vocabularies().
  */
-function cmtls_taxonomy_default_vocabularies() {
+function cmtls_features_taxonomy_default_vocabularies() {
   return array(
     'cmtls_tags' => array(
       'name' => 'CT tags',

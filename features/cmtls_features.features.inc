@@ -7,7 +7,7 @@
 /**
  * Implements hook_ctools_plugin_api().
  */
-function cmtls_ctools_plugin_api() {
+function cmtls_features_ctools_plugin_api() {
   list($module, $api) = func_get_args();
   if ($module == "context" && $api == "context") {
     return array("version" => "3");
@@ -29,14 +29,14 @@ function cmtls_ctools_plugin_api() {
 /**
  * Implements hook_views_api().
  */
-function cmtls_views_api() {
+function cmtls_features_views_api() {
   return array("version" => "3.0");
 }
 
 /**
  * Implements hook_flag_default_flags().
  */
-function cmtls_flag_default_flags() {
+function cmtls_features_flag_default_flags() {
   $flags = array();
   // Exported flag: "Follow".
   $flags['cmtls_app_follow'] = array(
@@ -305,7 +305,7 @@ function cmtls_flag_default_flags() {
 /**
  * Implements hook_image_default_styles().
  */
-function cmtls_image_default_styles() {
+function cmtls_features_image_default_styles() {
   $styles = array();
 
   // Exported image style: cmtls_header
@@ -359,7 +359,7 @@ function cmtls_image_default_styles() {
 /**
  * Implements hook_node_info().
  */
-function cmtls_node_info() {
+function cmtls_features_node_info() {
   $items = array(
     'cmtls_app' => array(
       'name' => t('Application'),

@@ -6,6 +6,11 @@
 include_once('cmtls.app.inc');
 
 /**
+ * Openlayers maps.
+ */
+include_once('cmtls.openlayers.inc');
+
+/**
  * Implements hook_ctools_plugin_api().
  */
 function cmtls_ctools_plugin_api() {
@@ -1316,4 +1321,22 @@ function cmtls_set_current_application($node) {
         'nid' => (int)$node->nid,
       ),
     )), 'setting');
+}
+
+function cmtls_get_taxonomy($name) {
+  $terms = array();
+  $voc = NULL;
+  
+  foreach (taxonomy_vocabulary_get_names() as $data) {
+    if($data->machine_name == $name) {
+      $terms = taxonomy_get_tree($data->vid);
+      $voc = taxonomy_vocabulary_load($data->vid);
+      break;
+    }
+  }
+  
+  return array(
+    'terms' => $terms,
+    'vocabulary' => $voc,
+  );
 }

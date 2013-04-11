@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.field_group.inc
+ * cmtls_features.field_group.inc
  */
 
 /**
@@ -229,8 +229,8 @@ function cmtls_features_field_group_info() {
     'label' => 'Hidden',
     'weight' => '11',
     'children' => array(
-      0 => 'group_audience',
-      1 => 'field_cmtls_application',
+      0 => 'field_cmtls_application',
+      1 => 'group_audience',
     ),
     'format_type' => 'fieldset',
     'format_settings' => array(

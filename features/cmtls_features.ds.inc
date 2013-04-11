@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.ds.inc
+ * cmtls_features.ds.inc
  */
 
 /**
@@ -839,8 +839,8 @@ function cmtls_features_ds_layout_settings_info() {
       ),
       'right' => array(
         0 => 'field_cmtls_geometry',
-        1 => 'field_cmtls_address',
-        2 => 'field_cmtls_location',
+        1 => 'field_cmtls_map_marker',
+        2 => 'field_cmtls_address',
       ),
       'footer' => array(
         0 => 'group_advanced',
@@ -861,8 +861,8 @@ function cmtls_features_ds_layout_settings_info() {
       'body' => 'left',
       'field_cmtls_attachments' => 'left',
       'field_cmtls_geometry' => 'right',
+      'field_cmtls_map_marker' => 'right',
       'field_cmtls_address' => 'right',
-      'field_cmtls_location' => 'right',
       'group_advanced' => 'footer',
       'path' => 'hidden',
       'redirect' => 'hidden',

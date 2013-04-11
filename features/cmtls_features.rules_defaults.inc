@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.rules_defaults.inc
+ * cmtls_features.rules_defaults.inc
  */
 
 /**

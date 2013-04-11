@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.features.field.inc
+ * cmtls_features.features.field.inc
  */
 
 /**
@@ -1911,6 +1911,88 @@ function cmtls_features_field_default_fields() {
     ),
   );
 
+  // Exported field: 'node-cmtls_location-field_cmtls_map_marker'
+  $fields['node-cmtls_location-field_cmtls_map_marker'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_map_marker',
+      'foreign keys' => array(
+        'tid' => array(
+          'columns' => array(
+            'tid' => 'tid',
+          ),
+          'table' => 'taxonomy_term_data',
+        ),
+      ),
+      'indexes' => array(
+        'tid' => array(
+          0 => 'tid',
+        ),
+      ),
+      'module' => 'taxonomy',
+      'settings' => array(
+        'allowed_values' => array(
+          0 => array(
+            'vocabulary' => 'cmtls_marker',
+            'parent' => '0',
+          ),
+        ),
+      ),
+      'translatable' => '0',
+      'type' => 'taxonomy_term_reference',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_location',
+      'default_value' => NULL,
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'cmtls_location_bare' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'cmtls_teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+        'default' => array(
+          'label' => 'above',
+          'module' => 'taxonomy',
+          'settings' => array(),
+          'type' => 'taxonomy_term_reference_link',
+          'weight' => 18,
+        ),
+        'teaser' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => 0,
+        ),
+      ),
+      'entity_type' => 'node',
+      'field_name' => 'field_cmtls_map_marker',
+      'label' => 'Marker',
+      'required' => 0,
+      'settings' => array(
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'options',
+        'settings' => array(),
+        'type' => 'options_buttons',
+        'weight' => '5',
+      ),
+    ),
+  );
+
   // Exported field: 'node-cmtls_location-field_cmtls_tags'
   $fields['node-cmtls_location-field_cmtls_tags'] = array(
     'field_config' => array(
@@ -2173,6 +2255,71 @@ function cmtls_features_field_default_fields() {
         'weight' => '9',
       ),
       'widget_type' => 'options_select',
+    ),
+  );
+
+  // Exported field: 'taxonomy_term-cmtls_marker-field_cmtls_map_marker_image'
+  $fields['taxonomy_term-cmtls_marker-field_cmtls_map_marker_image'] = array(
+    'field_config' => array(
+      'active' => '1',
+      'cardinality' => '1',
+      'deleted' => '0',
+      'entity_types' => array(),
+      'field_name' => 'field_cmtls_map_marker_image',
+      'foreign keys' => array(
+        'fid' => array(
+          'columns' => array(
+            'fid' => 'fid',
+          ),
+          'table' => 'file_managed',
+        ),
+      ),
+      'indexes' => array(
+        'fid' => array(
+          0 => 'fid',
+        ),
+      ),
+      'module' => 'file',
+      'settings' => array(
+        'display_default' => 0,
+        'display_field' => 0,
+        'uri_scheme' => 'public',
+      ),
+      'translatable' => '0',
+      'type' => 'file',
+    ),
+    'field_instance' => array(
+      'bundle' => 'cmtls_marker',
+      'deleted' => '0',
+      'description' => '',
+      'display' => array(
+        'default' => array(
+          'label' => 'above',
+          'settings' => array(),
+          'type' => 'hidden',
+          'weight' => '1',
+        ),
+      ),
+      'entity_type' => 'taxonomy_term',
+      'field_name' => 'field_cmtls_map_marker_image',
+      'label' => 'Marker',
+      'required' => 1,
+      'settings' => array(
+        'description_field' => 0,
+        'file_directory' => 'map_markers',
+        'file_extensions' => 'gif jpeg jpg png',
+        'max_filesize' => '',
+        'user_register_form' => FALSE,
+      ),
+      'widget' => array(
+        'active' => 1,
+        'module' => 'file',
+        'settings' => array(
+          'progress_indicator' => 'throbber',
+        ),
+        'type' => 'file_generic',
+        'weight' => '31',
+      ),
     ),
   );
 
@@ -2484,6 +2631,7 @@ function cmtls_features_field_default_fields() {
   t('Legacy type');
   t('Main group');
   t('Map');
+  t('Marker');
   t('Tags');
   t('This is used by migration from D6 version of CT');
 

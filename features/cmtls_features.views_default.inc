@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.views_default.inc
+ * cmtls_features.views_default.inc
  */
 
 /**
@@ -1861,6 +1861,16 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['row_options']['hide_empty'] = TRUE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
+  $handler->display->display_options['defaults']['relationships'] = FALSE;
+  /* Relationship: Content: Marker (field_cmtls_map_marker) */
+  $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['id'] = 'field_cmtls_map_marker_tid';
+  $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['table'] = 'field_data_field_cmtls_map_marker';
+  $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['field'] = 'field_cmtls_map_marker_tid';
+  /* Relationship: File Usage: File */
+  $handler->display->display_options['relationships']['taxonomy_term_to_file']['id'] = 'taxonomy_term_to_file';
+  $handler->display->display_options['relationships']['taxonomy_term_to_file']['table'] = 'file_usage';
+  $handler->display->display_options['relationships']['taxonomy_term_to_file']['field'] = 'taxonomy_term_to_file';
+  $handler->display->display_options['relationships']['taxonomy_term_to_file']['relationship'] = 'field_cmtls_map_marker_tid';
   $handler->display->display_options['defaults']['fields'] = FALSE;
   /* Field: Content: Title */
   $handler->display->display_options['fields']['title']['id'] = 'title';
@@ -1878,6 +1888,14 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['fields']['field_cmtls_geometry']['settings'] = array(
     'data' => 'full',
   );
+  /* Field: File: Path */
+  $handler->display->display_options['fields']['uri']['id'] = 'uri';
+  $handler->display->display_options['fields']['uri']['table'] = 'file_managed';
+  $handler->display->display_options['fields']['uri']['field'] = 'uri';
+  $handler->display->display_options['fields']['uri']['relationship'] = 'taxonomy_term_to_file';
+  $handler->display->display_options['fields']['uri']['label'] = '';
+  $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
+  $handler->display->display_options['fields']['uri']['file_download_path'] = TRUE;
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['defaults']['filters'] = FALSE;
   /* Filter criterion: Content: Published */
@@ -2027,6 +2045,8 @@ function cmtls_features_views_default_views() {
     t('Flag spam block'),
     t('Geometry OL'),
     t('Geometry block data overlay'),
+    t('term from field_cmtls_map_marker'),
+    t('File'),
     t('Map'),
     t('Geometry block'),
     t('Location'),
@@ -3961,113 +3981,6 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
   $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
 
-  /* Display: Page map OL overlay */
-  $handler = $view->new_display('openlayers', 'Page map OL overlay', 'page_map_ol_overlay');
-  $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
-  $handler->display->display_options['defaults']['style_plugin'] = FALSE;
-  $handler->display->display_options['style_plugin'] = 'openlayers_data';
-  $handler->display->display_options['style_options']['data_source'] = array(
-    'value' => 'wkt',
-    'other_lat' => 'title',
-    'other_lon' => 'title',
-    'wkt' => 'field_cmtls_geometry',
-    'other_top' => 'title',
-    'other_right' => 'title',
-    'other_bottom' => 'title',
-    'other_left' => 'title',
-    'name_field' => 'title',
-    'description_field' => 'body',
-  );
-  $handler->display->display_options['defaults']['style_options'] = FALSE;
-  $handler->display->display_options['defaults']['row_plugin'] = FALSE;
-  $handler->display->display_options['row_plugin'] = 'fields';
-  $handler->display->display_options['defaults']['row_options'] = FALSE;
-  $handler->display->display_options['defaults']['fields'] = FALSE;
-  /* Field: Content: Title */
-  $handler->display->display_options['fields']['title']['id'] = 'title';
-  $handler->display->display_options['fields']['title']['table'] = 'node';
-  $handler->display->display_options['fields']['title']['field'] = 'title';
-  $handler->display->display_options['fields']['title']['label'] = '';
-  $handler->display->display_options['fields']['title']['alter']['word_boundary'] = FALSE;
-  $handler->display->display_options['fields']['title']['alter']['ellipsis'] = FALSE;
-  /* Field: Content: Map */
-  $handler->display->display_options['fields']['field_cmtls_geometry']['id'] = 'field_cmtls_geometry';
-  $handler->display->display_options['fields']['field_cmtls_geometry']['table'] = 'field_data_field_cmtls_geometry';
-  $handler->display->display_options['fields']['field_cmtls_geometry']['field'] = 'field_cmtls_geometry';
-  $handler->display->display_options['fields']['field_cmtls_geometry']['label'] = '';
-  $handler->display->display_options['fields']['field_cmtls_geometry']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['field_cmtls_geometry']['click_sort_column'] = 'wkt';
-  $handler->display->display_options['fields']['field_cmtls_geometry']['settings'] = array(
-    'data' => 'full',
-  );
-  /* Field: Content: Description */
-  $handler->display->display_options['fields']['body']['id'] = 'body';
-  $handler->display->display_options['fields']['body']['table'] = 'field_data_body';
-  $handler->display->display_options['fields']['body']['field'] = 'body';
-  $handler->display->display_options['fields']['body']['label'] = '';
-  $handler->display->display_options['fields']['body']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['body']['type'] = 'text_summary_or_trimmed';
-  $handler->display->display_options['fields']['body']['settings'] = array(
-    'trim_length' => '100',
-  );
-  $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Application (field_cmtls_application) */
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['id'] = 'field_cmtls_application_nid';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['table'] = 'field_data_field_cmtls_application';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['field'] = 'field_cmtls_application_nid';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['exception']['value'] = '';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary_options']['items_per_page'] = '25';
-  /* Contextual filter: OG membership: OG group gid */
-  $handler->display->display_options['arguments']['group']['id'] = 'group';
-  $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
-  $handler->display->display_options['arguments']['group']['field'] = 'group';
-  $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
-  $handler->display->display_options['arguments']['group']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['group']['exception']['value'] = '';
-  $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
-  $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
-  $handler->display->display_options['defaults']['filter_groups'] = FALSE;
-  $handler->display->display_options['filter_groups']['groups'] = array(
-    1 => 'AND',
-    2 => 'OR',
-  );
-  $handler->display->display_options['defaults']['filters'] = FALSE;
-  /* Filter criterion: Content: Published */
-  $handler->display->display_options['filters']['status']['id'] = 'status';
-  $handler->display->display_options['filters']['status']['table'] = 'node';
-  $handler->display->display_options['filters']['status']['field'] = 'status';
-  $handler->display->display_options['filters']['status']['value'] = 1;
-  $handler->display->display_options['filters']['status']['group'] = 0;
-  $handler->display->display_options['filters']['status']['expose']['operator'] = FALSE;
-  /* Filter criterion: Content: Type */
-  $handler->display->display_options['filters']['type']['id'] = 'type';
-  $handler->display->display_options['filters']['type']['table'] = 'node';
-  $handler->display->display_options['filters']['type']['field'] = 'type';
-  $handler->display->display_options['filters']['type']['value'] = array(
-    'cmtls_location' => 'cmtls_location',
-  );
-  /* Filter criterion: Content: Title */
-  $handler->display->display_options['filters']['title']['id'] = 'title';
-  $handler->display->display_options['filters']['title']['table'] = 'node';
-  $handler->display->display_options['filters']['title']['field'] = 'title';
-  $handler->display->display_options['filters']['title']['operator'] = 'contains';
-  $handler->display->display_options['filters']['title']['exposed'] = TRUE;
-  $handler->display->display_options['filters']['title']['expose']['operator_id'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['label'] = 'Title';
-  $handler->display->display_options['filters']['title']['expose']['operator'] = 'title_op';
-  $handler->display->display_options['filters']['title']['expose']['identifier'] = 'title';
-  /* Filter criterion: Content: Map (field_cmtls_geometry:wkt) */
-  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['id'] = 'field_cmtls_geometry_wkt';
-  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['table'] = 'field_data_field_cmtls_geometry';
-  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['field'] = 'field_cmtls_geometry_wkt';
-  $handler->display->display_options['filters']['field_cmtls_geometry_wkt']['operator'] = 'not empty';
-
   /* Display: Application map block */
   $handler = $view->new_display('block', 'Application map block', 'cmtls_locations_map_app_block');
   $handler->display->display_options['display_description'] = 'Locations on map on the application page';
@@ -4078,7 +3991,7 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['pager']['options']['offset'] = '0';
   $handler->display->display_options['defaults']['style_plugin'] = FALSE;
   $handler->display->display_options['style_plugin'] = 'openlayers_map';
-  $handler->display->display_options['style_options']['map'] = 'cmtls_location_full_map';
+  $handler->display->display_options['style_options']['map'] = 'cmtls_map_application_full';
   $handler->display->display_options['defaults']['style_options'] = FALSE;
   $handler->display->display_options['defaults']['row_plugin'] = FALSE;
   $handler->display->display_options['defaults']['row_options'] = FALSE;
@@ -4107,41 +4020,8 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['fields']['nid']['label'] = '';
   $handler->display->display_options['fields']['nid']['exclude'] = TRUE;
   $handler->display->display_options['fields']['nid']['element_label_colon'] = FALSE;
-  /* Field: Location: Latitude */
-  $handler->display->display_options['fields']['latitude']['id'] = 'latitude';
-  $handler->display->display_options['fields']['latitude']['table'] = 'location';
-  $handler->display->display_options['fields']['latitude']['field'] = 'latitude';
-  $handler->display->display_options['fields']['latitude']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['latitude']['style'] = 'dd';
-  /* Field: Location: Longitude */
-  $handler->display->display_options['fields']['longitude']['id'] = 'longitude';
-  $handler->display->display_options['fields']['longitude']['table'] = 'location';
-  $handler->display->display_options['fields']['longitude']['field'] = 'longitude';
-  $handler->display->display_options['fields']['longitude']['exclude'] = TRUE;
-  $handler->display->display_options['fields']['longitude']['style'] = 'dd';
   $handler->display->display_options['defaults']['sorts'] = FALSE;
   $handler->display->display_options['defaults']['arguments'] = FALSE;
-  /* Contextual filter: Content: Application (field_cmtls_application) */
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['id'] = 'field_cmtls_application_nid';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['table'] = 'field_data_field_cmtls_application';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['field'] = 'field_cmtls_application_nid';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['exception']['value'] = '';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['default_argument_type'] = 'node';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['field_cmtls_application_nid']['summary_options']['items_per_page'] = '25';
-  /* Contextual filter: OG membership: OG group gid */
-  $handler->display->display_options['arguments']['group']['id'] = 'group';
-  $handler->display->display_options['arguments']['group']['table'] = 'og_membership';
-  $handler->display->display_options['arguments']['group']['field'] = 'group';
-  $handler->display->display_options['arguments']['group']['relationship'] = 'og_membership_rel';
-  $handler->display->display_options['arguments']['group']['default_action'] = 'default';
-  $handler->display->display_options['arguments']['group']['exception']['value'] = '';
-  $handler->display->display_options['arguments']['group']['default_argument_type'] = 'og_context';
-  $handler->display->display_options['arguments']['group']['summary']['number_of_records'] = '0';
-  $handler->display->display_options['arguments']['group']['summary']['format'] = 'default_summary';
-  $handler->display->display_options['arguments']['group']['summary_options']['items_per_page'] = '25';
   $handler->display->display_options['defaults']['filter_groups'] = FALSE;
   $handler->display->display_options['filter_groups']['groups'] = array(
     1 => 'AND',
@@ -4190,11 +4070,8 @@ function cmtls_features_views_default_views() {
     t('Application content block'),
     t('Locations on the application page'),
     t('All'),
-    t('Page map OL overlay'),
     t('Application map block'),
     t('Locations on map on the application page'),
-    t('Latitude'),
-    t('Longitude'),
   );
   $export['cmtls_locations'] = $view;
 

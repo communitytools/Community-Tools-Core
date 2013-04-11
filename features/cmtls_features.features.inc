@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.features.inc
+ * cmtls_features.features.inc
  */
 
 /**
@@ -22,6 +22,10 @@ function cmtls_features_ctools_plugin_api() {
   }
   list($module, $api) = func_get_args();
   if ($module == "openlayers" && $api == "openlayers_maps") {
+    return array("version" => "1");
+  }
+  list($module, $api) = func_get_args();
+  if ($module == "openlayers" && $api == "openlayers_styles") {
     return array("version" => "1");
   }
 }
@@ -71,7 +75,7 @@ function cmtls_features_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => '',
     'i18n' => 0,
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -104,7 +108,7 @@ function cmtls_features_flag_default_flags() {
     'weight' => 0,
     'show_on_profile' => 1,
     'access_uid' => '',
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -143,7 +147,7 @@ function cmtls_features_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => '',
     'i18n' => 0,
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -180,7 +184,7 @@ function cmtls_features_flag_default_flags() {
     'weight' => 0,
     'access_author' => 'comment_others',
     'show_on_comment' => 1,
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -221,7 +225,7 @@ function cmtls_features_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => 'others',
     'i18n' => 0,
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -254,7 +258,7 @@ function cmtls_features_flag_default_flags() {
     'weight' => 0,
     'show_on_profile' => 1,
     'access_uid' => '',
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),
@@ -293,7 +297,7 @@ function cmtls_features_flag_default_flags() {
     'show_contextual_link' => FALSE,
     'access_author' => '',
     'i18n' => 0,
-    'module' => 'cmtls',
+    'module' => 'cmtls_features',
     'locked' => array(
       0 => 'name',
     ),

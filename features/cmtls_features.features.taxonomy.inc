@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.features.taxonomy.inc
+ * cmtls_features.features.taxonomy.inc
  */
 
 /**
@@ -9,6 +9,29 @@
  */
 function cmtls_features_taxonomy_default_vocabularies() {
   return array(
+    'cmtls_marker' => array(
+      'name' => 'CT marker',
+      'machine_name' => 'cmtls_marker',
+      'description' => 'Map marker style',
+      'hierarchy' => '1',
+      'module' => 'taxonomy',
+      'weight' => '0',
+      'rdf_mapping' => array(
+        'rdftype' => array(
+          0 => 'skos:ConceptScheme',
+        ),
+        'name' => array(
+          'predicates' => array(
+            0 => 'dc:title',
+          ),
+        ),
+        'description' => array(
+          'predicates' => array(
+            0 => 'rdfs:comment',
+          ),
+        ),
+      ),
+    ),
     'cmtls_tags' => array(
       'name' => 'CT tags',
       'machine_name' => 'cmtls_tags',

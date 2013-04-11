@@ -1,7 +1,7 @@
 <?php
 /**
  * @file
- * cmtls.context.inc
+ * cmtls_features.context.inc
  */
 
 /**

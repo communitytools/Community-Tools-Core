@@ -220,6 +220,44 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   foreach (cmtls_get_app_content_types() as $app_type => $app) {
     $app_form_ids[] = $app_type . '_node_form';
   }
+  
+  // Filter possible marker taxonomy fields based on application taxonomy.
+  if(in_array($form_id, $app_form_ids)) {
+    $aid = (int)(isset($form['#node']->field_cmtls_application[LANGUAGE_NONE][0]['nid']) ? $form['#node']->field_cmtls_application[LANGUAGE_NONE][0]['nid'] : $_GET['aid']);
+    if($aid && $application = node_load($aid)) {
+      if(isset($application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid']) && (int)$application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid']) {
+        $parent_tid = $application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid'];
+        // Application layer defined filter the rest, preserve tree.
+        $layers = $form['field_cmtls_map_marker'][LANGUAGE_NONE]['#options'];
+        $app_layers = array();
+        $depth = '-';
+        foreach ($layers as $tid => $value) {
+          if($tid == $parent_tid) {
+            $depth .= str_replace(preg_replace('/^-*/', '', $value), '', $value);
+            break;
+          }
+          else {
+            unset($layers[$tid]);
+          }
+        }
+        $i = 0;
+        foreach ($layers as $tid => $value) {
+          if($i && strpos($value, $depth) === FALSE) {
+            break;
+          }
+          $app_layers[$tid] = $value;
+          $i++;
+        }
+        $form['field_cmtls_map_marker'][LANGUAGE_NONE]['#options'] = $app_layers;
+      }
+      else {
+        // No layers available for this application.
+        $form['field_cmtls_map_marker'][LANGUAGE_NONE]['#options'] = array(
+          '_none' => array_shift($form['field_cmtls_map_marker'][LANGUAGE_NONE]['#options']),
+        );
+      }
+    }
+  }
 
   // preselect group audience
   if(($form_id == 'cmtls_app_node_form' || in_array($form_id, $app_form_ids)) && isset($_GET['gid'])) {
@@ -252,11 +290,12 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
 
     $configs = module_invoke_all('cmtls_app_config', $current_config);
 
-    $form['cmtls_app_configs'] = array();
+    $form['cmtls_app_configs'];
 
     if(!empty($configs)) {
       $form['cmtls_app_configs'] = $configs;
-      $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 1;
+      // TODO: this should be attached to the application select inside the fieldgroup container.
+      $form['cmtls_app_configs']['#weight'] = $form['field_cmtls_app_type']['#weight'] + 20;
       $form['#submit'][] = 'cmtls_form_config_save';
     }
 

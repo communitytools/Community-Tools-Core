@@ -112,7 +112,8 @@ function cmtls_features_field_group_info() {
     'children' => array(
       0 => 'body',
       1 => 'field_cmtls_app_type',
-      2 => 'title',
+      2 => 'field_cmtls_map_marker',
+      3 => 'title',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -170,9 +171,9 @@ function cmtls_features_field_group_info() {
     'label' => 'Hidden',
     'weight' => '34',
     'children' => array(
-      0 => 'group_audience',
-      1 => 'field_cmtls_app_configs',
-      2 => 'field_cmtls_legacy_type',
+      0 => 'field_cmtls_app_configs',
+      1 => 'field_cmtls_legacy_type',
+      2 => 'group_audience',
       3 => 'group_content_access',
     ),
     'format_type' => 'fieldset',
@@ -258,8 +259,8 @@ function cmtls_features_field_group_info() {
     'label' => 'Location',
     'weight' => '1',
     'children' => array(
-      0 => 'field_cmtls_geometry',
-      1 => 'field_cmtls_address',
+      0 => 'field_cmtls_address',
+      1 => 'field_cmtls_geometry',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -287,9 +288,9 @@ function cmtls_features_field_group_info() {
     'label' => 'Location',
     'weight' => '10',
     'children' => array(
-      0 => 'field_cmtls_location',
+      0 => 'field_cmtls_address',
       1 => 'field_cmtls_geometry',
-      2 => 'field_cmtls_address',
+      2 => 'field_cmtls_map_marker',
     ),
     'format_type' => 'htab',
     'format_settings' => array(
@@ -317,8 +318,8 @@ function cmtls_features_field_group_info() {
     'weight' => '1',
     'children' => array(
       0 => 'group_advanced',
-      1 => 'group_location',
-      2 => 'group_application',
+      1 => 'group_application',
+      2 => 'group_location',
     ),
     'format_type' => 'htabs',
     'format_settings' => array(

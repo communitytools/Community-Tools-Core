@@ -22,7 +22,6 @@ function cmtls_openlayers_maps() {
   $layer_styles = array();
   
   foreach ($terms as $i => $term) {
-    /* Display: OpenLayers Taxonomy Data Overlay */
     $layers['cmtls_global_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_global_marker_layers_' . $voc->machine_name .'_' . $term->tid;
     $layer_weights['cmtls_global_marker_layers_' . $voc->machine_name .'_' . $term->tid] = $i;
     $layer_styles['cmtls_global_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_dynamic_marker';
@@ -105,16 +104,30 @@ function cmtls_openlayers_maps() {
 
   // Application map.
   $layers = array();
+  $layer_switcher = array();
   $layer_weights = array();
   $layer_styles = array();
   
   foreach ($terms as $i => $term) {
-    /* Display: OpenLayers Taxonomy Data Overlay */
     $layers['cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term->tid;
     $layer_weights['cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term->tid] = $i;
     $layer_styles['cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_dynamic_marker';
+    $layer_switcher['cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 0;
   }
 
+  // Show only layers that are in this application.
+  $aid = (int)arg(1);
+  if($aid && $application = node_load($aid)) {
+    if($application->type == 'cmtls_app' && isset($application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid']) && (int)$application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid']) {
+      $parent_tid = $application->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid'];
+      $term_layers[] = taxonomy_term_load($parent_tid);
+      $term_layers = array_merge($term_layers, taxonomy_get_tree($voc->vid, $parent_tid));
+      foreach($term_layers as $term_layer) {
+        $layer_switcher['cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term_layer->tid] = 'cmtls_application_marker_layers_' . $voc->machine_name .'_' . $term_layer->tid;
+      }
+    }
+  }
+  
   $openlayers_maps = new stdClass();
   $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
   $openlayers_maps->api_version = 1;
@@ -177,8 +190,8 @@ function cmtls_openlayers_maps() {
     'layer_weight' => $layer_weights,
     'layer_styles' => $layer_styles,
     'layer_styles_select' => $layer_styles,
-    'layer_activated' => $layers,
-    'layer_switcher' => $layers,
+    'layer_activated' => $layer_switcher,
+    'layer_switcher' => $layer_switcher,
     'projection' => '900913',
     'displayProjection' => '4326',
     'styles' => array(
@@ -196,7 +209,6 @@ function cmtls_openlayers_maps() {
   $layer_styles = array();
   
   foreach ($terms as $i => $term) {
-    /* Display: OpenLayers Taxonomy Data Overlay */
     $layers['cmtls_group_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_group_marker_layers_' . $voc->machine_name .'_' . $term->tid;
     $layer_weights['cmtls_group_marker_layers_' . $voc->machine_name .'_' . $term->tid] = $i;
     $layer_styles['cmtls_group_marker_layers_' . $voc->machine_name .'_' . $term->tid] = 'cmtls_dynamic_marker';

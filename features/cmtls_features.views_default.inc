@@ -3985,6 +3985,8 @@ function cmtls_features_views_default_views() {
   $handler = $view->new_display('block', 'Application map block', 'cmtls_locations_map_app_block');
   $handler->display->display_options['display_description'] = 'Locations on map on the application page';
   $handler->display->display_options['defaults']['hide_admin_links'] = FALSE;
+  $handler->display->display_options['defaults']['cache'] = FALSE;
+  $handler->display->display_options['cache']['type'] = 'none';
   $handler->display->display_options['defaults']['pager'] = FALSE;
   $handler->display->display_options['pager']['type'] = 'some';
   $handler->display->display_options['pager']['options']['items_per_page'] = '100';

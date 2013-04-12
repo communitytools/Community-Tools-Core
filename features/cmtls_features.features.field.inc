@@ -2055,7 +2055,7 @@ function cmtls_features_field_default_fields() {
         'module' => 'geofield',
         'settings' => array(
           'data_storage' => 'collection',
-          'openlayers_map' => 'geofield_widget_map',
+          'openlayers_map' => 'cmtls_geometry_widget',
         ),
         'type' => 'geofield_openlayers',
         'weight' => '4',

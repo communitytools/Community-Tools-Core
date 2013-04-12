@@ -8,7 +8,95 @@
  * Implements hook_openlayers_maps().
  */
 function cmtls_openlayers_maps() {
+  // Defaults setting map.
   $export = array();
+  $openlayers_maps = new stdClass();
+  $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
+  $openlayers_maps->api_version = 1;
+  $openlayers_maps->name = 'cmtls_map_defaults';
+  $openlayers_maps->title = 'CT map defaults';
+  $openlayers_maps->description = 'Default settings for other CT maps';
+  $openlayers_maps->data = array(
+    'width' => 'auto',
+    'height' => '500px',
+    'image_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/img/',
+    'css_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/style.css',
+    'proxy_host' => '',
+    'hide_empty_map' => 0,
+    'center' => array(
+      'initial' => array(
+        'centerpoint' => '0, 0',
+        'zoom' => '1',
+      ),
+      'restrict' => array(
+        'restrictextent' => 0,
+        'restrictedExtent' => '',
+      ),
+    ),
+    'behaviors' => array(
+      'openlayers_behavior_fullscreen' => array(
+        'activated' => 0,
+      ),
+      'openlayers_behavior_layerswitcher' => array(
+        'ascending' => 1,
+        'sortBaseLayer' => '0',
+        'roundedCorner' => 1,
+        'roundedCornerColor' => '#222222',
+        'maximizeDefault' => 0,
+      ),
+      'openlayers_behavior_dragpan' => array(),
+      'openlayers_behavior_navigation' => array(
+        'zoomWheelEnabled' => 1,
+        'zoomBoxEnabled' => 1,
+        'documentDrag' => 0,
+      ),
+      'openlayers_behavior_panzoombar' => array(
+        'zoomWorldIcon' => 1,
+        'panIcons' => 1,
+      ),
+      'openlayers_behavior_permalink' => array(
+        'anchor' => 0,
+      ),
+      'openlayers_behavior_popup' => array(
+        'layers' => array(),
+        'panMapIfOutOfView' => 0,
+        'keepInMap' => 1,
+      ),
+      'openlayers_behavior_scaleline' => array(),
+      'openlayers_behavior_zoomtomaxextent' => array(),
+    ),
+    'default_layer' => 'mapquest_osm',
+    'layers' => array(
+      'mapquest_osm' => 'mapquest_osm',
+      'google_normal' => 'google_normal',
+      'osm_mapnik' => 'osm_mapnik',
+    ),
+    'layer_weight' => array(
+    ),
+    'layer_styles' => array(
+    ),
+    'layer_styles_select' => array(
+    ),
+    'layer_activated' => array(
+    ),
+    'layer_switcher' => array(
+    ),
+    'projection' => '900913',
+    'displayProjection' => '4326',
+    'styles' => array(
+      'default' => 'default',
+      'select' => 'default',
+      'temporary' => 'default',
+    ),
+  );
+
+  $export['cmtls_map_defaults'] = $openlayers_maps;
+  
+  // Get the defaults.
+  $default_map = openlayers_map_load('cmtls_map_defaults');
+  if(!$default_map) {
+    $default_map = $openlayers_maps;
+  }
   
   // Get the CT marker vocabulary.
   $taxonomy = cmtls_get_taxonomy('cmtls_marker');
@@ -40,17 +128,7 @@ function cmtls_openlayers_maps() {
     'css_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/style.css',
     'proxy_host' => '',
     'hide_empty_map' => 0,
-    // TODO: set / and get the default center, zoom, restricts
-    'center' => array(
-      'initial' => array(
-        'centerpoint' => '24.745746999744, 59.430052559193',
-        'zoom' => '12',
-      ),
-      'restrict' => array(
-        'restrictextent' => 0,
-        'restrictedExtent' => '',
-      ),
-    ),
+    'center' => $default_map->data['center'],
     'behaviors' => array(
       'openlayers_behavior_fullscreen' => array(
         'activated' => 0,
@@ -79,13 +157,8 @@ function cmtls_openlayers_maps() {
       'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoomtomaxextent' => array(),
     ),
-      // TODO: this needs to be dynamic
-    'default_layer' => 'mapquest_osm',
-    'layers' => array(
-      'mapquest_osm' => 'mapquest_osm',
-      'google_normal' => 'google_normal',
-      'osm_mapnik' => 'osm_mapnik',
-    ) + $layers,
+    'default_layer' => $default_map->data['default_layer'],
+    'layers' => $default_map->data['layers'] + $layers,
     'layer_weight' => $layer_weights,
     'layer_styles' => $layer_styles,
     'layer_styles_select' => $layer_styles,
@@ -141,17 +214,7 @@ function cmtls_openlayers_maps() {
     'css_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/style.css',
     'proxy_host' => '',
     'hide_empty_map' => 0,
-    // TODO: set / and get the default center, zoom, restricts
-    'center' => array(
-      'initial' => array(
-        'centerpoint' => '24.745746999744, 59.430052559193',
-        'zoom' => '12',
-      ),
-      'restrict' => array(
-        'restrictextent' => 0,
-        'restrictedExtent' => '',
-      ),
-    ),
+    'center' => $default_map->data['center'],
     'behaviors' => array(
       'openlayers_behavior_fullscreen' => array(
         'activated' => 0,
@@ -180,13 +243,8 @@ function cmtls_openlayers_maps() {
       'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoomtomaxextent' => array(),
     ),
-      // TODO: this needs to be dynamic
-    'default_layer' => 'mapquest_osm',
-    'layers' => array(
-      'mapquest_osm' => 'mapquest_osm',
-      'google_normal' => 'google_normal',
-      'osm_mapnik' => 'osm_mapnik',
-    ) + $layers,
+    'default_layer' => $default_map->data['default_layer'],
+    'layers' => $default_map->data['layers'] + $layers,
     'layer_weight' => $layer_weights,
     'layer_styles' => $layer_styles,
     'layer_styles_select' => $layer_styles,
@@ -227,17 +285,7 @@ function cmtls_openlayers_maps() {
     'css_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/style.css',
     'proxy_host' => '',
     'hide_empty_map' => 0,
-    // TODO: set / and get the default center, zoom, restricts
-    'center' => array(
-      'initial' => array(
-        'centerpoint' => '24.745746999744, 59.430052559193',
-        'zoom' => '12',
-      ),
-      'restrict' => array(
-        'restrictextent' => 0,
-        'restrictedExtent' => '',
-      ),
-    ),
+    'center' => $default_map->data['center'],
     'behaviors' => array(
       'openlayers_behavior_fullscreen' => array(
         'activated' => 0,
@@ -266,13 +314,8 @@ function cmtls_openlayers_maps() {
       'openlayers_behavior_scaleline' => array(),
       'openlayers_behavior_zoomtomaxextent' => array(),
     ),
-      // TODO: this needs to be dynamic
-    'default_layer' => 'mapquest_osm',
-    'layers' => array(
-      'mapquest_osm' => 'mapquest_osm',
-      'google_normal' => 'google_normal',
-      'osm_mapnik' => 'osm_mapnik',
-    ) + $layers,
+    'default_layer' => $default_map->data['default_layer'],
+    'layers' => $default_map->data['layers'] + $layers,
     'layer_weight' => $layer_weights,
     'layer_styles' => $layer_styles,
     'layer_styles_select' => $layer_styles,
@@ -288,6 +331,73 @@ function cmtls_openlayers_maps() {
   );
   
   $export['cmtls_map_group_full'] = $openlayers_maps;
+
+  // The geometry widget map.
+  $openlayers_maps = new stdClass();
+  $openlayers_maps->disabled = FALSE; /* Edit this to true to make a default openlayers_maps disabled initially */
+  $openlayers_maps->api_version = 1;
+  $openlayers_maps->name = 'cmtls_geometry_widget';
+  $openlayers_maps->title = 'CT map widget';
+  $openlayers_maps->description = 'Map widget used for geometry input.';
+  $openlayers_maps->data = array(
+    'width' => 'auto',
+    'height' => '400px',
+    'image_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/img/',
+    'css_path' => drupal_get_path('module', 'openlayers') . '/themes/default_dark/style.css',
+    'proxy_host' => '',
+    'hide_empty_map' => 0,
+    'center' => $default_map->data['center'],
+    'behaviors' => array(
+      'openlayers_behavior_geofield' => array(
+        'feature_types' => array(
+          'point' => 'point',
+          'path' => 'path',
+          'polygon' => 'polygon',
+        ),
+        'allow_edit' => 1,
+      ),
+      'openlayers_behavior_geolocate' => array(
+        'bind' => '1',
+        'zoom_level' => '12',
+        'watch' => '1',
+      ),
+      'openlayers_behavior_layerswitcher' => array(
+        'ascending' => 1,
+        'roundedCorner' => 1,
+        'roundedCornerColor' => '#222222',
+      ),
+      'openlayers_behavior_navigation' => array(
+        'zoomWheelEnabled' => 0,
+        'zoomBoxEnabled' => 1,
+        'documentDrag' => 0,
+      ),
+      'openlayers_behavior_panzoombar' => array(
+        'zoomWorldIcon' => 0,
+        'panIcons' => 1,
+      ),
+    ),
+    'default_layer' => $default_map->data['default_layer'],
+    'layers' => $default_map->data['layers'],
+    'layer_weight' => array(
+    ),
+    'layer_styles' => array(
+    ),
+    'layer_styles_select' => array(
+    ),
+    'layer_activated' => array(
+    ),
+    'layer_switcher' => array(
+    ),
+    'projection' => '900913',
+    'displayProjection' => '4326',
+    'styles' => array(
+      'default' => 'default',
+      'select' => 'default',
+      'temporary' => 'default',
+    ),
+  );
+
+  $export['cmtls_geometry_widget'] = $openlayers_maps;
 
   return $export;
 }

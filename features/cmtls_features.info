@@ -164,7 +164,6 @@ features[node][] = cmtls_app
 features[node][] = cmtls_group
 features[node][] = cmtls_location
 features[openlayers_maps][] = cmtls_geometry_side_map
-features[openlayers_maps][] = cmtls_geometry_widget
 features[openlayers_styles][] = cmtls_dynamic_marker
 features[rules_config][] = rules_cmtls_application_views_cache
 features[rules_config][] = rules_cmtls_application_views_cache_resort

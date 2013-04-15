@@ -49,6 +49,7 @@ dependencies[] = timeago
 dependencies[] = token
 dependencies[] = views
 dependencies[] = views_bulk_operations
+dependencies[] = cmtls_features
 files[] = cmtls.app.inc
 files[] = plugins/views_handler_filter_cmtls_node_type.inc
 required = 1

@@ -25,8 +25,8 @@ function cmtls_features_openlayers_maps() {
     'hide_empty_map' => 1,
     'center' => array(
       'initial' => array(
-        'centerpoint' => '24.745746999744, 59.430052559193',
-        'zoom' => '12',
+        'centerpoint' => '0, 0',
+        'zoom' => '1',
       ),
       'restrict' => array(
         'restrictextent' => 0,

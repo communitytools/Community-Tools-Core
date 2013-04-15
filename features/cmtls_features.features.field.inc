@@ -1362,7 +1362,7 @@ function cmtls_features_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_cmtls_map_marker',
-      'label' => 'Marker',
+      'label' => 'Map layer',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2130,7 +2130,7 @@ function cmtls_features_field_default_fields() {
       ),
       'entity_type' => 'node',
       'field_name' => 'field_cmtls_map_marker',
-      'label' => 'Marker',
+      'label' => 'Map layer',
       'required' => 0,
       'settings' => array(
         'user_register_form' => FALSE,
@@ -2791,7 +2791,7 @@ function cmtls_features_field_default_fields() {
   t('Legacy type');
   t('Main group');
   t('Map');
-  t('Marker');
+  t('Map layer');
   t('Marker image');
   t('Markers');
   t('Tags');

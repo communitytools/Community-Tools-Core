@@ -2478,7 +2478,7 @@ function cmtls_features_field_default_fields() {
           'progress_indicator' => 'throbber',
         ),
         'type' => 'image_image',
-        'weight' => '31',
+        'weight' => '1',
       ),
     ),
   );

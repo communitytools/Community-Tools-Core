@@ -263,12 +263,27 @@ function cmtls_form_node_form_alter(&$form, &$form_state, $form_id) {
   if(($form_id == 'cmtls_app_node_form' || in_array($form_id, $app_form_ids)) && isset($_GET['gid'])) {
     $form['group_audience'][LANGUAGE_NONE]['#default_value'][(int)$_GET['gid']] = (int)$_GET['gid'];
   }
-
+  
+  // Check that group is selected.
+  if((($form_id == 'cmtls_app_node_form' || in_array($form_id, $app_form_ids))) && empty($form['group_audience'][LANGUAGE_NONE]['#default_value'])) {
+    if($form_id == 'cmtls_app_node_form') {
+      drupal_set_message(t('Applications can be added only in groups.'), 'warning');
+    }
+    if(in_array($form_id, $app_form_ids)) {
+      drupal_set_message(t('Content can be added only in groups.'), 'warning');
+    }
+  }
+  
   // inserts the app configuration fields
   if(in_array($form_id, $app_form_ids) && isset($_GET['aid'])) {
     $form['field_cmtls_application'][LANGUAGE_NONE]['#default_value'][] = (int)$_GET['aid'];
   }
-
+  
+  // Check that app is selected.
+  if(in_array($form_id, $app_form_ids) && empty($form['field_cmtls_application'][LANGUAGE_NONE]['#default_value'])) {
+    drupal_set_message(t('Content can be added only in applications.'), 'warning');
+  }
+  
   // add location autocomplete
   if($form_id != 'cmtls_location_node_form' && in_array($form_id, $app_form_ids) && isset($_GET['aid'])) {
     // TODO: needs a remake with geofield/addressfield

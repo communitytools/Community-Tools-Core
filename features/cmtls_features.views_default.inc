@@ -1862,7 +1862,7 @@ function cmtls_features_views_default_views() {
   $handler->display->display_options['defaults']['row_options'] = FALSE;
   $handler->display->display_options['defaults']['empty'] = FALSE;
   $handler->display->display_options['defaults']['relationships'] = FALSE;
-  /* Relationship: Content: Marker (field_cmtls_map_marker) */
+  /* Relationship: Content: Map layer (field_cmtls_map_marker) */
   $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['id'] = 'field_cmtls_map_marker_tid';
   $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['table'] = 'field_data_field_cmtls_map_marker';
   $handler->display->display_options['relationships']['field_cmtls_map_marker_tid']['field'] = 'field_cmtls_map_marker_tid';

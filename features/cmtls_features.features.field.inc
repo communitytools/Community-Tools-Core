@@ -569,7 +569,7 @@ function cmtls_features_field_default_fields() {
         'module' => 'geofield',
         'settings' => array(
           'data_storage' => 'collection',
-          'openlayers_map' => 'geofield_widget_map',
+          'openlayers_map' => 'cmtls_geometry_widget',
         ),
         'type' => 'geofield_openlayers',
         'weight' => '32',
@@ -731,7 +731,7 @@ function cmtls_features_field_default_fields() {
   $fields['node-cmtls_app-group_audience'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'group_audience',
@@ -783,7 +783,7 @@ function cmtls_features_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'group_audience',
       'label' => 'Groups audience',
-      'required' => FALSE,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -800,6 +800,7 @@ function cmtls_features_field_default_fields() {
         ),
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'og',
         'settings' => array(
           'opt_group' => 'auto',
@@ -1827,7 +1828,7 @@ function cmtls_features_field_default_fields() {
   $fields['node-cmtls_location-field_cmtls_application'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'field_cmtls_application',
@@ -1848,6 +1849,13 @@ function cmtls_features_field_default_fields() {
       'settings' => array(
         'referenceable_types' => array(
           'cmtls_app' => 'cmtls_app',
+          'cmtls_event' => 0,
+          'cmtls_group' => 0,
+          'cmtls_location' => 0,
+          'cmtls_post' => 0,
+          'media_gallery' => 0,
+          'page' => 0,
+          'webform' => 0,
         ),
         'view' => array(
           'args' => array(),
@@ -2235,7 +2243,7 @@ function cmtls_features_field_default_fields() {
   $fields['node-cmtls_location-group_audience'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'group_audience',
@@ -2293,7 +2301,7 @@ function cmtls_features_field_default_fields() {
       'entity_type' => 'node',
       'field_name' => 'group_audience',
       'label' => 'Groups audience',
-      'required' => FALSE,
+      'required' => 1,
       'settings' => array(
         'user_register_form' => FALSE,
       ),
@@ -2310,6 +2318,7 @@ function cmtls_features_field_default_fields() {
         ),
       ),
       'widget' => array(
+        'active' => 1,
         'module' => 'og',
         'settings' => array(
           'opt_group' => 'auto',
@@ -2687,7 +2696,7 @@ function cmtls_features_field_default_fields() {
   $fields['user-user-group_audience'] = array(
     'field_config' => array(
       'active' => '1',
-      'cardinality' => '-1',
+      'cardinality' => '1',
       'deleted' => '0',
       'entity_types' => array(),
       'field_name' => 'group_audience',

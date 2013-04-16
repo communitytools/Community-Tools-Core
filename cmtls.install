@@ -176,3 +176,13 @@ function cmtls_install_timeago() {
     ))
     ->execute();
 }
+
+/**
+ * Update 2.0-beta4 add the CT features module.
+ */
+function cmtls_update_7203() {
+  // Add new modules.
+  module_enable(array(
+    'cmtls_features',
+  ));
+}

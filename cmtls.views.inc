@@ -473,19 +473,3 @@ function cmtls_views_default_views() {
 
   return $views;
 }
-
-/**
- * Implements hook_taxonomy_term_delete().
- */
-function cmtls_taxonomy_term_delete($term) {
-  // Flush the cache if we're creating, editing, or deleting a term
-  views_invalidate_cache();
-}
-
-/**
- * Implements hook_taxonomy_term_presave().
- */
-function cmtls_taxonomy_term_presave($term) {
-  // Flush the cache if we're creating, editing, or deleting a term
-  views_invalidate_cache();
-}

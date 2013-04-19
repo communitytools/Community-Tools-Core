@@ -10,10 +10,10 @@
 function cmtls_features_taxonomy_default_vocabularies() {
   return array(
     'cmtls_marker' => array(
-      'name' => 'CT marker',
+      'name' => 'CT layer',
       'machine_name' => 'cmtls_marker',
-      'description' => 'Map marker style',
-      'hierarchy' => '1',
+      'description' => 'Map layers and styles',
+      'hierarchy' => '0',
       'module' => 'taxonomy',
       'weight' => '0',
       'rdf_mapping' => array(

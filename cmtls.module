@@ -206,6 +206,18 @@ function cmtls_create_content_access($parent) {
 
 /**
  * Implements hook_form_FORM_ID_alter().
+ * 
+ * Hides the CT Layer taxonomy term description.
+ *
+ */
+function cmtls_form_taxonomy_form_term_alter(&$form, &$form_state, $form_id) {
+  if($form['#vocabulary']->machine_name == 'cmtls_marker') {
+    $form['description']['#type'] = 'hidden';
+  }
+}
+
+/**
+ * Implements hook_form_FORM_ID_alter().
  *
  * preselects menu and app for CT content nodes
  * adds location autocomplete

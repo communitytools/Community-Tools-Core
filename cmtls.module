@@ -1195,6 +1195,11 @@ function cmtls_create_main_group() {
     $roles = og_roles($gid);
 
     foreach($roles as $rid => $role) {
+      // OG default permissions
+      db_delete('og_role_permission')
+        ->condition('rid', $rid, '=')
+        ->execute();
+      
       if($role == 'non-member') {
         // non-member
         cmtls_og_role_grant_permissions($rid, array(
@@ -1243,6 +1248,7 @@ function cmtls_create_main_group() {
           'update own cmtls_location content' => 'og',
           'update own cmtls_post content' => 'og',
           'update own media_gallery content' => 'og',
+          'access administration pages' => 'og',
         ));
       }
     }
@@ -1252,10 +1258,6 @@ function cmtls_create_main_group() {
 }
 
 function cmtls_og_role_grant_permissions($rid, $permissions = array()) {
-  db_delete('og_role_permission')
-    ->condition('rid', $rid, '=')
-    ->execute();
-
   foreach($permissions as $name => $module) {
     db_merge('og_role_permission')
       ->key(array(

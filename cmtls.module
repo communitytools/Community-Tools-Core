@@ -393,10 +393,18 @@ function cmtls_get_app_config($app = NULL) {
  * Implements hook_form_FORM_ID_alter().
  *
  * adds new user registrations to the main CT group
+ * adds spambot detection validation
  * @see cmtls_user_register_add_to_main_group
  */
 function cmtls_form_user_register_form_alter(&$form, &$form_state, $form_id) {
   $form['#submit'][] = 'cmtls_user_register_add_to_main_group';
+  $form['#validate'][] = 'cmtls_user_register_validate';
+}
+
+function cmtls_user_register_validate($form, &$form_state) {
+  if($form_state['values']['field_cmtls_firstname'][LANGUAGE_NONE][0]['value'] == $form_state['values']['field_cmtls_lastname'][LANGUAGE_NONE][0]['value']) {
+    form_set_error('captcha', t('CAPTCHA value is incorrect.'));
+  }
 }
 
 /**

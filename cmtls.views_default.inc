@@ -166,7 +166,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['uri']['relationship'] = 'taxonomy_term_to_file';
   $handler->display->display_options['fields']['uri']['label'] = '';
   $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uri']['empty'] = '/sites/all/modules/cmtls/images/default_marker.png';
+  $handler->display->display_options['fields']['uri']['empty'] = drupal_get_path('module', 'cmtls') . '/images/markers/post.png';
   $handler->display->display_options['fields']['uri']['file_download_path'] = TRUE;
   /* Contextual filter: Content: Has taxonomy term ID (with depth) */
   $handler->display->display_options['arguments']['term_node_tid_depth']['id'] = 'term_node_tid_depth';
@@ -284,7 +284,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['uri']['relationship'] = 'taxonomy_term_to_file';
   $handler->display->display_options['fields']['uri']['label'] = '';
   $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uri']['empty'] = '/sites/all/modules/cmtls/images/default_marker.png';
+  $handler->display->display_options['fields']['uri']['empty'] = drupal_get_path('module', 'cmtls') . '/images/markers/post.png';
   $handler->display->display_options['fields']['uri']['file_download_path'] = TRUE;
   /* Contextual filter: OG membership: OG group gid */
   $handler->display->display_options['arguments']['group']['id'] = 'group';
@@ -420,7 +420,7 @@ function cmtls_views_default_views() {
   $handler->display->display_options['fields']['uri']['relationship'] = 'taxonomy_term_to_file';
   $handler->display->display_options['fields']['uri']['label'] = '';
   $handler->display->display_options['fields']['uri']['element_label_colon'] = FALSE;
-  $handler->display->display_options['fields']['uri']['empty'] = '/sites/all/modules/cmtls/images/default_marker.png';
+  $handler->display->display_options['fields']['uri']['empty'] = drupal_get_path('module', 'cmtls') . '/images/markers/post.png';
   $handler->display->display_options['fields']['uri']['file_download_path'] = TRUE;
   /* Contextual filter: Content: Application (field_cmtls_application) */
   $handler->display->display_options['arguments']['field_cmtls_application_nid']['id'] = 'field_cmtls_application_nid';

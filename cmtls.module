@@ -11,6 +11,7 @@ function cmtls_init() {
   static $once;
 
   $current_item = menu_get_object();
+  
   if(isset($current_item->type) && $current_item->type == 'cmtls_app') {
     cmtls_set_current_application($current_item);
   }
@@ -1355,6 +1356,29 @@ function cmtls_convert_node_location(&$nodes) {
       if($update) {
         field_attach_presave('node', $node);
         field_attach_update('node', $node);
+      }
+    }
+  }
+}
+/**
+ * Adds to existing nodes a map layer.
+ *
+ * $nodes array of nodes.
+ */
+function cmtls_node_add_default_layer(&$nodes) {
+  $taxonomy = cmtls_get_taxonomy('cmtls_marker');
+  $default_tid = 0;
+  foreach($taxonomy['terms'] as $term) {
+    if($term->name == t('Post')) {
+      $default_tid = $term->tid;
+      break;
+    }
+  }
+  if($default_tid) {
+    foreach ($nodes as &$node) {
+      if(isset($node->field_cmtls_map_marker)) {
+        $node->field_cmtls_map_marker[LANGUAGE_NONE][0]['tid'] = $default_tid;
+        node_save($node);
       }
     }
   }

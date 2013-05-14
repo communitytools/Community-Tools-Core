@@ -1433,3 +1433,267 @@ function cmtls_taxonomy_term_presave($term) {
   // Flush the cache if we're creating, editing, or deleting a term
   views_invalidate_cache();
 }
+
+/**
+ * Helper function to install sample layers.
+ */
+function cmtls_add_sample_layers() {
+  $markers_path = drupal_realpath(drupal_get_path('module', 'cmtls')) . '/images/markers/';
+  
+  $vid = 0;
+  foreach (taxonomy_vocabulary_get_names() as $data) {
+    if($data->machine_name == 'cmtls_marker') {
+      $vid = $data->vid;
+      break;
+    }
+  }
+  
+  $layers = array(
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Post'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'post.png',
+      'weight' => 0,
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Idea'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'idea.png',
+      'weight' => 1,
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Local history'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'local-history.png',
+      'weight' => 2,
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Place'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'place.png',
+      'weight' => 3,
+      'children' => array(
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Park'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'place-park.png',
+          'weight' => 0,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Beautiful view'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'place-beautiful-view.png',
+          'weight' => 1,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Sight'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'place-sight.png',
+          'weight' => 2,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Playground'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'place-playground.png',
+          'weight' => 3,
+        ),
+      ), 
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Service'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'service.png',
+      'weight' => 4,
+      'children' => array(
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Shop'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-shop.png',
+          'weight' => 0,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Culture'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-culture.png',
+          'weight' => 1,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('School'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-school.png',
+          'weight' => 2,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Medicine'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-medicine.png',
+          'weight' => 3,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Post'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-post.png',
+          'weight' => 4,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Hair salon'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-hair-salon.png',
+          'weight' => 5,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Food'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-food.png',
+          'weight' => 6,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Tailor'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-tailor.png',
+          'weight' => 7,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Library'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-library.png',
+          'weight' => 8,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Cobbler'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-cobbler.png',
+          'weight' => 9,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Meeting point'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'service-meeting-point.png',
+          'weight' => 10,
+        ),
+      ), 
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Issue'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'issue-safety.png',
+      'weight' => 5,
+      'children' => array(
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Safety'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'issue-safety.png',
+          'weight' => 0,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Upkeep'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'issue-upkeep.png',
+          'weight' => 1,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Traffic'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'issue-traffic.png',
+          'weight' => 2,
+        ),
+      ), 
+    ),
+    (object)array(
+      'vid' => $vid,
+      'name' => st('Detailed plan'),
+      'vocabulary_machine_name' => 'cmtls_marker',
+      'field_cmtls_map_marker_image' => 'construction.png',
+      'weight' => 6,
+      'children' => array(
+        (object)array(
+          'vid' => $vid,
+          'name' => st('Validated'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'construction.png',
+          'weight' => 0,
+        ),
+        (object)array(
+          'vid' => $vid,
+          'name' => st('In progress'),
+          'vocabulary_machine_name' => 'cmtls_marker',
+          'field_cmtls_map_marker_image' => 'construction.png',
+          'weight' => 1,
+        ),
+      ), 
+    ),
+  );
+  
+  drupal_mkdir('public://ct_map_markers');
+  
+  foreach ($layers as $term) {
+    // Create managed File object and associate with Image field.
+    $file = (object) array(
+      'uid' => 1,
+      'display' => 1,
+      'uri' => $markers_path . $term->field_cmtls_map_marker_image,
+      'filemime' => file_get_mimetype($markers_path . $term->field_cmtls_map_marker_image),
+      'status' => 1,
+    );
+  
+    // save the file to the root of the files directory.
+    $file = file_copy($file, 'public://ct_map_markers');
+  
+    $term->field_cmtls_map_marker_image = array();
+    $term->field_cmtls_map_marker_image[LANGUAGE_NONE][0] = (array)$file;
+    
+    $children = array();
+    if(isset($term->children)) {
+      $children = $term->children;
+      unset($term->children);
+    }
+    
+    taxonomy_term_save($term);
+    
+    if($children) {
+      foreach ($children as $_term) {
+        // Create managed File object and associate with Image field.
+        $file = (object) array(
+          'uid' => 1,
+          'display' => 1,
+          'uri' => $markers_path . $_term->field_cmtls_map_marker_image,
+          'filemime' => file_get_mimetype($markers_path . $_term->field_cmtls_map_marker_image),
+          'status' => 1,
+        );
+      
+        // save the file to the root of the files directory.
+        $file = file_copy($file, 'public://ct_map_markers');
+      
+        $_term->field_cmtls_map_marker_image = array();
+        $_term->field_cmtls_map_marker_image[LANGUAGE_NONE][0] = (array)$file;
+        $_term->parent = $term->tid;
+        
+        taxonomy_term_save($_term);
+      }
+    }
+  }
+}

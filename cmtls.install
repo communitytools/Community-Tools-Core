@@ -218,6 +218,9 @@ function cmtls_update_7205() {
  * Update 2.0-beta4 add default map layers.
  */
 function cmtls_update_7206() {
+  // Revert features so the layer taxonomy will become available.
+  cmtls_features_revert(array('cmtls_features'));
+  
   cmtls_add_sample_layers();
 }
 

@@ -1696,4 +1696,7 @@ function cmtls_add_sample_layers() {
       }
     }
   }
+
+  // Flush cache for views, this creates the layers for OpenLayers.
+  drupal_flush_all_caches();
 }
